@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  /* === Identidade Visual — Skill Spec === */
+
+  /* Cor Primária — Verde Sálvia: tranquilidade, saúde, renovação */
+  --color-sage: #A3B899;
+  --color-sage-dark: #8CA680;
+  --color-sage-light: #C5D4BC;
+
+  /* Cor Secundária — Areia/Bege Quente: sofisticação e acolhimento */
+  --color-sand: #D4C4B7;
+  --color-sand-light: #E8DDD5;
+  --color-sand-dark: #B8A597;
+
+  /* Background Principal — Alabaster: clareza sem branco puro */
+  --color-alabaster: #FAF9F6;
+
+  /* Neutros */
+  --color-dark-text: #2D3A36;
+  --color-body-text: #4A5A54;
+  --color-muted: #8A9A92;
+
+  /* Tipografia */
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Inter", "Outfit", sans-serif;
+}

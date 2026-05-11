@@ -1,0 +1,322 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+	title="Dra. Especialista | Emagrecimento Guiado pela Ciência — Saúde Metabólica"
+>
+	<main>
+		<!-- ============================================ -->
+		<!-- SEÇÃO 02 — Hero Section (Primeira Dobra)     -->
+		<!-- ============================================ -->
+		<section id="hero" class="hero">
+			<!-- Background image full-bleed -->
+			<div class="hero__bg">
+				<img
+					src="/images/hero-health-weight-loss.png"
+					alt="Saúde metabólica e emagrecimento — vegetais frescos, água com limão e estetoscópio em ambiente premium"
+					class="hero__bg-image"
+					width="1440"
+					height="900"
+					loading="eager"
+					fetchpriority="high"
+				/>
+				<div class="hero__bg-overlay"></div>
+			</div>
+
+			<!-- Content Container -->
+			<div class="hero__container">
+				<div class="hero__card">
+					<!-- Identidade Médica (SEO H1) -->
+					<header class="hero__doctor">
+						<h1 class="hero__doctor-name">
+							<em>Dra.</em> Carolina Mendes
+							<span class="hero__doctor-specialty"
+								>Emagrecimento & Saúde Metabólica</span
+							>
+						</h1>
+						<div class="hero__divider"></div>
+						<p class="hero__doctor-credentials">
+							CRM 00000 • RQE 00000
+						</p>
+					</header>
+
+					<!-- Headline de Impacto (H2) -->
+					<h2 class="hero__headline">
+						Sente que seu esforço<br />
+						não gera resultados?<br />
+						<span class="hero__headline-accent"
+							>Sua jornada para o peso ideal começa aqui.</span
+						>
+					</h2>
+
+					<!-- CTA — WhatsApp -->
+					<div class="hero__actions">
+						<a
+							href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20minha%20avalia%C3%A7%C3%A3o%20m%C3%A9dica."
+							target="_blank"
+							rel="noopener noreferrer"
+							class="hero__cta"
+							id="hero-cta-whatsapp"
+						>
+							<svg
+								class="hero__cta-icon"
+								viewBox="0 0 24 24"
+								fill="currentColor"
+								width="22"
+								height="22"
+							>
+								<path
+									d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.432.178.88.28 1.21.085.33-.198.614-.735.794-.545.18-.99.131-1.29-.069-.297-.149-.57-.347-.708-.57-.546-.09-.347-.297-.198-.56l.016-.03c.18-.313.381-.3.545-.3.164 0 .347.002.496.007.163.006.382-.062.581.44.204.516.694 1.7.752 1.822.059.123.1.267.02.428-.079.16-.119.26-.238.397-.119.138-.249.317-.397.486-.149.168-.306.189-.545.064-.237-.124-1.006-.463-1.912-1.488-.674-.765-1.141-1.712-1.19-2.034-.05-.322.035-.513.262-.676l.042-.046c.198-.215.42-.347.669-.347z"
+								></path>
+								<path
+									d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.108-1.14l-.292-.176-2.848.846.846-2.848-.176-.292A7.96 7.96 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"
+								></path>
+							</svg>
+							Agendar Minha Avaliação
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	/* ============================================
+	   HERO — Design System
+	   ============================================ */
+	.hero {
+		position: relative;
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	/* --- Background & Overlay --- */
+	.hero__bg {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+	}
+
+	.hero__bg-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+		animation: zoomOut 20s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite
+			alternate;
+	}
+
+	.hero__bg-overlay {
+		position: absolute;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.6);
+	}
+
+	/* --- Container & Card --- */
+	.hero__container {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 40px 24px;
+	}
+
+	.hero__card {
+		background: rgba(255, 255, 255, 0.02);
+		backdrop-filter: blur(4px);
+		-webkit-backdrop-filter: blur(4px);
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		border-radius: 40px;
+		padding: 60px 40px;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		animation: fadeInCard 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+	}
+
+	/* --- Doctor Identity --- */
+	.hero__doctor {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		margin-bottom: 32px;
+	}
+
+	.hero__doctor-name {
+		font-family: var(--font-heading);
+		font-size: clamp(1.4rem, 4vw, 1.8rem);
+		font-weight: 500;
+		letter-spacing: 0.05em;
+		color: #fff;
+		margin-bottom: 8px;
+		text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+	}
+
+	.hero__doctor-name em {
+		font-style: italic;
+		font-weight: 400;
+		opacity: 0.9;
+		margin-right: 4px;
+	}
+
+	.hero__doctor-specialty {
+		display: block;
+		font-family: var(--font-body);
+		font-size: 0.75rem;
+		font-weight: 500;
+		letter-spacing: 0.35em;
+		text-transform: uppercase;
+		color: var(--color-sage-light);
+		margin-top: 12px;
+	}
+
+	.hero__divider {
+		width: 40px;
+		height: 1px;
+		background: rgba(255, 255, 255, 0.2);
+		margin: 20px 0;
+	}
+
+	.hero__doctor-credentials {
+		font-family: var(--font-body);
+		font-size: 0.7rem;
+		font-weight: 500;
+		letter-spacing: 0.2em;
+		color: rgba(255, 255, 255, 0.5);
+	}
+
+	/* --- Headline --- */
+	.hero__headline {
+		font-family: var(--font-heading);
+		font-size: clamp(2.4rem, 8vw, 4.2rem);
+		font-weight: 700;
+		line-height: 1.1;
+		color: #fff;
+		margin-bottom: 48px;
+		letter-spacing: -0.02em;
+		text-align: center;
+		text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+	}
+
+	.hero__headline-accent {
+		display: block;
+		font-size: 0.45em;
+		font-weight: 600;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: #fff;
+		margin-top: 32px;
+		text-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
+	}
+
+	/* --- CTA — WhatsApp --- */
+	.hero__actions {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+
+	.hero__cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 12px;
+		font-family: var(--font-body);
+		font-size: 1rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		color: #fff;
+		padding: 20px 48px;
+		border-radius: 100px;
+		background: #25d366;
+		text-decoration: none;
+		transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+		box-shadow: 0 15px 30px rgba(37, 211, 102, 0.2);
+	}
+
+	.hero__cta:hover {
+		background: #128c7e;
+		transform: translateY(-5px) scale(1.02);
+		box-shadow: 0 20px 40px rgba(37, 211, 102, 0.3);
+	}
+
+	.hero__cta:active {
+		transform: translateY(-2px);
+	}
+
+	/* --- Animations --- */
+	@keyframes fadeInCard {
+		from {
+			opacity: 0;
+			transform: translateY(30px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes zoomOut {
+		from {
+			transform: scale(1.15);
+		}
+		to {
+			transform: scale(1);
+		}
+	}
+
+	/* ============================================
+	   RESPONSIVE
+	   ============================================ */
+	@media (max-width: 768px) {
+		.hero__container {
+			padding: 20px 16px;
+		}
+
+		.hero__card {
+			padding: 40px 24px;
+			border-radius: 30px;
+		}
+
+		.hero__headline {
+			font-size: clamp(2rem, 10vw, 2.8rem);
+			margin-bottom: 32px;
+		}
+
+		.hero__doctor-specialty {
+			font-size: 0.7rem;
+			letter-spacing: 0.2em;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.hero__cta {
+			width: 100%;
+			justify-content: center;
+			padding: 18px 24px;
+			font-size: 0.9rem;
+		}
+	}
+</style>
