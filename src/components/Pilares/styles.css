@@ -17,38 +17,35 @@
 .pilares__grid {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	gap: 40px;
-	position: relative;
+	gap: 30px;
+	margin-top: 60px;
 }
 
-/* Connecting line (Desktop only) */
 @media (min-width: 1025px) {
-	.pilares__grid::before {
-		content: "";
-		position: absolute;
-		top: 50%;
-		left: 10%;
-		right: 10%;
-		height: 1px;
-		background: linear-gradient(to right, transparent, var(--color-sage-light), transparent);
-		z-index: 0;
-		opacity: 0.5;
+	/* Staggered offsets for a more premium editorial feel */
+	.pilares__card:nth-child(2) {
+		/* Handled by animation now */
+	}
+	
+	.pilares__card:hover {
+		animation-play-state: paused;
 	}
 }
 
 .pilares__card {
 	position: relative;
-	padding: 60px 40px;
+	padding: 60px 40px 50px;
 	background: #ffffff;
-	border-radius: 40px;
-	transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+	border-radius: 24px;
+	transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 	z-index: 1;
 	border: 1px solid rgba(0, 155, 77, 0.08);
+	border-top: 4px solid var(--color-sage); /* Borda verde superior solicitada */
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	text-align: center;
-	box-shadow: 0 20px 40px rgba(0, 155, 77, 0.05); /* Soft Green Shadow */
+	align-items: flex-start;
+	text-align: left;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
 
 .pilares__card:hover {
@@ -110,6 +107,53 @@
 	opacity: 0.85;
 }
 
+/* --- Floating Animation --- */
+@keyframes cardFloat {
+	0%, 100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+/* Staggered floating only on desktop for extra polish */
+@media (min-width: 1025px) {
+	.pilares__card {
+		animation: cardFloat 6s ease-in-out infinite;
+	}
+
+	.pilares__card:nth-child(2) {
+		animation-delay: -2s;
+		/* Combinar com o offset existente */
+		--offset: 40px;
+	}
+
+	.pilares__card:nth-child(3) {
+		animation-delay: -4s;
+	}
+
+	/* Ajuste do transform para não conflitar com a animação */
+	.pilares__card {
+		transform-origin: center;
+	}
+	
+	/* Refatorando o offset para usar CSS Variables ou ajustar o keyframe */
+	.pilares__card:nth-child(2) {
+		animation: cardFloatOffset 6s ease-in-out infinite;
+		animation-delay: -2s;
+	}
+
+	@keyframes cardFloatOffset {
+		0%, 100% {
+			transform: translateY(40px);
+		}
+		50% {
+			transform: translateY(30px);
+		}
+	}
+}
+
 /* --- Responsive --- */
 @media (max-width: 1024px) {
 	.pilares {
@@ -119,16 +163,24 @@
 	.pilares__grid {
 		grid-template-columns: 1fr;
 		max-width: 500px;
-		margin: 0 auto;
-		gap: 40px;
+		margin: 40px auto 0;
+		gap: 30px;
 	}
 
-	.pilares__card {
-		padding: 50px 30px;
+	.pilares__card,
+	.pilares__card:nth-child(2) {
+		transform: none;
+		padding: 40px 30px;
+	}
+	
+	.pilares__card:hover,
+	.pilares__card:nth-child(2):hover {
+		transform: translateY(-10px);
 	}
 
 	.pilares__number {
-		font-size: 4rem;
-		right: 30px;
+		font-size: 3.5rem;
+		right: 20px;
+		top: 10px;
 	}
 }
