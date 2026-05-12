@@ -1,20 +1,25 @@
 ---
+const content = {
+	title: "Pronta para transformar sua saúde e recuperar sua autoestima?",
+	text: "Dê o primeiro passo hoje. Agende sua consulta e comece seu protocolo personalizado com acompanhamento médico especializado.",
+	cta: {
+		text: "Agendar Minha Consulta Agora",
+		url: "https://wa.me/5500000000000?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20minha%20avalia%C3%A7%C3%A3o%20m%C3%A9dica.",
+	},
+};
 ---
 
 <section class="parallax-cta">
 	<div class="parallax-cta__bg"></div>
 	<div class="parallax-cta__overlay"></div>
 	<div class="parallax-cta__container">
-		<h2 class="parallax-cta__title">
-			Pronta para transformar sua saúde e recuperar sua autoestima?
-		</h2>
+		<h2 class="parallax-cta__title">{content.title}</h2>
 		<p class="parallax-cta__text">
-			Dê o primeiro passo hoje. Agende sua consulta e comece seu protocolo
-			personalizado com acompanhamento médico especializado.
+			{content.text}
 		</p>
 		<div class="parallax-cta__actions">
 			<a
-				href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20minha%20avalia%C3%A7%C3%A3o%20m%C3%A9dica."
+				href={content.cta.url}
 				target="_blank"
 				rel="noopener noreferrer"
 				class="parallax-cta__button"
@@ -32,7 +37,7 @@
 						d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.108-1.14l-.292-.176-2.848.846.846-2.848-.176-.292A7.96 7.96 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"
 					></path>
 				</svg>
-				Agendar Minha Consulta Agora
+				{content.cta.text}
 			</a>
 		</div>
 	</div>

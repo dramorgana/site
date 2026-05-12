@@ -1,4 +1,28 @@
 ---
+const content = {
+	kicker: "Autoridade & Acolhimento",
+	title: "Uma abordagem humana para resultados reais.",
+	paragraphs: [
+		"Acredito que o emagrecimento não é apenas sobre números na balança, mas sobre a reconquista da autonomia sobre o próprio corpo.",
+		"Com sólida formação médica, minha missão é oferecer um suporte técnico rigoroso aliado a um olhar sensível às suas necessidades individuais. Aqui, cada protocolo é desenhado para respeitar o seu metabolismo e sua história.",
+	],
+	highlights: [
+		"Formação Acadêmica de Excelência",
+		"Foco em Longevidade e Saúde Hormonal",
+		"Atendimento Humanizado e Personalizado",
+	],
+	image: {
+		src: "/images/about-doctor.png",
+		alt: "Dra. Carolina Mendes — Especialista em Saúde Metabólica",
+		width: 600,
+		height: 750,
+	},
+	doctor: {
+		name: "Carolina Mendes",
+		prefix: "Dra.",
+		specialty: "Emagrecimento & Saúde Metabólica",
+	},
+};
 ---
 
 <section id="about" class="about">
@@ -6,49 +30,28 @@
 		<!-- Lado do Conteúdo -->
 		<div class="about__content">
 			<header class="about__header">
-				<span class="about__kicker"
-					>Autoridade & Acolhimento</span
-				>
-				<h2 class="about__title">
-					Uma abordagem humana para resultados reais.
-				</h2>
+				<span class="about__kicker">{content.kicker}</span>
+				<h2 class="about__title">{content.title}</h2>
 				<div class="about__divider"></div>
 			</header>
 
 			<div class="about__body">
-				<p class="about__text">
-					Acredito que o emagrecimento não é apenas sobre
-					números na balança, mas sobre a reconquista da
-					autonomia sobre o próprio corpo.
-				</p>
-				<p class="about__text">
-					Com sólida formação médica, minha missão é oferecer
-					um suporte técnico rigoroso aliado a um olhar
-					sensível às suas necessidades individuais. Aqui,
-					cada protocolo é desenhado para respeitar o seu
-					metabolismo e sua história.
-				</p>
+				{
+					content.paragraphs.map((text) => (
+						<p class="about__text">{text}</p>
+					))
+				}
 			</div>
 
 			<ul class="about__highlights">
-				<li class="about__highlight">
-					<span class="about__highlight-dot"></span>
-					<span class="about__highlight-label"
-						>Formação Acadêmica de Excelência</span
-					>
-				</li>
-				<li class="about__highlight">
-					<span class="about__highlight-dot"></span>
-					<span class="about__highlight-label"
-						>Foco em Longevidade e Saúde Hormonal</span
-					>
-				</li>
-				<li class="about__highlight">
-					<span class="about__highlight-dot"></span>
-					<span class="about__highlight-label"
-						>Atendimento Humanizado e Personalizado</span
-					>
-				</li>
+				{
+					content.highlights.map((label) => (
+						<li class="about__highlight">
+							<span class="about__highlight-dot" />
+							<span class="about__highlight-label">{label}</span>
+						</li>
+					))
+				}
 			</ul>
 		</div>
 
@@ -56,18 +59,15 @@
 		<div class="about__visual">
 			<div class="about__image-frame">
 				<img
-					src="/images/about-doctor.png"
-					alt="Dra. Carolina Mendes — Especialista em Saúde Metabólica"
+					src={content.image.src}
+					alt={content.image.alt}
 					class="about__image"
-					width="600"
-					height="750"
+					width={content.image.width}
+					height={content.image.height}
 					loading="lazy"
 				/>
 				<!-- Elementos decorativos premium -->
-				<div
-					class="about__image-accent about__image-accent--top"
-				>
-				</div>
+				<div class="about__image-accent about__image-accent--top"></div>
 				<div
 					class="about__image-accent about__image-accent--bottom"
 				>
@@ -76,11 +76,12 @@
 			<!-- Identificação da Médica -->
 			<div class="about__doctor-info">
 				<h3 class="about__doctor-name">
-					<em>Dra.</em> Carolina Mendes
+					<em>{content.doctor.prefix}</em>
+					{content.doctor.name}
 				</h3>
-				<span class="about__doctor-specialty"
-					>Emagrecimento & Saúde Metabólica</span
-				>
+				<span class="about__doctor-specialty">
+					{content.doctor.specialty}
+				</span>
 			</div>
 		</div>
 	</div>

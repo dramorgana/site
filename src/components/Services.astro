@@ -1,122 +1,114 @@
 ---
+const content = {
+	kicker: "Nossas Especialidades",
+	title: "Cuidado completo para sua jornada.",
+	description:
+		"Tratamentos personalizados com base em evidências científicas e foco na sua saúde metabólica.",
+	services: [
+		{
+			name: "Emagrecimento Saudável",
+			text: "Perda de peso estratégica com foco na manutenção de massa muscular e saúde hormonal.",
+			icon: "heart",
+		},
+		{
+			name: "Saúde Metabólica",
+			text: "Tratamento de resistência insulínica, diabetes e outros distúrbios que impedem o emagrecimento.",
+			icon: "clock",
+		},
+		{
+			name: "Equilíbrio Hormonal",
+			text: "Avaliação e reposição hormonal personalizada para longevidade e bem-estar.",
+			icon: "hormone",
+		},
+		{
+			name: "Bioimpedância Avançada",
+			text: "Mapeamento preciso da sua gordura corporal, massa magra e taxa metabólica basal.",
+			icon: "chart",
+		},
+	],
+};
 ---
 
 <section id="servicos" class="servicos">
 	<div class="servicos__container">
 		<header class="servicos__header">
-			<span class="servicos__kicker">Nossas Especialidades</span>
-			<h2 class="servicos__title">
-				Cuidado completo para sua jornada.
-			</h2>
+			<span class="servicos__kicker">{content.kicker}</span>
+			<h2 class="servicos__title">{content.title}</h2>
 			<p class="servicos__description">
-				Tratamentos personalizados com base em evidências
-				científicas e foco na sua saúde metabólica.
+				{content.description}
 			</p>
 		</header>
 
 		<div class="servicos__grid">
-			<!-- Serviço 01 -->
-			<div class="servicos__item">
-				<div class="servicos__icon">
-					<svg
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="1.5"
-					>
-						<path
-							d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-							stroke-linecap="round"
-							stroke-linejoin="round"></path>
-					</svg>
-				</div>
-				<div class="servicos__info">
-					<h3 class="servicos__name">
-						Emagrecimento Saudável
-					</h3>
-					<p class="servicos__text">
-						Perda de peso estratégica com foco na manutenção
-						de massa muscular e saúde hormonal.
-					</p>
-				</div>
-			</div>
-
-			<!-- Serviço 02 -->
-			<div class="servicos__item">
-				<div class="servicos__icon">
-					<svg
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="1.5"
-					>
-						<path
-							d="M12 21a9 9 0 100-18 9 9 0 000 18z"
-							stroke-linecap="round"
-							stroke-linejoin="round"></path>
-						<path
-							d="M12 8v4l3 3"
-							stroke-linecap="round"
-							stroke-linejoin="round"></path>
-					</svg>
-				</div>
-				<div class="servicos__info">
-					<h3 class="servicos__name">Saúde Metabólica</h3>
-					<p class="servicos__text">
-						Tratamento de resistência insulínica, diabetes e
-						outros distúrbios que impedem o emagrecimento.
-					</p>
-				</div>
-			</div>
-
-			<!-- Serviço 03 -->
-			<div class="servicos__item">
-				<div class="servicos__icon">
-					<svg
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="1.5"
-					>
-						<path
-							d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 10-7.038 0l-2.387.477a2 2 0 00-1.022.547l-1.07 1.07a2 2 0 00-.547 1.022l-.477 2.387a2 2 0 002.387 2.387l2.387-.477a2 2 0 001.022-.547l1.07-1.07a2 2 0 00.547-1.022l.477-2.387a2 2 0 00-2.387-2.387l-2.387.477a2 2 0 00-1.022.547l-1.07 1.07a2 2 0 00-.547 1.022l-.477 2.387a2 2 0 002.387 2.387l2.387-.477a2 2 0 001.022-.547l1.07-1.07a2 2 0 00.547-1.022l.477-2.387a2 2 0 00-2.387-2.387"
-						></path>
-					</svg>
-				</div>
-				<div class="servicos__info">
-					<h3 class="servicos__name">Equilíbrio Hormonal</h3>
-					<p class="servicos__text">
-						Avaliação e reposição hormonal personalizada
-						para longevidade e bem-estar.
-					</p>
-				</div>
-			</div>
-
-			<!-- Serviço 04 -->
-			<div class="servicos__item">
-				<div class="servicos__icon">
-					<svg
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="1.5"
-					>
-						<path
-							d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-							stroke-linecap="round"
-							stroke-linejoin="round"></path>
-					</svg>
-				</div>
-				<div class="servicos__info">
-					<h3 class="servicos__name">
-						Bioimpedância Avançada
-					</h3>
-					<p class="servicos__text">
-						Mapeamento preciso da sua gordura corporal,
-						massa magra e taxa metabólica basal.
-					</p>
-				</div>
-			</div>
+			{
+				content.services.map((service) => (
+					<div class="servicos__item">
+						<div class="servicos__icon">
+							{service.icon === "heart" && (
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.5"
+								>
+									<path
+										d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
+								</svg>
+							)}
+							{service.icon === "clock" && (
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.5"
+								>
+									<path
+										d="M12 21a9 9 0 100-18 9 9 0 000 18z"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
+									<path
+										d="M12 8v4l3 3"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
+								</svg>
+							)}
+							{service.icon === "hormone" && (
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.5"
+								>
+									<path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 10-7.038 0l-2.387.477a2 2 0 00-1.022.547l-1.07 1.07a2 2 0 00-.547 1.022l-.477 2.387a2 2 0 002.387 2.387l2.387-.477a2 2 0 001.022-.547l1.07-1.07a2 2 0 00.547-1.022l.477-2.387a2 2 0 00-2.387-2.387l-2.387.477a2 2 0 00-1.022.547l-1.07 1.07a2 2 0 00-.547 1.022l-.477 2.387a2 2 0 002.387 2.387l2.387-.477a2 2 0 001.022-.547l1.07-1.07a2 2 0 00.547-1.022l.477-2.387a2 2 0 00-2.387-2.387" />
+								</svg>
+							)}
+							{service.icon === "chart" && (
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.5"
+								>
+									<path
+										d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
+								</svg>
+							)}
+						</div>
+						<div class="servicos__info">
+							<h3 class="servicos__name">{service.name}</h3>
+							<p class="servicos__text">{service.text}</p>
+						</div>
+					</div>
+				))
+			}
 		</div>
 	</div>
 </section>
