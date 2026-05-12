@@ -1,5 +1,14 @@
 export const content = {
-	title: "Como transformamos sua saúde.",
+	intro: "Metodologia focada em transformar sua saúde através de uma medicina personalizada e baseada em evidências.",
+	title: "Como cuidamos de você.",
+	cta: {
+		text: "Saiba Mais",
+		url: "#contato",
+	},
+	image: {
+		src: "/home/maironvilela/.gemini/antigravity/brain/2d0ba1b2-14bb-4281-bb65-27a9d13606cd/medical_clinic_modern_pilares_1778606077416.png",
+		alt: "Interior moderno da clínica Serene Wellness",
+	},
 	pillars: [
 		{
 			title: "Avaliação Integrativa",
@@ -12,8 +21,8 @@ export const content = {
 			icon: "user",
 		},
 		{
-			title: "Suporte Contínuo",
-			text: "Acompanhamento de perto para ajustes constantes e manutenção de resultados sustentáveis.",
+			title: "Acompanhamento Contínuo",
+			text: "Suporte próximo para ajustes e manutenção dos resultados a longo prazo.",
 			icon: "heart",
 		},
 	],

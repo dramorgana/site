@@ -4,87 +4,67 @@ import { content } from './data';
 
 <section id="pilares" class="pilares">
 	<div class="pilares__container">
-		<header class="pilares__header">
+		<!-- Lado do Conteúdo -->
+		<div class="pilares__content">
+			<p class="pilares__intro">{content.intro}</p>
 			<h2 class="pilares__title">{content.title}</h2>
-		</header>
-
-		<div class="pilares__grid">
-			{
-				content.pillars.map((pillar) => (
-					<div class="pilares__card">
-						<div class="pilares__card-icon-wrapper">
-							<div class="pilares__card-icon">
+			
+			<div class="pilares__list">
+				{
+					content.pillars.map((pillar) => (
+						<div class="pilares__item">
+							<div class="pilares__item-icon">
 								{pillar.icon === "doc" && (
-									<svg
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="1.5"
-									>
-										<path
-											d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-										/>
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+										<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
 								)}
 								{pillar.icon === "user" && (
-									<svg
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="1.5"
-									>
-										<circle
-											cx="12"
-											cy="7"
-											r="3"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-										/>
-										<path
-											d="M12 21v-4m-4 4l1-1m7 1l-1-1"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-										/>
-										<path
-											d="M19 15.5c-1.5-1-3.5-1.5-7-1.5s-5.5.5-7 1.5c-1.5 1-2 3-2 5h18c0-2-.5-4-2-5z"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-										/>
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+										<circle cx="12" cy="7" r="3" stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M12 21v-4m-4 4l1-1m7 1l-1-1" stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M19 15.5c-1.5-1-3.5-1.5-7-1.5s-5.5.5-7 1.5c-1.5 1-2 3-2 5h18c0-2-.5-4-2-5z" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
 								)}
 								{pillar.icon === "heart" && (
-									<svg
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="1.5"
-									>
-										<path
-											d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-										/>
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+										<path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round" />
 									</svg>
 								)}
 							</div>
+							<div class="pilares__item-text">
+								<h3 class="pilares__item-title">{pillar.title}</h3>
+								<p>{pillar.text}</p>
+							</div>
 						</div>
-						<h3 class="pilares__card-title">{pillar.title}</h3>
-						<p class="pilares__card-text">{pillar.text}</p>
-					</div>
-				))
-			}
+					))
+				}
+			</div>
+
+			<a href={content.cta.url} class="pilares__cta">
+				{content.cta.text}
+			</a>
+		</div>
+
+		<!-- Lado da Imagem com Máscara Orgânica -->
+		<div class="pilares__visual">
+			<div class="pilares__image-wrapper">
+				<img 
+					src={content.image.src} 
+					alt={content.image.alt} 
+					class="pilares__image"
+				/>
+			</div>
 		</div>
 	</div>
 </section>
 
 <style>
 	/* ============================================
-	   PILARES — Design System
+	   PILARES — Novo Layout (Inspirado em Akanji)
 	   ============================================ */
 	.pilares {
-		padding: 140px 24px;
+		padding: 120px 24px;
 		background-color: var(--color-alabaster);
 		position: relative;
 		overflow: hidden;
@@ -93,113 +73,156 @@ import { content } from './data';
 	.pilares__container {
 		max-width: 1200px;
 		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 80px;
+		align-items: center;
 	}
 
-	.pilares__header {
-		text-align: center;
-		margin-bottom: 100px;
+	/* --- Conteúdo (Esquerda) --- */
+	.pilares__content {
+		display: flex;
+		flex-direction: column;
+		gap: 32px;
+	}
+
+	.pilares__intro {
+		font-family: var(--font-body);
+		font-size: 1.1rem;
+		color: var(--color-body-text);
+		max-width: 500px;
+		line-height: 1.6;
+		opacity: 0.8;
 	}
 
 	.pilares__title {
 		font-family: var(--font-heading);
-		font-size: clamp(2.5rem, 6vw, 3.8rem);
+		font-size: clamp(2.5rem, 5vw, 3.8rem);
 		color: var(--color-dark-text);
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-	}
-
-	.pilares__grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 32px;
-	}
-
-	.pilares__card {
-		background: #fff;
-		padding: 70px 32px 50px;
-		border-radius: 30px;
-		transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-		position: relative;
-		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
-		border: 1px solid rgba(0, 0, 0, 0.05);
-	}
-
-	.pilares__card:hover {
-		transform: translateY(-12px);
-		box-shadow: 0 40px 80px -20px rgba(45, 58, 54, 0.15);
-		border-color: var(--color-sage-light);
-	}
-
-	.pilares__card-icon-wrapper {
-		position: absolute;
-		top: 0;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		z-index: 2;
-	}
-
-	.pilares__card-icon {
-		width: 90px;
-		height: 90px;
-		background: var(--color-alabaster);
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: var(--color-sage);
-		box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-		transition: all 0.4s ease;
-		border: 8px solid var(--color-alabaster);
-	}
-
-	.pilares__card:hover .pilares__card-icon {
-		background: var(--color-sage);
-		color: #fff;
-		transform: scale(1.08);
-	}
-
-	.pilares__card-icon svg {
-		width: 32px;
-		height: 32px;
-	}
-
-	.pilares__card-title {
-		font-family: var(--font-heading);
-		font-size: 1.6rem;
-		font-weight: 700;
-		color: var(--color-dark-text);
+		line-height: 1.1;
 		margin-bottom: 20px;
 	}
 
-	.pilares__card-text {
-		font-family: var(--font-body);
-		font-size: 1.05rem;
-		line-height: 1.6;
-		color: var(--color-body-text);
+	.pilares__list {
+		display: grid;
+		gap: 24px;
 	}
 
-	/* ============================================
-	   RESPONSIVE PILARES
-	   ============================================ */
+	.pilares__item {
+		display: flex;
+		gap: 20px;
+		align-items: flex-start;
+	}
+
+	.pilares__item-icon {
+		width: 48px;
+		height: 48px;
+		background: rgba(0, 155, 77, 0.1);
+		color: var(--color-sage);
+		border-radius: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+
+	.pilares__item-icon svg {
+		width: 24px;
+		height: 24px;
+	}
+
+	.pilares__item-title {
+		font-family: var(--font-heading);
+		font-size: 1.25rem;
+		color: var(--color-dark-text);
+		margin-bottom: 4px;
+	}
+
+	.pilares__item-text p {
+		font-family: var(--font-body);
+		font-size: 1rem;
+		color: var(--color-body-text);
+		line-height: 1.5;
+	}
+
+	.pilares__cta {
+		display: inline-block;
+		width: fit-content;
+		padding: 12px 32px;
+		background-color: #E2FF4D; /* Amarelo limão vibrante do layout */
+		color: #1a2e25;
+		font-family: var(--font-body);
+		font-weight: 700;
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		border-radius: 4px;
+		transition: all 0.3s ease;
+		box-shadow: 0 4px 14px rgba(226, 255, 77, 0.3);
+	}
+
+	.pilares__cta:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 6px 20px rgba(226, 255, 77, 0.4);
+		filter: brightness(1.05);
+	}
+
+	/* --- Visual (Direita) --- */
+	.pilares__visual {
+		position: relative;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+
+	.pilares__image-wrapper {
+		position: relative;
+		width: 100%;
+		max-width: 550px;
+		aspect-ratio: 0.85;
+		overflow: hidden;
+		/* Máscara Orgânica Assimétrica */
+		border-radius: 40px 300px 40px 180px / 180px 40px 300px 40px;
+		box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.15);
+	}
+
+	.pilares__image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.pilares__image-wrapper:hover .pilares__image {
+		transform: scale(1.05);
+	}
+
+	/* --- Responsive --- */
 	@media (max-width: 992px) {
 		.pilares {
-			padding: 100px 24px;
+			padding: 80px 24px;
 		}
 
-		.pilares__grid {
+		.pilares__container {
 			grid-template-columns: 1fr;
-			max-width: 450px;
-			margin: 0 auto;
-			gap: 80px;
+			gap: 60px;
 		}
 
-		.pilares__header {
-			margin-bottom: 80px;
+		.pilares__content {
+			text-align: center;
+			align-items: center;
+		}
+
+		.pilares__intro {
+			margin: 0 auto;
+		}
+
+		.pilares__item {
+			text-align: left;
+		}
+
+		.pilares__visual {
+			order: -1; /* Imagem em cima no mobile */
 		}
 	}
 </style>
