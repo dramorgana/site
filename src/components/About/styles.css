@@ -3,11 +3,9 @@
    ============================================ */
 .about {
 	padding: 140px 24px;
-	background: linear-gradient(
-		135deg,
-		var(--color-alabaster) 0%,
-		rgba(0, 155, 77, 0.05) 100%
-	);
+	background: linear-gradient(135deg,
+			var(--color-alabaster) 0%,
+			rgba(0, 155, 77, 0.05) 100%);
 	position: relative;
 	overflow: hidden;
 }
@@ -45,6 +43,7 @@
 	from {
 		transform: translate(0, 0) rotate(0deg) scale(1);
 	}
+
 	to {
 		transform: translate(60px, 40px) rotate(15deg) scale(1.1);
 	}
