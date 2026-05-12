@@ -1,4 +1,5 @@
 export const content = {
+	kicker: "Depoimentos",
 	title: "Transformações Reais",
 	subtitle:
 		"Histórias de quem recuperou a saúde e a autoestima com nosso acompanhamento.",

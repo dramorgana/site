@@ -1,12 +1,13 @@
 ---
-import { content } from './data';
-import SectionHeader from '../SectionHeader/SectionHeader.astro';
-import './styles.css';
+import { content } from "./data";
+import SectionHeader from "../SectionHeader/SectionHeader.astro";
+import "./styles.css";
 ---
 
 <section id="faq" class="faq">
 	<div class="faq__container">
-		<SectionHeader 
+		<SectionHeader
+			kicker={content.kicker}
 			title={content.title}
 			description={content.subtitle}
 			centered={true}
@@ -17,10 +18,21 @@ import './styles.css';
 				content.questions.map((item, index) => (
 					<details class="faq__item" name="faq-accordion">
 						<summary class="faq__question">
-							<span class="faq__question-text">{item.question}</span>
+							<span class="faq__question-text">
+								{item.question}
+							</span>
 							<span class="faq__icon">
-								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-									<path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" />
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+								>
+									<path
+										d="M19 9l-7 7-7-7"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
 								</svg>
 							</span>
 						</summary>

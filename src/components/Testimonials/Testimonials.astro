@@ -1,7 +1,7 @@
 ---
-import { content } from './data';
-import SectionHeader from '../SectionHeader/SectionHeader.astro';
-import './styles.css';
+import { content } from "./data";
+import SectionHeader from "../SectionHeader/SectionHeader.astro";
+import "./styles.css";
 ---
 
 <section id="depoimentos" class="testimonials">
@@ -20,14 +20,19 @@ import './styles.css';
 	</div>
 
 	<div class="testimonials__container">
-		<SectionHeader 
+		<SectionHeader
+			kicker={content.kicker}
 			title={content.title}
 			description={content.subtitle}
 			centered={true}
 		/>
 
 		<div class="testimonials__carousel-container">
-			<button class="carousel-btn prev" id="prevBtn" aria-label="Anterior">
+			<button
+				class="carousel-btn prev"
+				id="prevBtn"
+				aria-label="Anterior"
+			>
 				<svg
 					width="24"
 					height="24"
@@ -82,28 +87,39 @@ import './styles.css';
 </section>
 
 <script>
-	const testimonialsGrid = document.getElementById('testimonialsGrid');
-	const prevBtn = document.getElementById('prevBtn');
-	const nextBtn = document.getElementById('nextBtn');
+	const testimonialsGrid = document.getElementById("testimonialsGrid");
+	const prevBtn = document.getElementById("prevBtn");
+	const nextBtn = document.getElementById("nextBtn");
 
 	if (prevBtn && nextBtn && testimonialsGrid) {
 		const scrollAmount = 400;
 
-		nextBtn.addEventListener('click', () => {
-			const maxScroll = testimonialsGrid.scrollWidth - testimonialsGrid.clientWidth;
+		nextBtn.addEventListener("click", () => {
+			const maxScroll =
+				testimonialsGrid.scrollWidth - testimonialsGrid.clientWidth;
 			if (testimonialsGrid.scrollLeft >= maxScroll - 10) {
-				testimonialsGrid.scrollTo({ left: 0, behavior: 'smooth' });
+				testimonialsGrid.scrollTo({ left: 0, behavior: "smooth" });
 			} else {
-				testimonialsGrid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+				testimonialsGrid.scrollBy({
+					left: scrollAmount,
+					behavior: "smooth",
+				});
 			}
 		});
 
-		prevBtn.addEventListener('click', () => {
+		prevBtn.addEventListener("click", () => {
 			if (testimonialsGrid.scrollLeft <= 10) {
-				const maxScroll = testimonialsGrid.scrollWidth - testimonialsGrid.clientWidth;
-				testimonialsGrid.scrollTo({ left: maxScroll, behavior: 'smooth' });
+				const maxScroll =
+					testimonialsGrid.scrollWidth - testimonialsGrid.clientWidth;
+				testimonialsGrid.scrollTo({
+					left: maxScroll,
+					behavior: "smooth",
+				});
 			} else {
-				testimonialsGrid.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+				testimonialsGrid.scrollBy({
+					left: -scrollAmount,
+					behavior: "smooth",
+				});
 			}
 		});
 	}

@@ -1,4 +1,5 @@
 export const content = {
+	kicker: "FAQ",
 	title: "Perguntas Frequentes",
 	subtitle: "Tire suas dúvidas sobre o acompanhamento médico e os protocolos de emagrecimento.",
 	questions: [

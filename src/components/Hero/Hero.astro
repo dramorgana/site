@@ -6,15 +6,17 @@ import './styles.css';
 <section id="hero" class="hero">
 	<!-- Background image full-bleed -->
 	<div class="hero__bg">
-		<img
-			src={content.background.src}
-			alt={content.background.alt}
-			class="hero__bg-image"
-			width="1440"
-			height="900"
-			loading="eager"
-			fetchpriority="high"
-		/>
+		<div class="hero__bg-wrapper">
+			<img
+				src={content.background.src}
+				alt={content.background.alt}
+				class="hero__bg-image"
+				width="1440"
+				height="900"
+				loading="eager"
+				fetchpriority="high"
+			/>
+		</div>
 		<div class="hero__bg-overlay"></div>
 	</div>
 
@@ -73,3 +75,24 @@ import './styles.css';
 		</div>
 	</div>
 </section>
+
+<script>
+	const heroWrapper = document.querySelector('.hero__bg-wrapper') as HTMLElement;
+
+	if (heroWrapper) {
+		let ticking = false;
+
+		window.addEventListener('scroll', () => {
+			if (!ticking) {
+				window.requestAnimationFrame(() => {
+					const scrollValue = window.scrollY;
+					if (scrollValue < window.innerHeight) {
+						heroWrapper.style.transform = `translate3d(0, ${scrollValue * 0.4}px, 0)`;
+					}
+					ticking = false;
+				});
+				ticking = true;
+			}
+		}, { passive: true });
+	}
+</script>
