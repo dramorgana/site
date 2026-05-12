@@ -27,3 +27,7 @@
   --font-heading: "Playfair Display", serif;
   --font-body: "Inter", "Outfit", sans-serif;
 }
+
+html {
+  scroll-behavior: smooth;
+}

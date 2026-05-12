@@ -6,42 +6,256 @@ import "./styles.css";
 
 <section id="faq" class="faq">
 	<div class="faq__container">
-		<SectionHeader
-			kicker={content.kicker}
-			title={content.title}
-			description={content.subtitle}
-			centered={true}
-		/>
+		<div class="faq__header">
+			<SectionHeader
+				kicker={content.kicker}
+				title={content.title}
+				description={content.subtitle}
+				centered={false}
+			/>
+		</div>
 
-		<div class="faq__list">
-			{
-				content.questions.map((item, index) => (
-					<details class="faq__item" name="faq-accordion">
-						<summary class="faq__question">
-							<span class="faq__question-text">
-								{item.question}
-							</span>
-							<span class="faq__icon">
-								<svg
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-								>
-									<path
-										d="M19 9l-7 7-7-7"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									/>
-								</svg>
-							</span>
-						</summary>
-						<div class="faq__answer">
-							<p>{item.answer}</p>
+		<div class="faq__content">
+			<div class="faq__list" id="faqList">
+				{
+					content.questions.map((item, index) => (
+						<details
+							class="faq__item"
+							name="faq-accordion"
+							data-page={Math.floor(index / 4)}
+							style={index >= 4 ? "display: none;" : ""}
+						>
+							<summary class="faq__question">
+								<span class="faq__question-text">
+									{item.question}
+								</span>
+								<span class="faq__icon">
+									<svg
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+									>
+										<path
+											d="M19 9l-7 7-7-7"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										/>
+									</svg>
+								</span>
+							</summary>
+							<div class="faq__answer">
+								<p>{item.answer}</p>
+							</div>
+						</details>
+					))
+				}
+			</div>
+
+			<!-- FAQ Navigation -->
+			<div class="faq__nav">
+				<div class="faq__nav-buttons">
+					<button
+						class="faq__nav-btn prev"
+						id="faqPrev"
+						aria-label="Anterior"
+					>
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2.5"
+						>
+							<path
+								d="M15 18l-6-6 6-6"
+								stroke-linecap="round"
+								stroke-linejoin="round"></path>
+						</svg>
+					</button>
+					<button
+						class="faq__nav-btn next"
+						id="faqNext"
+						aria-label="Próximo"
+					>
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2.5"
+						>
+							<path
+								d="M9 18l6-6-6-6"
+								stroke-linecap="round"
+								stroke-linejoin="round"></path>
+						</svg>
+					</button>
+				</div>
+
+				<div class="faq__nav-progress">
+					<div class="faq__nav-line">
+						<div class="faq__nav-line-active" id="faqProgressLine">
 						</div>
-					</details>
-				))
-			}
+					</div>
+					<div class="faq__nav-dots" id="faqDots">
+						{
+							Array.from({
+								length: Math.ceil(content.questions.length / 4),
+							}).map((_, i) => (
+								<span
+									class={`faq__nav-dot ${
+										i === 0 ? "active" : ""
+									}`}
+									data-page={i}
+								/>
+							))
+						}
+					</div>
+				</div>
+
+				<div class="faq__nav-counter">
+					<span class="faq__nav-current" id="faqCurrentPage">01</span>
+					<span class="faq__nav-separator">/</span>
+					<span class="faq__nav-total"
+						>{
+							String(
+								Math.ceil(content.questions.length / 4)
+							).padStart(2, "0")
+						}
+					</span>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
+
+<script>
+	const faqList = document.getElementById("faqList");
+	const prevBtn = document.getElementById("faqPrev");
+	const nextBtn = document.getElementById("faqNext");
+	const currentPageEl = document.getElementById("faqCurrentPage");
+	const progressLine = document.getElementById("faqProgressLine");
+	const dots = document.querySelectorAll(".faq__nav-dot");
+	const items = document.querySelectorAll(".faq__item");
+
+	let currentPage = 0;
+	const totalPages = Math.ceil(items.length / 4);
+
+	function updatePage(page: number) {
+		if (page === currentPage && faqList?.classList.contains("animating-in"))
+			return;
+
+		// Trigger Anim Out
+		faqList?.classList.add("animating-out");
+		faqList?.classList.remove("animating-in");
+
+		setTimeout(() => {
+			currentPage = page;
+
+			// Update Items visibility
+			items.forEach((item) => {
+				const itemPage = parseInt(
+					(item as HTMLElement).dataset.page || "0"
+				);
+				(item as HTMLElement).style.display =
+					itemPage === currentPage ? "block" : "none";
+				if (itemPage !== currentPage)
+					(item as HTMLDetailsElement).open = false;
+			});
+
+			// Update UI
+			if (currentPageEl)
+				currentPageEl.textContent = String(currentPage + 1).padStart(
+					2,
+					"0"
+				);
+
+			dots.forEach((dot, i) => {
+				dot.classList.toggle("active", i === currentPage);
+			});
+
+			if (progressLine) {
+				const progress = ((currentPage + 1) / totalPages) * 100;
+				progressLine.style.width = `${progress}%`;
+			}
+
+			if (prevBtn)
+				(prevBtn as HTMLButtonElement).disabled = currentPage === 0;
+			if (nextBtn)
+				(nextBtn as HTMLButtonElement).disabled =
+					currentPage === totalPages - 1;
+
+			// Trigger Anim In
+			faqList?.classList.remove("animating-out");
+			faqList?.classList.add("animating-in");
+
+			// Scroll to top of FAQ section with custom ultra-smooth easing
+			const faqSection = document.getElementById("faq");
+			if (faqSection) {
+				const isMobile = window.innerWidth <= 768;
+				const offset = isMobile ? -360 : -80;
+
+				const bodyRect = document.body.getBoundingClientRect().top;
+				const elementRect = faqSection.getBoundingClientRect().top;
+				const targetY = elementRect - bodyRect - offset;
+
+				// Custom Smooth Scroll Logic (Ultra-smooth)
+				const startY = window.scrollY;
+				const difference = targetY - startY;
+				const duration = 300; //ms
+				let start: number | null = null;
+
+				const step = (timestamp: number) => {
+					if (!start) start = timestamp;
+					const progress = timestamp - start;
+					const percent = Math.min(progress / duration, 1);
+
+					// easeInOutQuart - Muito mais suave que o nativo
+					const easing =
+						percent < 0.5
+							? 8 * percent * percent * percent * percent
+							: 1 - Math.pow(-2 * percent + 2, 4) / 2;
+
+					window.scrollTo(0, startY + difference * easing);
+
+					if (progress < duration) {
+						window.requestAnimationFrame(step);
+					}
+				};
+
+				window.requestAnimationFrame(step);
+			}
+		}, 300);
+	}
+
+	if (prevBtn && nextBtn) {
+		prevBtn.addEventListener("click", () => {
+			if (currentPage > 0) updatePage(currentPage - 1);
+		});
+
+		nextBtn.addEventListener("click", () => {
+			if (currentPage < totalPages - 1) updatePage(currentPage + 1);
+		});
+
+		// Dots interaction
+		dots.forEach((dot) => {
+			dot.addEventListener("click", () => {
+				const page = parseInt((dot as HTMLElement).dataset.page || "0");
+				updatePage(page);
+			});
+		});
+
+		// Initial state (no anim)
+		items.forEach((item) => {
+			const itemPage = parseInt(
+				(item as HTMLElement).dataset.page || "0"
+			);
+			(item as HTMLElement).style.display =
+				itemPage === 0 ? "block" : "none";
+		});
+		if (prevBtn) (prevBtn as HTMLButtonElement).disabled = true;
+	}
+</script>
