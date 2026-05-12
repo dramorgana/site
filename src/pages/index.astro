@@ -409,7 +409,7 @@ import Layout from "../layouts/Layout.astro";
 		<!-- SEÇÃO 06 — CTA Parallax (Agendamento)        -->
 		<!-- ============================================ -->
 		<section class="parallax-cta">
-			<div class="parallax-cta__bg"></div>
+			<div class="parallax-cta__bg" id="parallaxBg"></div>
 			<div class="parallax-cta__overlay"></div>
 			<div class="parallax-cta__container">
 				<h2 class="parallax-cta__title">
@@ -446,7 +446,6 @@ import Layout from "../layouts/Layout.astro";
 				</div>
 			</div>
 		</section>
-		</section>
 
 		<!-- ============================================ -->
 		<!-- SEÇÃO 07 — Prova Social (Depoimentos)        -->
@@ -468,64 +467,167 @@ import Layout from "../layouts/Layout.astro";
 
 			<div class="testimonials__container">
 				<header class="testimonials__header">
-					<h2 class="testimonials__title">O que dizem meus pacientes</h2>
+					<h2 class="testimonials__title">Transformações Reais</h2>
+					<p class="testimonials__subtitle">Histórias de quem recuperou a saúde e a autoestima com nosso acompanhamento.</p>
 				</header>
 
-				<div class="testimonials__grid">
-					<!-- Depoimento 01 -->
-					<div class="testimonial-card">
-						<div class="testimonial-card__quote">“</div>
-						<p class="testimonial-card__text">
-							O diferencial foi o acolhimento. Pela primeira vez
-							não me senti julgada, mas sim compreendida e tratada
-							como um todo.
-						</p>
-						<div class="testimonial-card__author">
-							<span class="testimonial-card__name"
-								>Ana Paula S.</span
-							>
-							<span class="testimonial-card__meta"
-								>Paciente há 6 meses</span
-							>
+				<div class="testimonials__carousel-container">
+					<button class="carousel-btn prev" id="prevBtn" aria-label="Anterior">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</button>
+
+					<div class="testimonials__grid" id="testimonialsGrid">
+						<!-- Depoimento 01 -->
+						<div class="testimonial-card">
+							<div class="testimonial-card__quote">“</div>
+							<p class="testimonial-card__text">
+								O diferencial foi o acolhimento. Pela primeira vez
+								não me senti julgada, mas sim compreendida e tratada
+								como um todo.
+							</p>
+							<div class="testimonial-card__author">
+								<span class="testimonial-card__name"
+									>Ana Paula S.</span
+								>
+								<span class="testimonial-card__meta"
+									>Paciente há 6 meses</span
+								>
+							</div>
+						</div>
+
+						<!-- Depoimento 02 -->
+						<div class="testimonial-card">
+							<div class="testimonial-card__quote">“</div>
+							<p class="testimonial-card__text">
+								Resultados sustentáveis que nunca consegui com
+								dietas da moda. O acompanhamento médico mudou minha
+								relação com a comida.
+							</p>
+							<div class="testimonial-card__author">
+								<span class="testimonial-card__name"
+									>Mariana L.</span
+								>
+								<span class="testimonial-card__meta"
+									>Eliminou 12kg</span
+								>
+							</div>
+						</div>
+
+						<!-- Depoimento 03 -->
+						<div class="testimonial-card">
+							<div class="testimonial-card__quote">“</div>
+							<p class="testimonial-card__text">
+								Muito mais que perda de peso, recuperei minha
+								energia e disposição diária. Recomendo de olhos
+								fechados!
+							</p>
+							<div class="testimonial-card__author">
+								<span class="testimonial-card__name">Carla M.</span>
+								<span class="testimonial-card__meta"
+									>Foco em Saúde Metabólica</span
+								>
+							</div>
+						</div>
+
+						<!-- Depoimento 04 -->
+						<div class="testimonial-card">
+							<div class="testimonial-card__quote">“</div>
+							<p class="testimonial-card__text">
+								O Dr. Rômulo é extremamente atencioso. O plano alimentar é prático e fácil de seguir, mesmo com a rotina corrida.
+							</p>
+							<div class="testimonial-card__author">
+								<span class="testimonial-card__name">Juliana R.</span>
+								<span class="testimonial-card__meta">Empresária</span>
+							</div>
+						</div>
+
+						<!-- Depoimento 05 -->
+						<div class="testimonial-card">
+							<div class="testimonial-card__quote">“</div>
+							<p class="testimonial-card__text">
+								Finalmente entendi como meu metabolismo funciona. Não é apenas sobre calorias, é sobre saúde e equilíbrio.
+							</p>
+							<div class="testimonial-card__author">
+								<span class="testimonial-card__name">Fernanda B.</span>
+								<span class="testimonial-card__meta">Paciente há 1 ano</span>
+							</div>
+						</div>
+
+						<!-- Depoimento 06 -->
+						<div class="testimonial-card">
+							<div class="testimonial-card__quote">“</div>
+							<p class="testimonial-card__text">
+								A estrutura da clínica é impecável e o atendimento humanizado faz toda a diferença no processo.
+							</p>
+							<div class="testimonial-card__author">
+								<span class="testimonial-card__name">Beatriz G.</span>
+								<span class="testimonial-card__meta">Performance Esportiva</span>
+							</div>
 						</div>
 					</div>
 
-					<!-- Depoimento 02 -->
-					<div class="testimonial-card">
-						<div class="testimonial-card__quote">“</div>
-						<p class="testimonial-card__text">
-							Resultados sustentáveis que nunca consegui com
-							dietas da moda. O acompanhamento médico mudou minha
-							relação com a comida.
-						</p>
-						<div class="testimonial-card__author">
-							<span class="testimonial-card__name"
-								>Mariana L.</span
-							>
-							<span class="testimonial-card__meta"
-								>Eliminou 12kg</span
-							>
-						</div>
-					</div>
-
-					<!-- Depoimento 03 -->
-					<div class="testimonial-card">
-						<div class="testimonial-card__quote">“</div>
-						<p class="testimonial-card__text">
-							Muito mais que perda de peso, recuperei minha
-							energia e disposição diária. Recomendo de olhos
-							fechados!
-						</p>
-						<div class="testimonial-card__author">
-							<span class="testimonial-card__name">Carla M.</span>
-							<span class="testimonial-card__meta"
-								>Foco em Saúde Metabólica</span
-							>
-						</div>
-					</div>
+					<button class="carousel-btn next" id="nextBtn" aria-label="Próximo">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</button>
 				</div>
+
+
 			</div>
 		</section>
+
+		<script>
+			const loadMoreBtn = document.getElementById('loadMoreBtn');
+			const extraTestimonials = document.querySelectorAll('.extra-testimonial');
+			const testimonialsGrid = document.getElementById('testimonialsGrid');
+			const prevBtn = document.getElementById('prevBtn');
+			const nextBtn = document.getElementById('nextBtn');
+
+			if (prevBtn && nextBtn && testimonialsGrid) {
+				const scrollAmount = 400;
+
+				nextBtn.addEventListener('click', () => {
+					const maxScroll = testimonialsGrid.scrollWidth - testimonialsGrid.clientWidth;
+					if (testimonialsGrid.scrollLeft >= maxScroll - 10) {
+						testimonialsGrid.scrollTo({ left: 0, behavior: 'smooth' });
+					} else {
+						testimonialsGrid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+					}
+				});
+
+				prevBtn.addEventListener('click', () => {
+					if (testimonialsGrid.scrollLeft <= 10) {
+						const maxScroll = testimonialsGrid.scrollWidth - testimonialsGrid.clientWidth;
+						testimonialsGrid.scrollTo({ left: maxScroll, behavior: 'smooth' });
+					} else {
+						testimonialsGrid.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+					}
+				});
+			}
+
+			// Parallax Vertical Script
+			const parallaxBg = document.getElementById('parallaxBg');
+			if (parallaxBg) {
+				window.addEventListener('scroll', () => {
+					const scrollValue = window.scrollY;
+					const section = parallaxBg.parentElement;
+					const sectionTop = section.offsetTop;
+					const sectionHeight = section.offsetHeight;
+					const windowHeight = window.innerHeight;
+
+					// Verifica se a seção está visível
+					if (scrollValue + windowHeight > sectionTop && scrollValue < sectionTop + sectionHeight) {
+						const relativeScroll = scrollValue - sectionTop;
+						// Ajusta o translateY para o efeito parallax vertical
+						// Mantemos a animação horizontal do CSS separada
+						parallaxBg.style.top = `calc(-20% + ${relativeScroll * 0.15}px)`;
+					}
+				});
+			}
+		</script>
 	</main>
 </Layout>
 
@@ -1340,13 +1442,62 @@ import Layout from "../layouts/Layout.astro";
 		z-index: 1;
 	}
 
+	/* ============================================
+	   CTA PARALLAX — Design System
+	   ============================================ */
+	.parallax-cta {
+		position: relative;
+		padding: 180px 24px;
+		text-align: center;
+		overflow: hidden;
+		color: #ffffff;
+		background-color: #0a140f;
+	}
+
+	.parallax-cta__bg {
+		position: absolute;
+		top: -20%;
+		left: -50%;
+		width: 200%;
+		height: 140%;
+		background-image: url("/images/parallax-cta-bg-v3.png");
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		z-index: 0;
+		animation: pan360 80s linear infinite alternate;
+		will-change: transform;
+	}
+
+	@keyframes pan360 {
+		0% {
+			transform: translateX(-10%);
+		}
+		100% {
+			transform: translateX(10%);
+		}
+	}
+
+
+
+	.parallax-cta__overlay {
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(
+			circle at center,
+			rgba(0, 0, 0, 0.4) 0%,
+			rgba(10, 20, 15, 0.85) 100%
+		);
+		z-index: 1;
+	}
+
 	.parallax-cta__container {
 		position: relative;
 		z-index: 2;
 		max-width: 800px;
 		margin: 0 auto;
 		animation: fadeIn 1s ease-out both;
-		text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra para destacar o texto */
+		text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 		color: #ffffff;
 	}
 
@@ -1365,7 +1516,6 @@ import Layout from "../layouts/Layout.astro";
 		font-size: clamp(1.1rem, 2vw, 1.3rem);
 		line-height: 1.6;
 		margin-bottom: 48px;
-		opacity: 1; /* Removida opacidade para branco total */
 		max-width: 600px;
 		margin-left: auto;
 		margin-right: auto;
@@ -1436,21 +1586,50 @@ import Layout from "../layouts/Layout.astro";
 	.testimonials__header {
 		text-align: center;
 		margin-bottom: 60px;
+		max-width: 700px;
+		margin-left: auto;
+		margin-right: auto;
 	}
 
 	.testimonials__title {
 		font-family: var(--font-heading);
-		font-size: clamp(2rem, 5vw, 2.8rem);
+		font-size: clamp(2.4rem, 5vw, 3.2rem);
 		color: var(--color-dark-text);
+		margin-bottom: 16px;
+	}
+
+	.testimonials__subtitle {
+		font-family: var(--font-body);
+		font-size: 1.1rem;
+		color: var(--color-sage);
+		font-weight: 500;
+	}
+
+	.testimonials__carousel-container {
+		position: relative;
+		display: flex;
+		align-items: center;
+		gap: 20px;
 	}
 
 	.testimonials__grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		display: flex;
 		gap: 30px;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		scroll-behavior: smooth;
+		scrollbar-width: none; /* Firefox */
+		-ms-overflow-style: none; /* IE and Edge */
+		padding: 20px 0;
+	}
+
+	.testimonials__grid::-webkit-scrollbar {
+		display: none; /* Chrome, Safari and Opera */
 	}
 
 	.testimonial-card {
+		flex: 0 0 calc(33.333% - 20px);
+		scroll-snap-align: center;
 		background: var(--color-alabaster);
 		padding: 40px;
 		border-radius: 30px;
@@ -1460,6 +1639,45 @@ import Layout from "../layouts/Layout.astro";
 		justify-content: space-between;
 		transition: all 0.3s ease;
 		border: 1px solid rgba(163, 184, 153, 0.1);
+	}
+
+	.carousel-btn {
+		background: white;
+		border: 1px solid var(--color-sage-light);
+		color: var(--color-sage);
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		z-index: 10;
+		flex-shrink: 0;
+		box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+	}
+
+	.carousel-btn:hover {
+		background: var(--color-sage);
+		color: white;
+		transform: scale(1.1);
+	}
+
+	@media (max-width: 1024px) {
+		.testimonial-card {
+			flex: 0 0 calc(50% - 15px);
+		}
+	}
+
+	@media (max-width: 768px) {
+		.testimonial-card {
+			flex: 0 0 100%;
+		}
+		
+		.carousel-btn {
+			display: none; /* Swipe no mobile */
+		}
 	}
 
 	.testimonial-card:hover {
@@ -1506,6 +1724,50 @@ import Layout from "../layouts/Layout.astro";
 		font-size: 0.85rem;
 		color: var(--color-sage);
 		font-weight: 500;
+	}
+
+	.testimonials__actions {
+		margin-top: 50px;
+		text-align: center;
+	}
+
+	.btn-load-more {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		padding: 16px 32px;
+		background: transparent;
+		border: 2px solid var(--color-sage);
+		color: var(--color-sage);
+		border-radius: 50px;
+		font-family: var(--font-body);
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.3s ease;
+	}
+
+	.btn-load-more:hover {
+		background: var(--color-sage);
+		color: #fff;
+	}
+
+	.hidden {
+		display: none;
+	}
+
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.fade-in-up {
+		animation: fadeInUp 0.6s ease forwards;
 	}
 
 	.wave-divider--testimonials {
