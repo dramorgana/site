@@ -73,7 +73,7 @@ import { content } from './data';
 		>
 			<path
 				d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-				fill="#f8fafc"></path>
+				fill="#FAF5E9"></path>
 		</svg>
 	</div>
 </section>
@@ -87,7 +87,7 @@ import { content } from './data';
 		background: linear-gradient(
 			135deg,
 			var(--color-alabaster) 0%,
-			rgba(212, 196, 183, 0.15) 100%
+			rgba(0, 155, 77, 0.05) 100%
 		);
 		position: relative;
 		overflow: hidden;
@@ -100,7 +100,7 @@ import { content } from './data';
 		border-radius: 50%;
 		filter: blur(120px);
 		z-index: 0;
-		opacity: 0.5;
+		opacity: 0.3;
 		pointer-events: none;
 		animation: aboutBlobFloat 25s infinite alternate ease-in-out;
 	}
@@ -108,7 +108,7 @@ import { content } from './data';
 	.about::before {
 		width: 500px;
 		height: 500px;
-		background: #b8cbb0;
+		background: var(--color-sage-light);
 		top: -150px;
 		right: -100px;
 	}
@@ -116,7 +116,7 @@ import { content } from './data';
 	.about::after {
 		width: 450px;
 		height: 450px;
-		background: #e3d5c8;
+		background: var(--color-sand-light);
 		bottom: -100px;
 		left: -150px;
 		animation-delay: -10s;

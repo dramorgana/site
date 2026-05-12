@@ -3,23 +3,25 @@
 @theme {
   /* === Identidade Visual — Skill Spec === */
 
-  /* Cor Primária — Verde Sálvia: tranquilidade, saúde, renovação */
-  --color-sage: #A3B899;
-  --color-sage-dark: #8CA680;
-  --color-sage-light: #C5D4BC;
+  /* === Identidade Visual Atualizada === */
 
-  /* Cor Secundária — Areia/Bege Quente: sofisticação e acolhimento */
-  --color-sand: #D4C4B7;
-  --color-sand-light: #E8DDD5;
-  --color-sand-dark: #B8A597;
+  /* Cor Primária — Verde Vibrante: energia, saúde e vida */
+  --color-sage: #009B4D;
+  --color-sage-dark: #007D3E;
+  --color-sage-light: #26AF70;
 
-  /* Background Principal — Alabaster: clareza sem branco puro */
-  --color-alabaster: #FAF9F6;
+  /* Cor Secundária — Amarelo Tangerina: destaque e calor */
+  --color-sand: #FFCC00;
+  --color-sand-light: #FFD633;
+  --color-sand-dark: #CCA300;
 
-  /* Neutros */
-  --color-dark-text: #2D3A36;
-  --color-body-text: #4A5A54;
-  --color-muted: #8A9A92;
+  /* Background Principal — Marfim: conforto e sofisticação */
+  --color-alabaster: #FAF5E9;
+
+  /* Neutros — Ajustados para o novo contraste */
+  --color-dark-text: #0a1f16;
+  --color-body-text: #1a2e25;
+  --color-muted: #4a5c54;
 
   /* Tipografia */
   --font-heading: "Playfair Display", serif;
