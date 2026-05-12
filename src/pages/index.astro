@@ -446,6 +446,86 @@ import Layout from "../layouts/Layout.astro";
 				</div>
 			</div>
 		</section>
+		</section>
+
+		<!-- ============================================ -->
+		<!-- SEÇÃO 07 — Prova Social (Depoimentos)        -->
+		<!-- ============================================ -->
+		<section id="depoimentos" class="testimonials">
+			<!-- Divisor Ondulado Parallax -> Testimonials -->
+			<div class="wave-divider wave-divider--testimonials">
+				<svg
+					data-name="Layer 1"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 1200 120"
+					preserveAspectRatio="none"
+				>
+					<path
+						d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+						fill="#ffffff"></path>
+				</svg>
+			</div>
+
+			<div class="testimonials__container">
+				<header class="testimonials__header">
+					<h2 class="testimonials__title">O que dizem meus pacientes</h2>
+				</header>
+
+				<div class="testimonials__grid">
+					<!-- Depoimento 01 -->
+					<div class="testimonial-card">
+						<div class="testimonial-card__quote">“</div>
+						<p class="testimonial-card__text">
+							O diferencial foi o acolhimento. Pela primeira vez
+							não me senti julgada, mas sim compreendida e tratada
+							como um todo.
+						</p>
+						<div class="testimonial-card__author">
+							<span class="testimonial-card__name"
+								>Ana Paula S.</span
+							>
+							<span class="testimonial-card__meta"
+								>Paciente há 6 meses</span
+							>
+						</div>
+					</div>
+
+					<!-- Depoimento 02 -->
+					<div class="testimonial-card">
+						<div class="testimonial-card__quote">“</div>
+						<p class="testimonial-card__text">
+							Resultados sustentáveis que nunca consegui com
+							dietas da moda. O acompanhamento médico mudou minha
+							relação com a comida.
+						</p>
+						<div class="testimonial-card__author">
+							<span class="testimonial-card__name"
+								>Mariana L.</span
+							>
+							<span class="testimonial-card__meta"
+								>Eliminou 12kg</span
+							>
+						</div>
+					</div>
+
+					<!-- Depoimento 03 -->
+					<div class="testimonial-card">
+						<div class="testimonial-card__quote">“</div>
+						<p class="testimonial-card__text">
+							Muito mais que perda de peso, recuperei minha
+							energia e disposição diária. Recomendo de olhos
+							fechados!
+						</p>
+						<div class="testimonial-card__author">
+							<span class="testimonial-card__name">Carla M.</span>
+							<span class="testimonial-card__meta"
+								>Foco em Saúde Metabólica</span
+							>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 	</main>
 </Layout>
 
@@ -1337,6 +1417,110 @@ import Layout from "../layouts/Layout.astro";
 			width: 100%;
 			justify-content: center;
 			padding: 20px 32px;
+		}
+	}
+	/* ============================================
+	   TESTIMONIALS — Design System
+	   ============================================ */
+	.testimonials {
+		padding: 160px 24px 100px;
+		background-color: #fff;
+		position: relative;
+	}
+
+	.testimonials__container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.testimonials__header {
+		text-align: center;
+		margin-bottom: 60px;
+	}
+
+	.testimonials__title {
+		font-family: var(--font-heading);
+		font-size: clamp(2rem, 5vw, 2.8rem);
+		color: var(--color-dark-text);
+	}
+
+	.testimonials__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 30px;
+	}
+
+	.testimonial-card {
+		background: var(--color-alabaster);
+		padding: 40px;
+		border-radius: 30px;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		transition: all 0.3s ease;
+		border: 1px solid rgba(163, 184, 153, 0.1);
+	}
+
+	.testimonial-card:hover {
+		transform: translateY(-10px);
+		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+		border-color: var(--color-sage-light);
+	}
+
+	.testimonial-card__quote {
+		font-family: var(--font-heading);
+		font-size: 5rem;
+		color: var(--color-sage-light);
+		line-height: 1;
+		margin-bottom: -20px;
+		opacity: 0.5;
+	}
+
+	.testimonial-card__text {
+		font-family: var(--font-body);
+		font-size: 1.1rem;
+		line-height: 1.7;
+		color: var(--color-body-text);
+		font-style: italic;
+		margin-bottom: 30px;
+		position: relative;
+		z-index: 1;
+	}
+
+	.testimonial-card__author {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.testimonial-card__name {
+		font-family: var(--font-heading);
+		font-weight: 700;
+		font-size: 1.1rem;
+		color: var(--color-dark-text);
+	}
+
+	.testimonial-card__meta {
+		font-family: var(--font-body);
+		font-size: 0.85rem;
+		color: var(--color-sage);
+		font-weight: 500;
+	}
+
+	.wave-divider--testimonials {
+		top: 0;
+		bottom: auto;
+		transform: rotate(0deg);
+	}
+
+	@media (max-width: 768px) {
+		.testimonials {
+			padding: 100px 24px 60px;
+		}
+		
+		.testimonial-card {
+			padding: 30px;
 		}
 	}
 </style>
