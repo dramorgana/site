@@ -6,7 +6,7 @@ export const content = {
 		url: "#contato",
 	},
 	image: {
-		src: "/home/maironvilela/.gemini/antigravity/brain/2d0ba1b2-14bb-4281-bb65-27a9d13606cd/medical_clinic_modern_pilares_1778606077416.png",
+		src: "/images/pilares-redesign.png",
 		alt: "Interior moderno da clínica Serene Wellness",
 	},
 	pillars: [
