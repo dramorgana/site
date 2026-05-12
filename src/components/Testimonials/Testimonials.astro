@@ -1,5 +1,6 @@
 ---
 import { content } from './data';
+import SectionHeader from '../SectionHeader/SectionHeader.astro';
 import './styles.css';
 ---
 
@@ -19,12 +20,11 @@ import './styles.css';
 	</div>
 
 	<div class="testimonials__container">
-		<header class="testimonials__header">
-			<h2 class="testimonials__title">{content.title}</h2>
-			<p class="testimonials__subtitle">
-				{content.subtitle}
-			</p>
-		</header>
+		<SectionHeader 
+			title={content.title}
+			description={content.subtitle}
+			centered={true}
+		/>
 
 		<div class="testimonials__carousel-container">
 			<button class="carousel-btn prev" id="prevBtn" aria-label="Anterior">

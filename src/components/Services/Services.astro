@@ -1,17 +1,17 @@
 ---
 import { content } from "./data";
+import SectionHeader from "../SectionHeader/SectionHeader.astro";
 import './styles.css';
 ---
 
 <section id="servicos" class="servicos">
 	<div class="servicos__container">
-		<header class="servicos__header">
-			<span class="servicos__kicker">{content.kicker}</span>
-			<h2 class="servicos__title">{content.title}</h2>
-			<p class="servicos__description">
-				{content.description}
-			</p>
-		</header>
+		<SectionHeader 
+			kicker={content.kicker}
+			title={content.title}
+			description={content.description}
+			centered={true}
+		/>
 
 		<div class="servicos__grid">
 			{

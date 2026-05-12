@@ -1,14 +1,16 @@
 ---
 import { content } from './data';
+import SectionHeader from '../SectionHeader/SectionHeader.astro';
 import './styles.css';
 ---
 
 <section id="faq" class="faq">
 	<div class="faq__container">
-		<header class="faq__header">
-			<h2 class="faq__title">{content.title}</h2>
-			<p class="faq__subtitle">{content.subtitle}</p>
-		</header>
+		<SectionHeader 
+			title={content.title}
+			description={content.subtitle}
+			centered={true}
+		/>
 
 		<div class="faq__list">
 			{

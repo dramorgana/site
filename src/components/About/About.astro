@@ -1,17 +1,18 @@
 ---
-import { content } from './data';
-import './styles.css';
+import SectionHeader from "../SectionHeader/SectionHeader.astro";
+import { content } from "./data";
+import "./styles.css";
 ---
 
 <section id="about" class="about">
 	<div class="about__container">
 		<!-- Lado do Conteúdo -->
 		<div class="about__content">
-			<header class="about__header">
-				<span class="about__kicker">{content.kicker}</span>
-				<h2 class="about__title">{content.title}</h2>
-				<div class="about__divider"></div>
-			</header>
+			<SectionHeader
+				kicker={content.kicker}
+				title={content.title}
+				description={content.description}
+			/>
 
 			<div class="about__body">
 				{
@@ -46,9 +47,7 @@ import './styles.css';
 				/>
 				<!-- Elementos decorativos premium -->
 				<div class="about__image-accent about__image-accent--top"></div>
-				<div
-					class="about__image-accent about__image-accent--bottom"
-				>
+				<div class="about__image-accent about__image-accent--bottom">
 				</div>
 			</div>
 			<!-- Identificação da Médica -->

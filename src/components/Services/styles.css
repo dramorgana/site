@@ -13,39 +13,6 @@
 	margin: 0 auto;
 }
 
-.servicos__header {
-	text-align: center;
-	margin-bottom: 80px;
-	max-width: 700px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.servicos__kicker {
-	display: block;
-	font-family: var(--font-body);
-	font-size: 0.85rem;
-	font-weight: 600;
-	text-transform: uppercase;
-	letter-spacing: 0.2em;
-	color: var(--color-sage);
-	margin-bottom: 20px;
-}
-
-.servicos__title {
-	font-family: var(--font-heading);
-	font-size: clamp(2.2rem, 5vw, 3rem);
-	color: var(--color-dark-text);
-	margin-bottom: 20px;
-}
-
-.servicos__description {
-	font-family: var(--font-body);
-	font-size: 1.1rem;
-	color: var(--color-body-text);
-	line-height: 1.6;
-}
-
 .servicos__grid {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);

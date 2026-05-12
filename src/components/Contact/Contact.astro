@@ -1,15 +1,16 @@
 ---
 import { content } from './data';
+import SectionHeader from '../SectionHeader/SectionHeader.astro';
 import './styles.css';
 ---
 
 <section id="contato" class="contact">
 	<div class="contact__container">
 		<div class="contact__info">
-			<header class="contact__header">
-				<h2 class="contact__title">{content.title}</h2>
-				<p class="contact__subtitle">{content.subtitle}</p>
-			</header>
+			<SectionHeader 
+				title={content.title}
+				description={content.subtitle}
+			/>
 
 			<div class="contact__details">
 				<div class="contact__item">

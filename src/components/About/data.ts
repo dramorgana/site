@@ -1,6 +1,7 @@
 export const content = {
 	kicker: "Autoridade & Acolhimento",
 	title: "Uma abordagem humana para resultados reais.",
+	description: "Unindo ciência, tecnologia e empatia para transformar sua saúde de forma definitiva.",
 	paragraphs: [
 		"Acredito que o emagrecimento não é apenas sobre números na balança, mas sobre a reconquista da autonomia sobre o próprio corpo.",
 		"Com sólida formação médica, minha missão é oferecer um suporte técnico rigoroso aliado a um olhar sensível às suas necessidades individuais. Aqui, cada protocolo é desenhado para respeitar o seu metabolismo e sua história.",

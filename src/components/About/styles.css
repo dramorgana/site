@@ -62,32 +62,7 @@
 }
 
 /* --- Content --- */
-.about__kicker {
-	display: block;
-	font-family: var(--font-body);
-	font-size: 0.85rem;
-	font-weight: 600;
-	text-transform: uppercase;
-	letter-spacing: 0.2em;
-	color: var(--color-sage);
-	margin-bottom: 20px;
-}
-
-.about__title {
-	font-family: var(--font-heading);
-	font-size: clamp(2.2rem, 5vw, 3.2rem);
-	line-height: 1.15;
-	color: var(--color-dark-text);
-	margin-bottom: 32px;
-}
-
-.about__divider {
-	width: 60px;
-	height: 2px;
-	background-color: var(--color-sand);
-	margin-bottom: 40px;
-}
-
+/* --- Content --- */
 .about__body {
 	margin-bottom: 48px;
 }
@@ -247,12 +222,6 @@
 	.about__content {
 		order: 1;
 		text-align: center;
-	}
-
-	.about__header {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
 	}
 
 	.about__text {

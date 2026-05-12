@@ -1,6 +1,7 @@
 export const content = {
-	intro: "Metodologia focada em transformar sua saúde através de uma medicina personalizada e baseada em evidências.",
+	intro: "Metodologia",
 	title: "Como cuidamos de você.",
+	description: "Metodologia focada em transformar sua saúde através de uma medicina personalizada e baseada em evidências.",
 	cta: {
 		text: "Saiba Mais",
 		url: "#contato",

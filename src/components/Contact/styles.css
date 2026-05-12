@@ -15,21 +15,6 @@
 	align-items: center;
 }
 
-.contact__title {
-	font-family: var(--font-heading);
-	font-size: clamp(2.2rem, 5vw, 3rem);
-	color: var(--color-dark-text);
-	margin-bottom: 20px;
-}
-
-.contact__subtitle {
-	font-family: var(--font-body);
-	font-size: 1.1rem;
-	color: var(--color-body-text);
-	margin-bottom: 48px;
-	line-height: 1.6;
-}
-
 .contact__details {
 	display: grid;
 	gap: 40px;
@@ -95,12 +80,6 @@
 
 	.contact__info {
 		text-align: center;
-	}
-
-	.contact__subtitle {
-		margin-left: auto;
-		margin-right: auto;
-		max-width: 600px;
 	}
 
 	.contact__link {
