@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer/Footer.astro';
+import '../styles/legal.css';
+
+const title = "Política de Privacidade | Dra. Carolina Mendes";
+---
+
+<Layout title={title}>
+  <main class="legal-page">
+    <div class="legal-page__container">
+      <a href="/" class="legal-page__back">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Voltar para a Home
+      </a>
+
+      <h1 class="legal-page__title">Política de Privacidade</h1>
+      <span class="legal-page__date">Última atualização: 12 de Maio de 2026</span>
+
+      <div class="legal-page__content">
+        <p>A sua privacidade é importante para nós. É política da Dra. Carolina Mendes respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site.</p>
+
+        <h2>1. Coleta de Informações</h2>
+        <p>Solicitamos informações pessoais apenas quando realmente precisamos delas para lhe fornecer um serviço. Fazemo-lo por meios justos e legais, com o seu conhecimento e consentimento. Também informamos por que estamos coletando e como será usado.</p>
+
+        <h2>2. Uso de Dados</h2>
+        <p>Apenas retemos as informações coletadas pelo tempo necessário para fornecer o serviço solicitado. Quando armazenamos dados, protegemos dentro de meios comercialmente aceitáveis ​​para evitar perdas e roubos, bem como acesso, divulgação, cópia, uso ou modificação não autorizados.</p>
+
+        <h2>3. Compartilhamento de Informações</h2>
+        <p>Não compartilhamos informações de identificação pessoal publicamente ou com terceiros, exceto quando exigido por lei ou para a prestação de serviços médicos solicitados pelo paciente.</p>
+
+        <h2>4. Compromisso do Usuário</h2>
+        <p>O usuário se compromete a fazer uso adequado dos conteúdos e da informação que a Dra. Carolina Mendes oferece no site e com caráter enunciativo, mas não limitativo:</p>
+        <ul>
+          <li>Não se envolver em atividades que sejam ilegais ou contrárias à boa fé e à ordem pública;</li>
+          <li>Não causar danos aos sistemas físicos e lógicos da clínica;</li>
+          <li>Respeitar a confidencialidade das informações médicas compartilhadas.</li>
+        </ul>
+
+        <h2>5. Mais Informações</h2>
+        <p>Esperemos que esteja esclarecido e, como mencionado anteriormente, se houver algo que você não tem certeza se precisa ou não, geralmente é mais seguro deixar os cookies ativados, caso interaja com um dos recursos que você usa em nosso site.</p>
+        
+        <p>Esta política é efetiva a partir de Maio de 2026.</p>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

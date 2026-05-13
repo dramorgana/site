@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer/Footer.astro';
+import '../styles/legal.css';
+
+const title = "Termos de Uso | Dra. Carolina Mendes";
+---
+
+<Layout title={title}>
+  <main class="legal-page">
+    <div class="legal-page__container">
+      <a href="/" class="legal-page__back">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Voltar para a Home
+      </a>
+
+      <h1 class="legal-page__title">Termos de Uso</h1>
+      <span class="legal-page__date">Última atualização: 12 de Maio de 2026</span>
+
+      <div class="legal-page__content">
+        <h2>1. Aceitação dos Termos</h2>
+        <p>Ao acessar ao site da Dra. Carolina Mendes, você concorda em cumprir estes termos de serviço, todas as leis e regulamentos aplicáveis ​​e concorda que é responsável pelo cumprimento de todas as leis locais aplicáveis.</p>
+
+        <h2>2. Uso de Licença</h2>
+        <p>É concedida permissão para baixar temporariamente uma cópia dos materiais (informações ou software) no site, apenas para visualização transitória pessoal e não comercial. Esta é a concessão de uma licença, não uma transferência de título.</p>
+
+        <h2>3. Isenção de Responsabilidade</h2>
+        <p>Os materiais no site da Dra. Carolina Mendes são fornecidos 'como estão'. A Dra. Carolina Mendes não oferece garantias, expressas ou implícitas, e, por este meio, isenta e nega todas as outras garantias, incluindo, sem limitação, garantias implícitas ou condições de comercialização, adequação a um fim específico ou não violação de propriedade intelectual ou outra violação de direitos.</p>
+        
+        <p>Além disso, a Dra. Carolina Mendes não garante ou faz qualquer representação relativa à precisão, aos resultados prováveis ​​ou à confiabilidade do uso dos materiais em seu site ou de outra forma relacionado a esses materiais ou em sites vinculados a este site.</p>
+
+        <h2>4. Limitações</h2>
+        <p>Em nenhum caso a Dra. Carolina Mendes ou seus fornecedores serão responsáveis ​​por quaisquer danos (incluindo, sem limitação, danos por perda de dados ou lucro ou devido a interrupção dos negócios) decorrentes do uso ou da incapacidade de usar os materiais em nosso site.</p>
+
+        <h2>5. Precisão dos Materiais</h2>
+        <p>Os materiais exibidos no site podem incluir erros técnicos, tipográficos ou fotográficos. A Dra. Carolina Mendes não garante que qualquer material em seu site seja preciso, completo ou atual. Podemos fazer alterações nos materiais contidos em seu site a qualquer momento, sem aviso prévio.</p>
+
+        <h2>6. Links</h2>
+        <p>A Dra. Carolina Mendes não analisou todos os sites vinculados ao seu site e não é responsável pelo conteúdo de nenhum site vinculado. A inclusão de qualquer link não implica endosso por Dra. Carolina Mendes do site. O uso de qualquer site vinculado é por conta e risco do usuário.</p>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
