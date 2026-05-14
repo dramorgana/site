@@ -1,0 +1,20 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BlogSection from "../../components/BlogSection/BlogSection.astro";
+import Footer from "../../components/Footer/Footer.astro";
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://dracarolinamendes.com.br');
+---
+
+<Layout 
+  title="Blog | Dra. Carolina Mendes - Saúde Metabólica e Emagrecimento"
+  description="Artigos e novidades sobre saúde metabólica, nutrição e emagrecimento consciente escritos pela Dra. Carolina Mendes."
+>
+  <head slot="head">
+    <link rel="canonical" href={canonicalURL} />
+  </head>
+  <main style="padding-top: 80px;">
+    <BlogSection limit={undefined} showPagination={true} />
+  </main>
+  <Footer />
+</Layout>

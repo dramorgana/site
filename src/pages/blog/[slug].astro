@@ -1,0 +1,103 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Footer from "../../components/Footer/Footer.astro";
+import { posts } from "../../components/BlogSection/data";
+import "../../styles/post.css";
+
+export async function getStaticPaths() {
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://dracarolinamendes.com.br');
+
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.title,
+  "description": post.seoDescription,
+  "image": post.image,
+  "datePublished": post.date,
+  "author": {
+    "@type": "Person",
+    "name": post.author
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Dra. Carolina Mendes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.svg"
+    }
+  }
+};
+---
+
+<Layout 
+  title={`${post.title} | Blog Dra. Carolina Mendes`}
+  description={post.seoDescription}
+>
+  <head slot="head">
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:title" content={post.title} />
+    <meta property="og:description" content={post.seoDescription} />
+    <meta property="og:image" content={post.image} />
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  </head>
+  <main>
+    <article class="post-container">
+      <header class="post-header">
+        <span class="post-category">{post.category}</span>
+        <h1 class="post-title">{post.title}</h1>
+        <div class="post-meta">
+          <span>{post.date}</span>
+          <span>•</span>
+          <span>Por {post.author}</span>
+        </div>
+      </header>
+
+      <img src={post.image} alt={post.title} class="post-hero-image" />
+
+      <div class="post-content">
+        <p>
+          Este é um artigo completo sobre <strong>{post.title}</strong>. A saúde metabólica é a base para um emagrecimento sustentável e duradouro.
+        </p>
+        
+        <h2>Entendendo o Conceito</h2>
+        <p>
+          Muitas pessoas acreditam que emagrecer é apenas uma questão de "fechar a boca e malhar". No entanto, a ciência nos mostra que o corpo humano é muito mais complexo do que uma simples calculadora de calorias.
+        </p>
+        
+        <p>
+          {post.excerpt}
+        </p>
+        
+        <h2>Dicas Práticas</h2>
+        <p>
+          Para alcançar resultados reais, é necessário olhar para diversos pilares, incluindo alimentação, sono, controle do estresse e atividade física direcionada.
+        </p>
+        
+        <ul>
+          <li>Mantenha-se hidratado ao longo do dia.</li>
+          <li>Priorize alimentos in natura e minimamente processados.</li>
+          <li>Respeite seus sinais de fome e saciedade.</li>
+          <li>Busque acompanhamento profissional qualificado.</li>
+        </ul>
+      </div>
+
+      <footer class="post-footer">
+        <a href="/blog" class="back-to-blog">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Voltar para o Blog
+        </a>
+      </footer>
+    </article>
+  </main>
+  <Footer />
+</Layout>

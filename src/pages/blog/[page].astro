@@ -1,0 +1,108 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BlogSection from "../../components/BlogSection/BlogSection.astro";
+import { posts } from "../../components/BlogSection/data";
+import Footer from "../../components/Footer/Footer.astro";
+
+export async function getStaticPaths({ paginate }: { paginate: any }) {
+  const sortedPosts = posts.sort((a, b) => b.id - a.id);
+  return paginate(sortedPosts, { pageSize: 3 }); // Using 3 to show pagination with 6 posts
+}
+
+const { page } = Astro.props;
+---
+
+<Layout title={`Blog - Página ${page.currentPage} | Dra. Carolina Mendes`}>
+  <main style="padding-top: 80px;">
+    <section class="blog-page">
+      <div class="container">
+        <BlogSection limit={undefined} showPagination={false} customPosts={page.data} />
+        
+        <nav class="pagination" aria-label="Navegação de posts">
+          {page.url.prev ? (
+            <a href={page.url.prev === "/blog/1" ? "/blog" : page.url.prev} class="pagination-btn" aria-label="Página anterior">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </a>
+          ) : (
+            <span class="pagination-btn disabled">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </span>
+          )}
+
+          {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((pageNum) => (
+            <a 
+              href={pageNum === 1 ? "/blog" : `/blog/${pageNum}`} 
+              class={`pagination-btn ${page.currentPage === pageNum ? 'active' : ''}`}
+            >
+              {pageNum}
+            </a>
+          ))}
+
+          {page.url.next ? (
+            <a href={page.url.next} class="pagination-btn" aria-label="Próxima página">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+          ) : (
+            <span class="pagination-btn disabled">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </span>
+          )}
+        </nav>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .blog-page {
+    padding-bottom: 100px;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .pagination {
+    margin-top: -30px; /* Adjust because BlogSection has padding */
+    padding-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .pagination-btn {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 128, 128, 0.2);
+    background: white;
+    color: var(--accent-color, #008080);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .pagination-btn:hover:not(.disabled) {
+    background: var(--accent-color, #008080);
+    color: white;
+  }
+
+  .pagination-btn.active {
+    background: var(--accent-color, #008080);
+    color: white;
+  }
+
+  .pagination-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+</style>

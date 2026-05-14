@@ -48,6 +48,7 @@ const schema = {
 
 		<!-- Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+		<slot name="head" />
 	</head>
 	<body>
 		<slot />
