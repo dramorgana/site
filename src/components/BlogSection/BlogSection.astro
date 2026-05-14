@@ -1,0 +1,251 @@
+---
+import "./styles.css";
+import SectionHeader from "../SectionHeader/SectionHeader.astro";
+import { posts } from "./data";
+
+interface Props {
+  limit?: number;
+  showPagination?: boolean;
+  customPosts?: any[];
+}
+
+const { limit = 3, showPagination = false, customPosts } = Astro.props;
+
+const allPosts = customPosts || posts;
+// For SEO, we want the initial display to be static, but client-side script will handle navigation
+---
+
+<section class="blog-section" id="blog">
+  <div class="blog-container">
+    <div class="blog-content-area">
+      <div class="blog-grid" id="blog-grid">
+        {
+          allPosts.map((post, index) => (
+            <article
+              class={`blog-card ${
+                !showPagination && index >= limit ? "hidden" : ""
+              }`}
+              data-index={index}
+              style={`--index: ${index % limit};`}
+            >
+              <span class="blog-category">{post.category}</span>
+              <div class="blog-image-wrapper">
+                <img
+                  src={post.image}
+                  alt={post.altText}
+                  class="blog-image"
+                  loading="lazy"
+                />
+              </div>
+              <div class="blog-content">
+                <span class="blog-date">{post.date}</span>
+                <h3 class="blog-title">{post.title}</h3>
+                <p class="blog-excerpt">{post.excerpt}</p>
+                <div class="blog-footer">
+                  <a href={`/blog/${post.slug}`} class="read-more">
+                    Ler artigo
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      {
+        !showPagination && allPosts.length > limit && (
+          <div class="section-pagination">
+            <button
+              class="pagination-btn"
+              id="prev-btn"
+              disabled
+              aria-label="Anterior"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <div class="pagination-dots" id="pagination-dots">
+              {Array.from({ length: Math.ceil(allPosts.length / limit) }).map(
+                (_, i) => (
+                  <span
+                    class={`dot ${i === 0 ? "active" : ""}`}
+                    data-page={i}
+                  />
+                )
+              )}
+            </div>
+            <button class="pagination-btn" id="next-btn" aria-label="Próximo">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
+        )
+      }
+
+      {
+        !showPagination && (
+          <div class="blog-all-posts-mobile">
+            <a href="/blog" class="btn-secondary">
+              Ver todos os artigos no Blog
+            </a>
+          </div>
+        )
+      }
+    </div>
+
+    <div class="blog-header-area">
+      <SectionHeader
+        title="Posts e Novidades"
+        kicker="Conteúdo Especializado"
+        description="Fique por dentro das últimas novidades, dicas e artigos sobre saúde metabólica, emagrecimento e qualidade de vida escritos pela Dra. Carolina Mendes."
+        centered={false}
+      />
+
+      {
+        !showPagination && (
+          <div class="blog-all-posts-desktop" style="margin-top: 30px;">
+            <a href="/blog" class="btn-secondary">
+              Ver todos os artigos no Blog
+            </a>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ limit, total: allPosts.length }}>
+  // Client-side pagination logic
+  document.addEventListener("DOMContentLoaded", () => {
+    const grid = document.getElementById("blog-grid");
+    if (!grid) return;
+
+    const cards = grid.querySelectorAll(".blog-card");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const dotsContainer = document.getElementById("pagination-dots");
+    if (!dotsContainer) return;
+
+    const dots = dotsContainer.querySelectorAll(".dot");
+    let currentPage = 0;
+    const totalPages = Math.ceil(total / limit);
+
+    function updatePagination() {
+      cards.forEach((card, index) => {
+        const start = currentPage * limit;
+        const end = start + limit;
+        card.classList.remove("animate-in"); // Reset animation
+
+        if (index >= start && index < end) {
+          card.classList.remove("hidden");
+          // Trigger reflow to restart animation
+          void card.offsetWidth;
+          card.classList.add("animate-in");
+        } else {
+          card.classList.add("hidden");
+        }
+      });
+
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("active", index === currentPage);
+      });
+
+      if (prevBtn) prevBtn.disabled = currentPage === 0;
+      if (nextBtn) nextBtn.disabled = currentPage === totalPages - 1;
+    }
+
+    function scrollToTop() {
+      const section = document.getElementById("blog");
+      if (section) {
+        const offset = 80; // Buffer for potential sticky site header
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = section.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        if (currentPage > 0) {
+          currentPage--;
+          updatePagination();
+          scrollToTop();
+        }
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        if (currentPage < totalPages - 1) {
+          currentPage++;
+          updatePagination();
+          scrollToTop();
+        }
+      });
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        const newPage = parseInt(dot.getAttribute("data-page") || "0");
+        if (newPage !== currentPage) {
+          currentPage = newPage;
+          updatePagination();
+          scrollToTop();
+        }
+      });
+    });
+
+    // Initial update
+    updatePagination();
+  });
+</script>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+</style>
