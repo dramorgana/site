@@ -23,22 +23,25 @@
 
 .blog-content-area {
   order: 2;
-  overflow: visible; /* Crucial for sticky */
+  overflow: visible;
+  /* Crucial for sticky */
 }
 
 .blog-grid {
   display: block;
   min-height: 400px;
   overflow: visible;
-  padding-bottom: 100px; /* Reduced space */
+  padding-bottom: 100px;
+  /* Reduced space */
 }
 
 .blog-card {
   position: sticky;
-  top: calc(100px + (var(--index) * 16px));
+  top: calc(100px + (var(--index) * 5px));
   z-index: calc(var(--index) + 1);
-  margin-bottom: 20px; /* Compact list spacing */
-  
+  margin-bottom: 20px;
+  /* Compact list spacing */
+
   /* Inverted scale: higher index (top cards) are larger (scale 1) */
   transform-origin: top center;
   transform: scale(calc(1 - ((2 - var(--index)) * 0.02)));
@@ -58,7 +61,8 @@
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   display: flex;
   flex-direction: row;
-  height: 220px; /* Standard fixed height */
+  height: 220px;
+  /* Standard fixed height */
 }
 
 /* Consistency: same margin for all cards */
@@ -199,7 +203,7 @@
 
 /* Pagination Styles */
 .section-pagination {
-  margin-top: 40px;
+  margin-top: -100px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -267,7 +271,9 @@
 
 @media (max-width: 768px) {
   .blog-grid {
-    grid-template-columns: 1fr;
+    display: block;
+    padding-bottom: 300px;
+    /* Extra space for stacking on mobile */
   }
 }
 
@@ -286,12 +292,15 @@
 @media (max-width: 640px) {
   .blog-card {
     flex-direction: column;
+    height: 500px;
+    /* Fixed height for mobile standardization */
   }
 
   .blog-image-wrapper {
     width: 100%;
-    height: 200px;
-    min-height: auto;
+    height: 260px;
+    /* Increased image height on mobile */
+    flex: 0 0 260px;
   }
 }
 
@@ -310,11 +319,29 @@
     display: block;
   }
 }
+
 @media (max-width: 992px) {
+
+  .blog-section,
+  .blog-container,
+  .blog-content-area {
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  .blog-grid {
+    min-height: 100vh;
+    overflow: visible !important;
+    display: block !important;
+    padding-bottom: 150px;
+  }
+
   .blog-card {
-    position: relative;
-    top: 0;
-    margin-bottom: 25px;
-    transform: none;
+    position: sticky !important;
+    top: calc(5px + (var(--index) * 5px)) !important;
+    z-index: calc(var(--index) + 100) !important;
+    margin-bottom: 8vh;
+    transform: none !important;
+    height: 550px !important;
   }
 }

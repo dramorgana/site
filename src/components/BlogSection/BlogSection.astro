@@ -17,6 +17,25 @@ const allPosts = customPosts || posts;
 
 <section class="blog-section" id="blog">
   <div class="blog-container">
+    <div class="blog-header-area">
+      <SectionHeader
+        title="Posts e Novidades"
+        kicker="Conteúdo Especializado"
+        description="Fique por dentro das últimas novidades, dicas e artigos sobre saúde metabólica, emagrecimento e qualidade de vida escritos pela Dra. Carolina Mendes."
+        centered={false}
+      />
+
+      {
+        !showPagination && (
+          <div class="blog-all-posts-desktop" style="margin-top: 30px;">
+            <a href="/blog" class="btn-secondary">
+              Ver todos os artigos no Blog
+            </a>
+          </div>
+        )
+      }
+    </div>
+
     <div class="blog-content-area">
       <div class="blog-grid" id="blog-grid">
         {
@@ -121,25 +140,6 @@ const allPosts = customPosts || posts;
       {
         !showPagination && (
           <div class="blog-all-posts-mobile">
-            <a href="/blog" class="btn-secondary">
-              Ver todos os artigos no Blog
-            </a>
-          </div>
-        )
-      }
-    </div>
-
-    <div class="blog-header-area">
-      <SectionHeader
-        title="Posts e Novidades"
-        kicker="Conteúdo Especializado"
-        description="Fique por dentro das últimas novidades, dicas e artigos sobre saúde metabólica, emagrecimento e qualidade de vida escritos pela Dra. Carolina Mendes."
-        centered={false}
-      />
-
-      {
-        !showPagination && (
-          <div class="blog-all-posts-desktop" style="margin-top: 30px;">
             <a href="/blog" class="btn-secondary">
               Ver todos os artigos no Blog
             </a>
