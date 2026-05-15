@@ -9,5 +9,8 @@ export default defineConfig({
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()]
+  },
+  image: {
+    domains: ["images.unsplash.com"],
   }
 });

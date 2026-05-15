@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import "./styles.css";
 import SectionHeader from "../SectionHeader/SectionHeader.astro";
 import { posts } from "./data";
@@ -49,10 +50,12 @@ const allPosts = customPosts || posts;
             >
               <span class="blog-category">{post.category}</span>
               <div class="blog-image-wrapper">
-                <img
+                <Image
                   src={post.image}
                   alt={post.altText}
                   class="blog-image"
+                  width={400}
+                  height={250}
                   loading="lazy"
                 />
               </div>

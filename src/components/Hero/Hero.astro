@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import heroImage from '../../assets/hero-health-weight-loss.png';
 import { content } from './data';
 import './styles.css';
 ---
@@ -7,12 +9,12 @@ import './styles.css';
 	<!-- Background image full-bleed -->
 	<div class="hero__bg">
 		<div class="hero__bg-wrapper">
-			<img
-				src={content.background.src}
+			<Image
+				src={heroImage}
 				alt={content.background.alt}
 				class="hero__bg-image"
-				width="1440"
-				height="900"
+				widths={[640, 768, 1024, 1440]}
+				sizes="(max-width: 768px) 100vw, 1440px"
 				loading="eager"
 				fetchpriority="high"
 			/>
