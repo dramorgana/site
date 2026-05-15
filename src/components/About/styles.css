@@ -58,6 +58,7 @@
 	align-items: center;
 	position: relative;
 	z-index: 1;
+
 }
 
 /* --- Content --- */
@@ -187,6 +188,7 @@
 	line-height: 0;
 	transform: rotate(180deg);
 	z-index: 10;
+
 }
 
 .wave-divider svg {
@@ -195,14 +197,18 @@
 	width: calc(100% + 1.3px);
 	height: 80px;
 	filter: drop-shadow(0 -10px 15px rgba(0, 0, 0, 0.08));
+
 }
 
 .wave-divider--about svg {
 	filter: drop-shadow(0 -15px 20px rgba(0, 0, 0, 0.1));
+
 }
 
 .wave-divider--about {
 	bottom: -1px;
+
+
 }
 
 /* ============================================
