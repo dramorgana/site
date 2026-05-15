@@ -1,9 +1,23 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import heroImage from '../../assets/hero-health-weight-loss.png';
 import { content } from './data';
 import './styles.css';
+
+// Generate optimized URL for preloading
+const optimizedHero = await getImage({ src: heroImage, format: 'webp', width: 1440 });
 ---
+
+<slot name="head">
+	<link 
+		rel="preload" 
+		as="image" 
+		href={optimizedHero.src} 
+		imagesrcset={optimizedHero.srcSet.attribute}
+		imagesizes="(max-width: 768px) 100vw, 1440px"
+		fetchpriority="high"
+	/>
+</slot>
 
 <section id="hero" class="hero">
 	<!-- Background image full-bleed -->

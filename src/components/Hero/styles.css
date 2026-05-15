@@ -31,6 +31,7 @@
 	object-fit: cover;
 	object-position: center;
 	animation: zoomOut 30s ease-in-out infinite alternate;
+	will-change: transform;
 }
 
 .hero__bg-overlay {
@@ -64,7 +65,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	animation: fadeInCard 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+	/* Removed fadeInCard animation to ensure immediate LCP detection */
 }
 
 /* --- Doctor Identity --- */
@@ -178,17 +179,6 @@
 }
 
 /* --- Animations --- */
-@keyframes fadeInCard {
-	from {
-		opacity: 0;
-		transform: translateY(30px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
 @keyframes zoomOut {
 	from {
 		transform: scale(1.15);
@@ -198,9 +188,7 @@
 	}
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
+/* --- Responsive Overrides --- */
 @media (max-width: 768px) {
 	.hero__container {
 		padding: 20px 16px;
