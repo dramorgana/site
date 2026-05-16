@@ -5,6 +5,7 @@ import author from './author'
 import heroContent from './heroContent'
 import aboutContent from './aboutContent'
 import blogContent from './blogContent'
+import contactContent from './contactContent'
 
 export const schemaTypes = [
   post,
@@ -13,5 +14,6 @@ export const schemaTypes = [
   blockContent,
   heroContent,
   aboutContent,
-  blogContent
+  blogContent,
+  contactContent
 ]
