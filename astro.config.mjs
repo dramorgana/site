@@ -8,8 +8,8 @@ export default defineConfig({
   integrations: [
     sitemap(),
     sanity({
-      projectId: SanityConfig.projectId || 'vd8c7dlq',
-      dataset: SanityConfig.dataset || 'production',
+      projectId: SanityConfig.projectId,
+      dataset: SanityConfig.dataset,
       useCdn: true,
       apiVersion: '2024-03-15',
     })
