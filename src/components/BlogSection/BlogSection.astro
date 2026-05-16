@@ -2,63 +2,7 @@
 import { Image } from "astro:assets";
 import "./styles.css";
 import SectionHeader from "../SectionHeader/SectionHeader.astro";
-import { sanityClient, urlFor } from "../../lib/sanity";
-
-interface Post {
-  title: string;
-  slug: { current: string };
-  publishedAt: string;
-  mainImage?: any;
-  description?: string;
-  authorName?: string;
-  authorCrm?: string;
-  authorImage?: any;
-  category?: string;
-}
-
-const query = `*[_type == "post"] | order(publishedAt desc) {
-  title,
-  slug,
-  publishedAt,
-  mainImage,
-  description,
-  "authorName": author->name,
-  "authorCrm": author->crm,
-  "authorImage": author->image,
-  "category": categories[0]->title
-}`;
-
-const rawPosts = await sanityClient.fetch(query);
-
-// Mapa de resumos originais para garantir que nada fique vazio durante a migração
-const DESCRIPTIONS_FALLBACK: Record<string, string> = {
-  "importancia-saude-metabolica": "Entenda como o seu metabolismo influencia a perda de peso e por que dietas restritivas podem não ser a solução definitiva.",
-  "motivacao-processo-mudanca": "Dicas práticas para sustentar seus novos hábitos e não desistir nos momentos de maior desafio.",
-  "alimentacao-consciente": "Saiba como o mindfulness pode transformar sua relação com a comida e auxiliar no controle do peso.",
-  "sono-regulacao-hormonal": "Dormir bem é fundamental para o equilíbrio dos hormônios que controlam a fome e a saciedade.",
-  "exercicios-resistencia-vs-cardio": "Descubra a combinação ideal de atividades físicas para otimizar a queima de gordura e ganhar massa magra.",
-  "suplementacao-inteligente": "Um guia sobre os suplementos que podem auxiliar no seu processo de emagrecimento de forma segura."
-};
-
-const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800";
-
-// Formatação de data e tratamento de campos vazios
-const posts = rawPosts.map((post: any) => ({
-  ...post,
-  slug: post.slug.current,
-  image: post.mainImage ? urlFor(post.mainImage).width(800).url() : DEFAULT_IMAGE,
-  description: post.description || DESCRIPTIONS_FALLBACK[post.slug.current] || "Leia mais sobre este assunto em nosso blog completo.",
-  date: new Date(post.publishedAt || new Date()).toLocaleDateString('pt-BR', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric'
-  }).replace('.', ''),
-  authorName: post.authorName || "Dra. Carolina Mendes",
-  authorCrm: post.authorCrm || "CRM-SP 123456",
-  authorImage: post.authorImage ? urlFor(post.authorImage).width(100).url() : "https://ui-avatars.com/api/?name=Carolina+Mendes&background=c5a059&color=fff",
-  category: post.category || "Saúde Integrativa",
-  altText: post.title
-}));
+import { posts, header } from "./data";
 
 interface Props {
   limit?: number;
@@ -75,9 +19,9 @@ const totalPosts = allPosts.length;
   <div class="blog-container">
     <div class="blog-header-area">
       <SectionHeader
-        title="Posts e Novidades"
-        kicker="Conteúdo Especializado"
-        description="Fique por dentro das últimas novidades, dicas e artigos sobre saúde metabólica, emagrecimento e qualidade de vida escritos pela Dra. Carolina Mendes."
+        title={header.title}
+        kicker={header.kicker}
+        description={header.description}
         centered={false}
       />
 
@@ -85,7 +29,7 @@ const totalPosts = allPosts.length;
         !showPagination && (
           <div class="blog-all-posts-desktop" style="margin-top: 30px;">
             <a href="/blog" class="btn-secondary">
-              Ver todos os artigos no Blog
+              {header.viewAllLabel}
             </a>
           </div>
         )
@@ -217,7 +161,7 @@ const totalPosts = allPosts.length;
         !showPagination && (
           <div class="blog-all-posts-mobile">
             <a href="/blog" class="btn-secondary">
-              Ver todos os artigos no Blog
+              {header.viewAllLabel}
             </a>
           </div>
         )
