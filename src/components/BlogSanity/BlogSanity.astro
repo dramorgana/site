@@ -1,0 +1,81 @@
+---
+import { sanityClient } from "../../lib/sanity";
+import { Image } from "astro:assets";
+import SectionHeader from "../SectionHeader/SectionHeader.astro";
+
+/**
+ * BUSCA DE DADOS (GROQ)
+ * Estamos buscando posts que tenham o tipo "post".
+ * Pegamos o título, slug, imagem principal e o nome da categoria.
+ */
+const posts = await sanityClient.fetch(`
+  *[_type == "post"] | order(publishedAt desc) [0...3] {
+    title,
+    "slug": slug.current,
+    "image": mainImage.asset->url,
+    publishedAt,
+    "category": categories[0]->title
+  }
+`);
+
+const hasPosts = posts && posts.length > 0;
+---
+
+<section class="blog-section" id="blog-sanity">
+  <div class="blog-container">
+    <SectionHeader
+      title="Posts do CMS (Sanity)"
+      kicker="Conteúdo Dinâmico"
+      description="Estes posts estão vindo diretamente do seu Headless CMS Sanity."
+      centered={false}
+    />
+
+    <div class="blog-content-area">
+      <div class="blog-grid">
+        {hasPosts ? (
+          posts.map((post) => (
+            <article class="blog-card">
+              <span class="blog-category">{post.category || 'Geral'}</span>
+              <div class="blog-image-wrapper">
+                {post.image && (
+                  <img
+                    src={`${post.image}?w=400&h=250&fit=crop&auto=format`}
+                    alt={post.title}
+                    class="blog-image"
+                    loading="lazy"
+                  />
+                )}
+              </div>
+              <div class="blog-card-content">
+                <time class="blog-date">
+                  {new Date(post.publishedAt).toLocaleDateString('pt-BR')}
+                </time>
+                <h3 class="blog-card-title">{post.title}</h3>
+                <a href={`/blog/${post.slug}`} class="blog-link">
+                  Ler artigo completo →
+                </a>
+              </div>
+            </article>
+          ))
+        ) : (
+          <div class="blog-empty-state">
+            <p>Ainda não há posts publicados no Sanity. Acesse seu painel e crie o primeiro!</p>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Aproveita os estilos que você já tem no seu BlogSection.css */
+  .blog-empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px;
+    background: rgba(0, 155, 77, 0.05);
+    border-radius: 20px;
+    border: 1px dashed var(--color-sage);
+    color: var(--color-muted);
+  }
+</style>
