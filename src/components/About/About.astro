@@ -39,14 +39,27 @@ import "./styles.css";
 		<!-- Lado Visual (Foto) -->
 		<div class="about__visual">
 			<div class="about__image-frame">
-				<Image
-					src={doctorImage}
-					alt={content.image.alt}
-					class="about__image"
-					widths={[400, 600, 800]}
-					sizes="(max-width: 768px) 90vw, 600px"
-					loading="lazy"
-				/>
+				{
+					content.image.src.startsWith('http') ? (
+						<img 
+							src={content.image.src}
+							alt={content.image.alt}
+							class="about__image"
+							loading="lazy"
+							width={content.image.width}
+							height={content.image.height}
+						/>
+					) : (
+						<Image
+							src={doctorImage}
+							alt={content.image.alt}
+							class="about__image"
+							widths={[400, 600, 800]}
+							sizes="(max-width: 768px) 90vw, 600px"
+							loading="lazy"
+						/>
+					)
+				}
 				<!-- Elementos decorativos premium -->
 				<div class="about__image-accent about__image-accent--top"></div>
 				<div class="about__image-accent about__image-accent--bottom">

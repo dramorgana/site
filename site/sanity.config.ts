@@ -2,14 +2,13 @@ import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './schemaTypes'
-import { SanityConfig } from '../env'
 
 export default defineConfig({
   name: 'default',
-  title: 'site',
+  title: 'Dra. Carolina Mendes',
 
-  projectId: SanityConfig.projectId,
-  dataset: SanityConfig.dataset,
+  projectId: 'vd8c7dlq',
+  dataset: 'production',
 
   plugins: [structureTool(), visionTool()],
 

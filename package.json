@@ -23,5 +23,8 @@
     "astro-portabletext": "^0.13.0",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.2.4"
+  },
+  "overrides": {
+    "vite": "^7"
   }
 }

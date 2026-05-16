@@ -1,15 +1,23 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import sanity from '@sanity/astro';
-import { SanityConfig } from './env';
+import { loadEnv } from "vite";
+
+// Carrega as variáveis de ambiente do .env de forma segura
+const { PUBLIC_SANITY_PROJECT_ID, PUBLIC_SANITY_DATASET } = loadEnv(
+  process.env.NODE_ENV || "development",
+  process.cwd(),
+  ""
+);
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://dracarolinamendes.com.br',
   integrations: [
     sitemap(),
     sanity({
-      projectId: SanityConfig.projectId,
-      dataset: SanityConfig.dataset,
+      projectId: PUBLIC_SANITY_PROJECT_ID,
+      dataset: PUBLIC_SANITY_DATASET,
       useCdn: true,
       apiVersion: '2024-03-15',
     })

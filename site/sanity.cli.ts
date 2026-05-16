@@ -1,17 +1,17 @@
 import { defineCliConfig } from 'sanity/cli'
-import { SanityConfig } from '../env'
+import * as dotenv from 'dotenv'
+import * as path from 'path'
+
+// Carrega variáveis de ambiente imediatamente
+dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
 export default defineCliConfig({
   api: {
-    projectId: SanityConfig.projectId,
-    dataset: SanityConfig.dataset
+    projectId: process.env.PUBLIC_SANITY_PROJECT_ID,
+    dataset: process.env.PUBLIC_SANITY_DATASET
   },
   deployment: {
-    appId: SanityConfig.appId,
-    /**
-     * Enable auto-updates for studios.
-     * Learn more at https://www.sanity.io/docs/studio/latest-version-of-sanity#k47faf43faf56
-     */
+    appId: process.env.SANITY_STUDIO_APP_ID,
     autoUpdates: true,
   }
 })
