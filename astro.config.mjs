@@ -1,10 +1,7 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import sanity from '@sanity/astro';
 import { SanityConfig } from './env';
-
 // https://astro.build/config
 export default defineConfig({
   site: 'https://dracarolinamendes.com.br',
@@ -21,7 +18,7 @@ export default defineConfig({
     inlineStylesheets: 'always',
   },
   vite: {
-    plugins: [tailwindcss()]
+    plugins: []
   },
   image: {
     domains: ["images.unsplash.com", "cdn.sanity.io"],

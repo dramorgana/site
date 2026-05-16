@@ -1,8 +1,7 @@
-@import "tailwindcss";
+/* Global Styles */
 
-@theme {
+:root {
   /* === Identidade Visual — Skill Spec === */
-
   /* === Identidade Visual Atualizada === */
 
   /* Cor Primária — Verde Vibrante: energia, saúde e vida */
