@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import sanity from '@sanity/astro';
+import { SanityConfig } from './env';
 
 // https://astro.build/config
 export default defineConfig({
@@ -10,8 +11,8 @@ export default defineConfig({
   integrations: [
     sitemap(),
     sanity({
-      projectId: process.env.PUBLIC_SANITY_PROJECT_ID || 'insira-seu-id-aqui',
-      dataset: 'production',
+      projectId: SanityConfig.projectId || 'vd8c7dlq',
+      dataset: SanityConfig.dataset || 'production',
       useCdn: true,
       apiVersion: '2024-03-15',
     })
