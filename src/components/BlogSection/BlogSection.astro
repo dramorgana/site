@@ -2,7 +2,63 @@
 import { Image } from "astro:assets";
 import "./styles.css";
 import SectionHeader from "../SectionHeader/SectionHeader.astro";
-import { posts } from "./data";
+import { sanityClient, urlFor } from "../../lib/sanity";
+
+interface Post {
+  title: string;
+  slug: { current: string };
+  publishedAt: string;
+  mainImage?: any;
+  description?: string;
+  authorName?: string;
+  authorCrm?: string;
+  authorImage?: any;
+  category?: string;
+}
+
+const query = `*[_type == "post"] | order(publishedAt desc) {
+  title,
+  slug,
+  publishedAt,
+  mainImage,
+  description,
+  "authorName": author->name,
+  "authorCrm": author->crm,
+  "authorImage": author->image,
+  "category": categories[0]->title
+}`;
+
+const rawPosts = await sanityClient.fetch(query);
+
+// Mapa de resumos originais para garantir que nada fique vazio durante a migração
+const DESCRIPTIONS_FALLBACK: Record<string, string> = {
+  "importancia-saude-metabolica": "Entenda como o seu metabolismo influencia a perda de peso e por que dietas restritivas podem não ser a solução definitiva.",
+  "motivacao-processo-mudanca": "Dicas práticas para sustentar seus novos hábitos e não desistir nos momentos de maior desafio.",
+  "alimentacao-consciente": "Saiba como o mindfulness pode transformar sua relação com a comida e auxiliar no controle do peso.",
+  "sono-regulacao-hormonal": "Dormir bem é fundamental para o equilíbrio dos hormônios que controlam a fome e a saciedade.",
+  "exercicios-resistencia-vs-cardio": "Descubra a combinação ideal de atividades físicas para otimizar a queima de gordura e ganhar massa magra.",
+  "suplementacao-inteligente": "Um guia sobre os suplementos que podem auxiliar no seu processo de emagrecimento de forma segura."
+};
+
+const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800";
+
+// Formatação de data e tratamento de campos vazios
+const posts = rawPosts.map((post: any) => ({
+  ...post,
+  slug: post.slug.current,
+  image: post.mainImage ? urlFor(post.mainImage).width(800).url() : DEFAULT_IMAGE,
+  description: post.description || DESCRIPTIONS_FALLBACK[post.slug.current] || "Leia mais sobre este assunto em nosso blog completo.",
+  date: new Date(post.publishedAt || new Date()).toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  }).replace('.', ''),
+  authorName: post.authorName || "Dra. Carolina Mendes",
+  authorCrm: post.authorCrm || "CRM-SP 123456",
+  authorImage: post.authorImage ? urlFor(post.authorImage).width(100).url() : "https://ui-avatars.com/api/?name=Carolina+Mendes&background=c5a059&color=fff",
+  category: post.category || "Saúde Integrativa",
+  altText: post.title
+}));
 
 interface Props {
   limit?: number;
@@ -11,9 +67,8 @@ interface Props {
 }
 
 const { limit = 3, showPagination = false, customPosts } = Astro.props;
-
 const allPosts = customPosts || posts;
-// For SEO, we want the initial display to be static, but client-side script will handle navigation
+const totalPosts = allPosts.length;
 ---
 
 <section class="blog-section" id="blog">
@@ -38,9 +93,14 @@ const allPosts = customPosts || posts;
     </div>
 
     <div class="blog-content-area">
-      <div class="blog-grid" id="blog-grid">
+      <div 
+        class="blog-grid" 
+        id="blog-grid" 
+        data-limit={limit} 
+        data-total={totalPosts}
+      >
         {
-          allPosts.map((post, index) => (
+          allPosts.map((post: any, index: number) => (
             <article
               class={`blog-card ${
                 !showPagination && index >= limit ? "hidden" : ""
@@ -62,8 +122,21 @@ const allPosts = customPosts || posts;
               <div class="blog-content">
                 <span class="blog-date">{post.date}</span>
                 <h3 class="blog-title">{post.title}</h3>
-                <p class="blog-excerpt">{post.excerpt}</p>
+                <p class="blog-excerpt">{post.description}</p>
                 <div class="blog-footer">
+                  <div class="blog-author">
+                    <div class="author-avatar">
+                      <img 
+                        src={post.authorImage} 
+                        alt={post.authorName} 
+                      />
+                    </div>
+                    <div class="author-info">
+                      <span class="author-name">{post.authorName}</span>
+                      <span class="author-crm">{post.authorCrm}</span>
+                    </div>
+                  </div>
+
                   <a href={`/blog/${post.slug}`} class="read-more">
                     Ler artigo
                     <svg
@@ -153,11 +226,15 @@ const allPosts = customPosts || posts;
   </div>
 </section>
 
-<script is:inline define:vars={{ limit, total: allPosts.length }}>
+<script>
   // Client-side pagination logic
   document.addEventListener("DOMContentLoaded", () => {
     const grid = document.getElementById("blog-grid");
     if (!grid) return;
+
+    // Read variables from data attributes
+    const limit = parseInt(grid.getAttribute("data-limit") || "3");
+    const total = parseInt(grid.getAttribute("data-total") || "0");
 
     const cards = grid.querySelectorAll(".blog-card");
     const prevBtn = document.getElementById("prev-btn");
@@ -178,6 +255,7 @@ const allPosts = customPosts || posts;
         if (index >= start && index < end) {
           card.classList.remove("hidden");
           // Trigger reflow to restart animation
+          // @ts-ignore
           void card.offsetWidth;
           card.classList.add("animate-in");
         } else {
@@ -189,8 +267,8 @@ const allPosts = customPosts || posts;
         dot.classList.toggle("active", index === currentPage);
       });
 
-      if (prevBtn) prevBtn.disabled = currentPage === 0;
-      if (nextBtn) nextBtn.disabled = currentPage === totalPages - 1;
+      if (prevBtn) (prevBtn as HTMLButtonElement).disabled = currentPage === 0;
+      if (nextBtn) (nextBtn as HTMLButtonElement).disabled = currentPage === totalPages - 1;
     }
 
     function scrollToTop() {
@@ -244,11 +322,3 @@ const allPosts = customPosts || posts;
     updatePagination();
   });
 </script>
-
-<style>
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-</style>

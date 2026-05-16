@@ -1,0 +1,17 @@
+{
+  "_id": "f4b7727d-d03a-486e-838e-b8e5cdb45f46",
+  "_type": "post",
+  "title": "A Importância da Saúde Metabólica no Emagrecimento",
+  "slug": { "_type": "slug", "current": "importancia-saude-metabolica" },
+  "publishedAt": "2026-05-10T00:00:00Z",
+  "author": { "_type": "reference", "_ref": "author-carolina" },
+  "categories": [ { "_type": "reference", "_ref": "cat-saude", "_key": "c1" } ],
+  "body": [
+    {
+      "_type": "block",
+      "_key": "b1",
+      "style": "normal",
+      "children": [{ "_type": "span", "_key": "s1", "text": "A saúde metabólica é o alicerce de qualquer processo de emagrecimento sustentável. Diferente do que muitos pensam, perder peso não é apenas uma questão de 'comer menos e gastar mais', mas sim de como o seu corpo processa a energia e regula os hormônios." }]
+    }
+  ]
+}

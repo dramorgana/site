@@ -11,6 +11,12 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'crm',
+      title: 'CRM',
+      type: 'string',
+      description: 'Ex: CRM-SP 123456',
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',

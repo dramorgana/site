@@ -1,12 +1,43 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import BlogSection from "../../components/BlogSection/BlogSection.astro";
-import { posts } from "../../components/BlogSection/data";
 import Footer from "../../components/Footer/Footer.astro";
+import { sanityClient, urlFor } from "../../lib/sanity";
 
 export async function getStaticPaths({ paginate }: { paginate: any }) {
-  const sortedPosts = posts.sort((a, b) => b.id - a.id);
-  return paginate(sortedPosts, { pageSize: 3 }); // Using 3 to show pagination with 6 posts
+  // Buscamos os posts do Sanity
+  const sanityPosts = await sanityClient.fetch(`
+    *[_type == "post"] | order(publishedAt desc) {
+      title,
+      description,
+      publishedAt,
+      "category": categories[0]->title,
+      mainImage,
+      "slug": slug.current,
+      "altText": title,
+      "authorName": author->name,
+      "authorCrm": author->crm,
+      "authorImage": author->image
+    }
+  `);
+
+  const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800";
+
+  const formattedPosts = sanityPosts.map((post: any) => ({
+    ...post,
+    image: post.mainImage ? urlFor(post.mainImage).width(800).url() : DEFAULT_IMAGE,
+    description: post.description || "Leia mais sobre este assunto em nosso blog completo.",
+    date: new Date(post.publishedAt || new Date()).toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    }).replace('.', ''),
+    authorName: post.authorName || "Dra. Carolina Mendes",
+    authorCrm: post.authorCrm || "CRM-SP 123456",
+    authorImage: post.authorImage ? urlFor(post.authorImage).width(100).url() : "https://ui-avatars.com/api/?name=Carolina+Mendes&background=c5a059&color=fff"
+  }));
+
+  return paginate(formattedPosts, { pageSize: 3 });
 }
 
 const { page } = Astro.props;

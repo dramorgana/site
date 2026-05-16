@@ -45,8 +45,15 @@ export default defineType({
       type: 'datetime',
     }),
     defineField({
+      name: 'description',
+      title: 'Descrição (Card)',
+      type: 'text',
+      rows: 3,
+      validation: (Rule) => Rule.max(200),
+    }),
+    defineField({
       name: 'body',
-      title: 'Body',
+      title: 'Conteúdo do Artigo',
       type: 'blockContent',
     }),
   ],

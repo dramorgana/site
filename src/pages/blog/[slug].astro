@@ -1,17 +1,49 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { PortableText } from "astro-portabletext";
 import Footer from "../../components/Footer/Footer.astro";
-import { posts } from "../../components/BlogSection/data";
+import { sanityClient, urlFor } from "../../lib/sanity";
 import "../../styles/post.css";
 
 export async function getStaticPaths() {
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
+  const posts = await sanityClient.fetch(`*[_type == "post"]{ "slug": slug.current }`);
+  return posts.map((post: any) => ({
+    params: { slug: post.slug }
   }));
 }
 
-const { post } = Astro.props;
+const { slug } = Astro.params;
+
+// Buscamos o post específico do Sanity
+const postSanity = await sanityClient.fetch(`
+  *[_type == "post" && slug.current == $slug][0] {
+    title,
+    description,
+    publishedAt,
+    "category": categories[0]->title,
+    mainImage,
+    "authorName": author->name,
+    "authorCrm": author->crm,
+    "authorImage": author->image,
+    body
+  }
+`, { slug });
+
+const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800";
+
+const post = {
+  ...postSanity,
+  image: postSanity.mainImage ? urlFor(postSanity.mainImage).width(1200).url() : DEFAULT_IMAGE,
+  description: postSanity.description || "Leia mais sobre este assunto em nosso blog completo.",
+  date: new Date(postSanity.publishedAt || new Date()).toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  }).replace('.', ''),
+  author: postSanity.authorName || "Dra. Carolina Mendes",
+  authorCrm: postSanity.authorCrm || "CRM-SP 123456",
+  seoDescription: postSanity.description || "Artigo sobre saúde e bem-estar pela Dra. Carolina Mendes."
+};
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://dracarolinamendes.com.br');
 
@@ -21,7 +53,7 @@ const schemaData = {
   "headline": post.title,
   "description": post.seoDescription,
   "image": post.image,
-  "datePublished": post.date,
+  "datePublished": post.publishedAt,
   "author": {
     "@type": "Person",
     "name": post.author
@@ -59,36 +91,14 @@ const schemaData = {
           <span>{post.date}</span>
           <span>•</span>
           <span>Por {post.author}</span>
+          <span class="post-author-crm">({post.authorCrm})</span>
         </div>
       </header>
 
       <img src={post.image} alt={post.title} class="post-hero-image" />
 
       <div class="post-content">
-        <p>
-          Este é um artigo completo sobre <strong>{post.title}</strong>. A saúde metabólica é a base para um emagrecimento sustentável e duradouro.
-        </p>
-        
-        <h2>Entendendo o Conceito</h2>
-        <p>
-          Muitas pessoas acreditam que emagrecer é apenas uma questão de "fechar a boca e malhar". No entanto, a ciência nos mostra que o corpo humano é muito mais complexo do que uma simples calculadora de calorias.
-        </p>
-        
-        <p>
-          {post.excerpt}
-        </p>
-        
-        <h2>Dicas Práticas</h2>
-        <p>
-          Para alcançar resultados reais, é necessário olhar para diversos pilares, incluindo alimentação, sono, controle do estresse e atividade física direcionada.
-        </p>
-        
-        <ul>
-          <li>Mantenha-se hidratado ao longo do dia.</li>
-          <li>Priorize alimentos in natura e minimamente processados.</li>
-          <li>Respeite seus sinais de fome e saciedade.</li>
-          <li>Busque acompanhamento profissional qualificado.</li>
-        </ul>
+        {post.body ? <PortableText value={post.body} /> : <p>{post.description}</p>}
       </div>
 
       <footer class="post-footer">

@@ -33,9 +33,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
   color: var(--text-secondary, #5d6d7e);
   font-size: 0.9rem;
+}
+
+.post-author-crm {
+  font-size: 0.8rem;
+  color: #95a5a6;
+  font-weight: 400;
 }
 
 .post-hero-image {

@@ -1,0 +1,52 @@
+[
+  {
+    "_id": "e485ca22-3656-4c3a-ac99-6d62487cdc59",
+    "_type": "post",
+    "title": "Como Manter a Motivação Durante o Processo de Mudança",
+    "slug": { "_type": "slug", "current": "motivacao-processo-mudanca" },
+    "publishedAt": "2026-05-11T00:00:00Z",
+    "author": { "_type": "reference", "_ref": "author-carolina" },
+    "categories": [ { "_type": "reference", "_ref": "cat-saude", "_key": "c1" } ],
+    "body": [ { "_type": "block", "_key": "b1", "style": "normal", "children": [{ "_type": "span", "_key": "s1", "text": "A motivação é o que te faz começar, mas a disciplina é o que te mantém no caminho." }] } ]
+  },
+  {
+    "_id": "e9d59227-ceba-459b-b4d5-47369b5a1581",
+    "_type": "post",
+    "title": "Alimentação Consciente: Redescobrindo o Prazer de Comer",
+    "slug": { "_type": "slug", "current": "alimentacao-conscious" },
+    "publishedAt": "2026-05-12T00:00:00Z",
+    "author": { "_type": "reference", "_ref": "author-carolina" },
+    "categories": [ { "_type": "reference", "_ref": "cat-saude", "_key": "c1" } ],
+    "body": [ { "_type": "block", "_key": "b1", "style": "normal", "children": [{ "_type": "span", "_key": "s1", "text": "Comer com consciência permite que o cérebro registre a saciedade, evitando o comer emocional." }] } ]
+  },
+  {
+    "_id": "d3aeb13a-9a65-4a2d-ab2b-f946e82b0dc6",
+    "_type": "post",
+    "title": "O Papel do Sono na Regulação Hormonal",
+    "slug": { "_type": "slug", "current": "sono-regulacao-hormonal" },
+    "publishedAt": "2026-05-13T00:00:00Z",
+    "author": { "_type": "reference", "_ref": "author-carolina" },
+    "categories": [ { "_type": "reference", "_ref": "cat-saude", "_key": "c1" } ],
+    "body": [ { "_type": "block", "_key": "b1", "style": "normal", "children": [{ "_type": "span", "_key": "s1", "text": "Durante o sono, o corpo regula hormônios cruciais como a grelina e a leptina." }] } ]
+  },
+  {
+    "_id": "170ad8e7-eb36-4403-9b0d-edae3057cb0d",
+    "_type": "post",
+    "title": "Exercícios de Resistência vs. Cardio: Qual o Melhor?",
+    "slug": { "_type": "slug", "current": "exercicios-resistencia-vs-cardio" },
+    "publishedAt": "2026-05-14T00:00:00Z",
+    "author": { "_type": "reference", "_ref": "author-carolina" },
+    "categories": [ { "_type": "reference", "_ref": "cat-saude", "_key": "c1" } ],
+    "body": [ { "_type": "block", "_key": "b1", "style": "normal", "children": [{ "_type": "span", "_key": "s1", "text": "O treino de resistência aumenta sua taxa metabólica basal ao construir músculos." }] } ]
+  },
+  {
+    "_id": "3a942a43-fd9c-49c8-b922-3d2d630c74fd",
+    "_type": "post",
+    "title": "Suplementação Inteligente: Quando é Realmente Necessária?",
+    "slug": { "_type": "slug", "current": "suplementacao-inteligente" },
+    "publishedAt": "2026-05-15T00:00:00Z",
+    "author": { "_type": "reference", "_ref": "author-carolina" },
+    "categories": [ { "_type": "reference", "_ref": "cat-saude", "_key": "c1" } ],
+    "body": [ { "_type": "block", "_key": "b1", "style": "normal", "children": [{ "_type": "span", "_key": "s1", "text": "Suplementos devem ser complementos a uma base sólida de alimentação e estilo de vida." }] } ]
+  }
+]

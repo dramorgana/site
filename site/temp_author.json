@@ -1,0 +1,14 @@
+{
+  "_id": "author-carolina",
+  "_type": "author",
+  "name": "Dra. Carolina Mendes",
+  "slug": { "_type": "slug", "current": "dra-carolina-mendes" },
+  "bio": [
+    {
+      "_type": "block",
+      "_key": "b1",
+      "style": "normal",
+      "children": [{ "_type": "span", "_key": "s1", "text": "Especialista em emagrecimento e saúde metabólica." }]
+    }
+  ]
+}

@@ -1,8 +1,15 @@
 import { createClient } from "@sanity/client";
+import { createImageUrlBuilder } from "@sanity/image-url";
 
 export const sanityClient = createClient({
-  projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'insira-seu-id-aqui',
+  projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'vd8c7dlq',
   dataset: import.meta.env.PUBLIC_SANITY_DATASET || 'production',
-  useCdn: true, // set to `false` to bypass the edge cache
-  apiVersion: "2024-03-15", // use current date (YYYY-MM-DD) to target the latest API version
+  useCdn: true,
+  apiVersion: "2023-05-03",
 });
+
+const builder = createImageUrlBuilder(sanityClient);
+
+export function urlFor(source: any) {
+  return builder.image(source);
+}
