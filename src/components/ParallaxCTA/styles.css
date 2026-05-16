@@ -17,7 +17,7 @@
 .parallax-cta__bg {
 	position: absolute;
 	inset: 0;
-	background-image: url("/images/parallax-cta-bg-v3.png");
+	background-image: var(--bg-desktop);
 	background-attachment: fixed; /* Efeito Parallax Clássico */
 	background-position: center;
 	background-repeat: no-repeat;
@@ -25,6 +25,12 @@
 	z-index: 0;
 	animation: pan360 80s linear infinite alternate;
 	will-change: background-position;
+}
+
+@media (max-width: 768px) {
+	.parallax-cta__bg {
+		background-image: var(--bg-mobile);
+	}
 }
 
 /* No mobile, o background-attachment: fixed costuma ser problemático */

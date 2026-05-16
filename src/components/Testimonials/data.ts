@@ -1,4 +1,10 @@
-export const content = {
+import { sanityClient } from "../../lib/sanity";
+
+// Busca os dados no Sanity
+const sanityData = await sanityClient.fetch(`*[_type == "testimonialsContent"][0]`).catch(() => null);
+
+// Valores de fallback
+const defaultContent = {
 	kicker: "Depoimentos",
 	title: "Transformações Reais",
 	subtitle:
@@ -35,4 +41,16 @@ export const content = {
 			meta: "Performance Esportiva",
 		},
 	],
+};
+
+// Exporta o conteúdo formatado
+export const content = {
+	kicker: sanityData?.kicker || defaultContent.kicker,
+	title: sanityData?.title || defaultContent.title,
+	subtitle: sanityData?.subtitle || defaultContent.subtitle,
+	testimonials: sanityData?.testimonials?.map((t: any) => ({
+		name: t.name,
+		text: t.text,
+		meta: t.meta,
+	})) || defaultContent.testimonials,
 };

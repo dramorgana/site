@@ -47,19 +47,29 @@ export const header = {
 };
 
 // Exporta a lista de posts processada
-export const posts = sanityData.posts.map((post: any) => ({
-  ...post,
-  slug: post.slug?.current || "#",
-  image: post.mainImage ? urlFor(post.mainImage).width(800).url() : DEFAULT_IMAGE,
-  description: post.description || DESCRIPTIONS_FALLBACK[post.slug?.current] || "Leia mais sobre este assunto em nosso blog completo.",
-  date: new Date(post.publishedAt || new Date()).toLocaleDateString('pt-BR', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric'
-  }).replace('.', ''),
-  authorName: post.authorName || "Dra. Carolina Mendes",
-  authorCrm: post.authorCrm || "CRM-SP 123456",
-  authorImage: post.authorImage ? urlFor(post.authorImage).width(100).url() : "https://ui-avatars.com/api/?name=Carolina+Mendes&background=c5a059&color=fff",
-  category: post.category || "Saúde Integrativa",
-  altText: post.title
-}));
+export const posts = sanityData.posts.map((post: any) => {
+  const imageSrc = post.mainImage ? urlFor(post.mainImage).width(800).url() : DEFAULT_IMAGE;
+  const imageSrcset = post.mainImage ? [
+    `${urlFor(post.mainImage).width(400).url()} 400w`,
+    `${urlFor(post.mainImage).width(600).url()} 600w`,
+    `${urlFor(post.mainImage).width(800).url()} 800w`
+  ].join(', ') : null;
+
+  return {
+    ...post,
+    slug: post.slug?.current || "#",
+    image: imageSrc,
+    srcset: imageSrcset,
+    description: post.description || DESCRIPTIONS_FALLBACK[post.slug?.current] || "Leia mais sobre este assunto em nosso blog completo.",
+    date: new Date(post.publishedAt || new Date()).toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    }).replace('.', ''),
+    authorName: post.authorName || "Dra. Carolina Mendes",
+    authorCrm: post.authorCrm || "CRM-SP 123456",
+    authorImage: post.authorImage ? urlFor(post.authorImage).width(100).url() : "https://ui-avatars.com/api/?name=Carolina+Mendes&background=c5a059&color=fff",
+    category: post.category || "Saúde Integrativa",
+    altText: post.title
+  };
+});

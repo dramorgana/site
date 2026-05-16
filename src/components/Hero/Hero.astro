@@ -42,11 +42,15 @@ const optimizedHero = await getImage({
 		<div class="hero__bg-wrapper">
 			{isRemote ? (
 				<img 
-					src={heroSource as string} 
+					src={optimizedHero.src} 
+					srcset={optimizedHero.srcSet.attribute}
+					sizes="(max-width: 768px) 100vw, 1440px"
 					alt={background.alt || ""} 
 					class="hero__bg-image"
 					loading="eager"
 					fetchpriority="high"
+					width="1440"
+					height="810"
 				/>
 			) : (
 				<Image

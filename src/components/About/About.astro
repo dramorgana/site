@@ -43,6 +43,8 @@ import "./styles.css";
 					content.image.src.startsWith('http') ? (
 						<img 
 							src={content.image.src}
+							srcset={content.image.srcset}
+							sizes="(max-width: 768px) 100vw, 600px"
 							alt={content.image.alt}
 							class="about__image"
 							loading="lazy"

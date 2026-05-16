@@ -1,4 +1,10 @@
-export const content = {
+import { sanityClient } from "../../lib/sanity";
+
+// Busca os dados no Sanity
+const sanityData = await sanityClient.fetch(`*[_type == "faqContent"][0]`).catch(() => null);
+
+// Valores de fallback
+const defaultContent = {
 	kicker: "FAQ",
 	title: "Perguntas Frequentes",
 	subtitle: "Tire suas dúvidas sobre o acompanhamento médico e os protocolos de emagrecimento.",
@@ -78,10 +84,17 @@ export const content = {
 			question: "Como é feita a manutenção do peso após atingir a meta?",
 			answer: "A fase de manutenção é tão importante quanto a de emagrecimento. Criamos um plano de transição para consolidar seu novo peso, com consultas de acompanhamento mais espaçadas para garantir que os resultados sejam permanentes.",
 		},
-		{
-			id: "faq-15",
-			question: "Como é feita a manutenção do peso após atingir a meta?",
-			answer: "A fase de manutenção é tão importante quanto a de emagrecimento. Criamos um plano de transição para consolidar seu novo peso, com consultas de acompanhamento mais espaçadas para garantir que os resultados sejam permanentes.",
-		},
 	],
+};
+
+// Mapeamento dos dados do Sanity ou Fallback
+export const content = {
+	kicker: sanityData?.kicker || defaultContent.kicker,
+	title: sanityData?.title || defaultContent.title,
+	subtitle: sanityData?.description || defaultContent.subtitle,
+	questions: sanityData?.questions?.map((item: any) => ({
+		id: item._key,
+		question: item.question,
+		answer: item.answer,
+	})) || defaultContent.questions,
 };

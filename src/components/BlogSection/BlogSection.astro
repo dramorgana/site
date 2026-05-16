@@ -54,8 +54,10 @@ const totalPosts = allPosts.length;
             >
               <span class="blog-category">{post.category}</span>
               <div class="blog-image-wrapper">
-                <Image
+                <img
                   src={post.image}
+                  srcset={post.srcset}
+                  sizes="(max-width: 768px) 100vw, 400px"
                   alt={post.altText}
                   class="blog-image"
                   width={400}

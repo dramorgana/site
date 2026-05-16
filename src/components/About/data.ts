@@ -30,6 +30,14 @@ const defaultContent = {
 	},
 };
 
+// Geração de srcset para imagens responsivas
+const imageSrc = sanityData?.image ? urlFor(sanityData.image).width(600).url() : defaultContent.image.src;
+const srcset = sanityData?.image ? [
+	`${urlFor(sanityData.image).width(400).url()} 400w`,
+	`${urlFor(sanityData.image).width(600).url()} 600w`,
+	`${urlFor(sanityData.image).width(800).url()} 800w`
+].join(', ') : null;
+
 // Exporta o conteúdo sincronizado com o Sanity
 export const content = {
 	kicker: sanityData?.kicker || defaultContent.kicker,
@@ -38,7 +46,8 @@ export const content = {
 	paragraphs: sanityData?.paragraphs || defaultContent.paragraphs,
 	highlights: sanityData?.highlights || defaultContent.highlights,
 	image: {
-		src: sanityData?.image ? urlFor(sanityData.image).width(600).url() : defaultContent.image.src,
+		src: imageSrc,
+		srcset: srcset,
 		alt: sanityData?.image?.alt || defaultContent.image.alt,
 		width: defaultContent.image.width,
 		height: defaultContent.image.height,

@@ -1,14 +1,13 @@
 ---
-import { getImage } from 'astro:assets';
-import bgImage from '../../assets/parallax-cta-bg-v3.png';
 import { content } from './data';
 import './styles.css';
-
-const optimizedBg = await getImage({ src: bgImage, format: 'webp', width: 1440 });
 ---
 
 <section class="parallax-cta">
-	<div class="parallax-cta__bg" style={`background-image: url(${optimizedBg.src});`}></div>
+	<div 
+		class="parallax-cta__bg" 
+		style={`--bg-desktop: url('${content.images.desktop}'); --bg-mobile: url('${content.images.mobile}');`}
+	></div>
 	<div class="parallax-cta__overlay"></div>
 	<div class="parallax-cta__container">
 		<h2 class="parallax-cta__title">{content.title}</h2>
