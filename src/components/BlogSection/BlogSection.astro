@@ -10,7 +10,7 @@ interface Props {
   customPosts?: any[];
 }
 
-const { limit = 3, showPagination = false, customPosts } = Astro.props;
+const { limit = 4, showPagination = false, customPosts } = Astro.props;
 const allPosts = customPosts || posts;
 const totalPosts = allPosts.length;
 ---
@@ -179,7 +179,7 @@ const totalPosts = allPosts.length;
     if (!grid) return;
 
     // Read variables from data attributes
-    const limit = parseInt(grid.getAttribute("data-limit") || "3");
+    const limit = parseInt(grid.getAttribute("data-limit") || "6");
     const total = parseInt(grid.getAttribute("data-total") || "0");
 
     const cards = grid.querySelectorAll(".blog-card");

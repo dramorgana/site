@@ -176,6 +176,25 @@
 	text-transform: uppercase;
 	color: var(--color-sage);
 	margin-top: 12px;
+	margin-bottom: 20px;
+}
+
+.about__profile-btn {
+	display: inline-block;
+	font-family: var(--font-body);
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: #fff;
+	background-color: var(--color-sage);
+	padding: 10px 24px;
+	border-radius: 30px;
+	text-decoration: none;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.about__profile-btn:hover {
+	background-color: var(--color-sage-dark);
+	transform: translateY(-2px);
 }
 
 /* --- Wave Divider Specific --- */

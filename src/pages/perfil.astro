@@ -1,0 +1,499 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import doctorImage from '../assets/medica-transparente.png';
+---
+
+<Layout title="Perfil Profissional - Eduarda da Silva">
+  <header class="perfil-header">
+    <div class="header-container">
+      <a href="/" class="back-button" aria-label="Voltar para a página inicial">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Voltar
+      </a>
+    </div>
+  </header>
+  <div class="profile-page">
+    <div class="profile-left">
+      <div class="profile-image-container">
+        <!-- Reusing the existing doctor image from About section -->
+        <Image src={doctorImage} alt="Eduarda da Silva" class="profile-image" />
+      </div>
+      {/* 
+      <div class="profile-info">
+        <h1 class="profile-name">EDUARDA DA SILVA</h1>
+        <h2 class="profile-specialty">ORTOPEDISTA</h2>
+        <p class="profile-crm">CRM MG 46416</p>
+      </div>*/}
+
+      <div class="social-links">
+        <a href="#" class="social-icon instagram" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+        </a>
+        <a href="#" class="social-icon facebook" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+            </svg>
+        </a>
+        <a href="#" class="social-icon twitter" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+            </svg>
+        </a>
+      </div>
+    </div>
+    
+    <div class="profile-right">
+      <section class="profile-section">
+        <h3 class="section-title">
+          <span class="icon">📰</span> Sobre min
+        </h3>
+        <p class="section-text">
+          Clínico Geral, especialista em Nefrologia e Transplante Renal em adultos. Fez sua formação médica no Brasil (Belo Horizonte / São Paulo) e exterior (Barcelona / Espanha). Atua na prevenção, diagnóstico e tratamento de doenças na área de Clínica Médica, especialmente as que comprometem os rins e as vias urinárias há mais de 10 anos. Atualmente é médico exclusivo da rede Mater Dei de Saúde onde é preceptor (orientador) dos médicos residentes de Clínica Médica. Autor e co autor de publicações médicas, na área de Nefrologia e Transplante Renal. Pacientes habitualmente procuram seus serviços para prevenção, diagnóstico e tratamento de doenças relacionadas aos rins e vias urinárias.
+          Ser referência em Belo Horizonte na área de Clínica Médica e buscar soluções de atendimento holístico e humanizado é o que nos motiva diariamente.
+        </p>
+      </section>
+
+      <section class="profile-section">
+        <h3 class="section-title">
+          <span class="icon">🎓</span> Formação
+        </h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">2011</div>
+            <div class="timeline-content">
+              <h4>Observership em Nefrologia</h4>
+              <p>Fundació Puigvert - Barcelona/ESP</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">2009</div>
+            <div class="timeline-content">
+              <h4>Especialista em Clínica Médica</h4>
+              <p>H. João XXIII</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">2007</div>
+            <div class="timeline-content">
+              <h4>Graduação em Medicina</h4>
+              <p>Faculdade de Ciência Médicas de Minas Gerais</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .perfil-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  .profile-page {
+    display: flex;
+    min-height: 100vh;
+    background-color: #ffffff;
+    font-family: var(--font-body);
+    padding-top: 54px; /* Espaço para o header fixo */
+  }
+
+  .profile-left {
+    width: 35%;
+    padding: 40px 40px;
+    background: linear-gradient(180deg, #ffffff 0%, #f0f5f0 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: sticky;
+    top: -10px;
+    height: calc(100vh - 54px);
+    overflow: hidden;
+  }
+
+  .back-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #4a5568;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .back-button:hover {
+    transform: translateX(-5px);
+    color: var(--color-sage, #2f855a);
+  }
+
+  .profile-image-container {
+    width: 400px;
+    height: auto;
+    margin-bottom: -200px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .profile-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .profile-info {
+    text-align: center;
+    z-index: 2;
+  }
+
+  .profile-name {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 0 0 5px 0;
+    letter-spacing: -0.5px;
+  }
+
+  .profile-specialty {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #555555;
+    margin: 0 0 5px 0;
+    letter-spacing: 1px;
+  }
+
+  .profile-crm {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666666;
+    margin: 0;
+  }
+
+  .profile-right {
+    width: 65%;
+    padding: 60px 80px;
+    background-color: #ffffff;
+    position: relative;
+  }
+
+  .profile-section {
+    margin-bottom: 40px;
+  }
+
+  .section-title {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .icon {
+    font-size: 1.4rem;
+  }
+
+  .section-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #444;
+    text-align: justify;
+  }
+
+  .section-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .section-list li {
+    font-size: 0.95rem;
+    color: #444;
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 15px;
+  }
+
+  .section-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #333;
+    font-weight: bold;
+  }
+
+  /* Premium Timeline - Alternating Layout */
+  .timeline {
+    position: relative;
+    max-width: 100%;
+    margin: 30px 0;
+  }
+
+  .timeline::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 5px;
+    bottom: 5px;
+    width: 2px;
+    margin-left: -1px;
+    background: linear-gradient(to bottom, var(--color-sage) 0%, rgba(0, 155, 77, 0.1) 100%);
+    border-radius: 2px;
+  }
+
+  .timeline-item {
+    position: relative;
+    width: 50%;
+    padding: 0 40px;
+    margin-bottom: 30px;
+    clear: both;
+  }
+
+  .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .timeline-item:nth-child(odd) {
+    float: left;
+    text-align: right;
+  }
+
+  .timeline-item:nth-child(even) {
+    float: right;
+    text-align: left;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border: 3px solid var(--color-sage);
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 0 4px rgba(0, 155, 77, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .timeline-item:nth-child(odd) .timeline-dot {
+    right: -8px;
+  }
+
+  .timeline-item:nth-child(even) .timeline-dot {
+    left: -8px;
+  }
+
+  .timeline-item:hover .timeline-dot {
+    transform: scale(1.3);
+    background-color: var(--color-sage);
+  }
+
+  .timeline-date {
+    display: inline-block;
+    padding: 4px 12px;
+    background-color: rgba(0, 155, 77, 0.08);
+    color: var(--color-sage-dark);
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .timeline-content h4 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #222;
+    margin: 0 0 4px 0;
+  }
+
+  .timeline-content p {
+    font-size: 0.95rem;
+    color: #555;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Responsive Timeline */
+  @media (max-width: 768px) {
+    .timeline::before {
+      left: 15px;
+    }
+    
+    .timeline-item {
+      width: 100%;
+      padding-left: 50px;
+      padding-right: 0;
+      float: none;
+      text-align: left !important;
+    }
+    
+    .timeline-item:nth-child(odd) .timeline-dot,
+    .timeline-item:nth-child(even) .timeline-dot {
+      left: 7px;
+      right: auto;
+    }
+  }
+
+  .convenio-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+  }
+
+  .convenio-item {
+    background: #f8f9fa;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #555;
+    border: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .locations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .location-item h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 5px 0;
+  }
+
+  .location-item ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .location-item ul li {
+    font-size: 0.9rem;
+    color: #555;
+    position: relative;
+    padding-left: 15px;
+  }
+
+  .location-item ul li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #333;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 15px;
+    margin-top:-40px;
+    justify-content: center;
+  }
+
+  .social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    transition: transform 0.2s ease;
+  }
+
+  .social-icon:hover {
+    transform: scale(1.1);
+  }
+
+  .instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  }
+
+  .facebook {
+    background-color: #1877f2;
+  }
+
+  .twitter {
+    background-color: #1da1f2;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 992px) {
+    .profile-page {
+      flex-direction: column;
+    }
+    
+    .profile-left {
+      width: 100%;
+      padding: 40px 20px;
+      position: relative;
+      height: auto;
+    }
+
+    .profile-right {
+      width: 100%;
+      padding: 40px 20px;
+    }
+
+    .social-links {
+      position: static;
+      margin-top: 40px;
+      justify-content: flex-end;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .profile-name {
+      font-size: 1.8rem;
+    }
+    
+    .section-title {
+      font-size: 1.4rem;
+    }
+    
+    .convenio-grid {
+      flex-direction: column;
+    }
+  }
+</style>
