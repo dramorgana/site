@@ -1,29 +1,29 @@
 import { sanityClient } from '../../lib/sanity';
 
 // Busca os dados no Sanity
-const sanityData = await sanityClient.fetch(`*[_type == "heroContent"][0]`).catch(() => null);
-
+//const sanityData = await sanityClient.fetch(`*[_type == "heroContent"][0]`).catch(() => null);
+const sanityData = null
 // Dados de reserva (Fallback) caso o Sanity esteja vazio
 const defaultDoctor = {
-  name: "Carolina Mendes",
+  name: "Morgana Motta",
   prefix: "Dra.",
-  specialty: "Emagrecimento & Saúde",
-  credentials: "CRM 00000 • RQE 00000",
+  specialty: "Cuidado Médico para Emagrecimento e Ganho de Massa Muscular em Belo Horizonte.",
+  credentials: "CRM 96204",
 };
 
 const defaultHeadline = {
   main: "Sente que seu esforço<br />não gera resultados?",
-  accent: "Sua jornada para o peso ideal começa aqui.",
+  accent: "Um acompanhamento médico individualizado pode ser o próximo passo. Atendimento presencial ou por telemedicina.",
 };
 
 const defaultCta = {
   text: "Agendar Minha Avaliação",
-  phone: "5511999999999",
+  phone: "5531991995849",
   message: "Olá, gostaria de agendar uma consulta.",
 };
 
 const defaultBackground = {
-  alt: "Dra. Carolina Mendes - Saúde e Emagrecimento",
+  alt: "Dra. Morgana Motta - Saúde e Emagrecimento",
   image: null,
 };
 

@@ -1,6 +1,41 @@
 /* ============================================
    HERO — Design System
+   Paleta: 60% Primária · 30% Secundária · 10% Destaque
    ============================================ */
+
+/* --- Fontes Locais (substitutas temporárias até chegarem os arquivos) ---
+   Holland       → Cormorant Garamond (trocar por @font-face quando disponível)
+   Fregan Sans   → DM Sans           (trocar por @font-face quando disponível)
+   -------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+
+/* --- Tokens locais do Hero (sobrescrevem o global apenas nesta seção) --- */
+.hero {
+	/* 60% — Primária: areia quente, fundo e superfícies */
+	--hero-color-primary:    #EEE4DB;
+	--hero-color-primary-80: rgba(238, 228, 219, 0.80);
+	--hero-color-primary-40: rgba(238, 228, 219, 0.40);
+
+	/* 30% — Secundária: rosê médio, textos e detalhes de suporte */
+	--hero-color-secondary:    #D8AF9D;
+	--hero-color-secondary-60: rgba(216, 175, 157, 0.60);
+	--hero-color-secondary-30: rgba(216, 175, 157, 0.30);
+
+	/* 10% — Destaque: terra queimada, CTAs e elementos de ação */
+	--hero-color-accent:      #885F4D;
+	--hero-color-accent-dark: #6B4A3C;
+	--hero-color-accent-glow: rgba(136, 95, 77, 0.30);
+
+	/* Fontes */
+	--hero-font-heading: 'Cormorant Garamond', serif;   /* → substituir por Holland */
+	--hero-font-body:    'DM Sans', sans-serif;          /* → substituir por Fregan Sans */
+}
+
+/* ============================================================
+   SEÇÃO — 60% Primária como superfície dominante
+   A imagem de fundo fica sob um overlay warm-tone que
+   harmoniza com a paleta sem escurecer em tons frios.
+   ============================================================ */
 .hero {
 	position: relative;
 	min-height: 100vh;
@@ -20,8 +55,10 @@
 .hero__bg-wrapper {
 	position: absolute;
 	inset: 0;
-	height: 120%; /* Extra height for parallax movement */
+	width: 112%;
+	height: 120%;
 	top: -10%;
+	left: 0;
 	will-change: transform;
 }
 
@@ -29,15 +66,21 @@
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	object-position: center;
+	object-position: 75% center;
 	animation: zoomOut 30s ease-in-out infinite alternate;
 	will-change: transform;
 }
 
+/* Overlay warm-tone: fundo escuro aquecer com a primária em vez de preto puro */
 .hero__bg-overlay {
 	position: absolute;
 	inset: 0;
-	background: rgba(0, 0, 0, 0.6);
+	background: linear-gradient(
+		105deg,
+		rgba(34, 20, 14, 0.82) 0%,     /* sombra profunda à esq. */
+		rgba(68, 38, 26, 0.55) 50%,    /* tom terra médio */
+		rgba(136, 95, 77, 0.10) 100%   /* toque do destaque suave */
+	);
 }
 
 /* --- Container & Card --- */
@@ -46,166 +89,224 @@
 	z-index: 1;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: center;
 	width: 100%;
-	max-width: 900px;
+	max-width: 1320px;
 	margin: 0 auto;
-	padding: 40px 24px;
+	padding: 60px 40px;
 }
 
 .hero__card {
-	background: rgba(255, 255, 255, 0.02);
-	backdrop-filter: blur(4px);
-	-webkit-backdrop-filter: blur(4px);
-	border: 1px solid rgba(255, 255, 255, 0.15);
-	border-radius: 40px;
-	padding: 60px 40px;
+	background: transparent;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+	border: none;
+	border-radius: 0;
+	padding: 0;
+	max-width: 580px;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	/* Removed fadeInCard animation to ensure immediate LCP detection */
+	align-items: flex-start;
+	box-shadow: none;
 }
 
-/* --- Doctor Identity --- */
+/* ============================================================
+   IDENTIDADE MÉDICA
+   30% Secundária → textos de suporte e credencial
+   60% Primária   → nome principal (legibilidade máxima)
+   ============================================================ */
 .hero__doctor {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	text-align: center;
-	margin-bottom: 32px;
+	align-items: flex-start;
+	text-align: left;
+	margin-bottom: 24px;
 }
 
+/* Nome — 60% primária, tipografia heading (Holland/Cormorant) */
 .hero__doctor-name {
-	font-family: var(--font-heading);
-	font-size: clamp(1.4rem, 4vw, 1.8rem);
+	order: 1;
+	font-family: var(--hero-font-heading);
+	font-size: clamp(1.6rem, 4vw, 2.2rem);
 	font-weight: 500;
-	letter-spacing: 0.05em;
-	color: #fff;
-	margin-bottom: 8px;
-	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.hero__doctor-name em {
 	font-style: italic;
-	font-weight: 400;
-	opacity: 0.9;
-	margin-right: 4px;
+	letter-spacing: 0.02em;
+	color: var(--hero-color-primary);
+	margin-bottom: 4px;
+	text-shadow: 0 2px 16px rgba(34, 20, 14, 0.5);
 }
 
-.hero__doctor-specialty {
-	display: block;
-	font-family: var(--font-body);
-	font-size: 0.75rem;
+.hero__doctor-name strong {
 	font-weight: 500;
-	letter-spacing: 0.35em;
-	text-transform: uppercase;
-	color: var(--color-sage-light);
-	margin-top: 12px;
 }
 
-.hero__divider {
-	width: 40px;
-	height: 1px;
-	background: rgba(255, 255, 255, 0.2);
-	margin: 20px auto;
-}
-
+/* CRM — 30% secundária, fonte body (Fregan/DM Sans) */
 .hero__doctor-credentials {
-	font-family: var(--font-body);
-	font-size: 0.7rem;
-	font-weight: 500;
-	letter-spacing: 0.2em;
-	color: rgba(255, 255, 255, 0.5);
+	display: block;
+	font-family: var(--hero-font-body);
+	font-size: 0.68rem;
+	font-weight: 400;
+	letter-spacing: 0.25em;
+	text-transform: uppercase;
+	color: var(--hero-color-secondary);
+	margin-top: 3px;
 }
 
-/* --- Headline --- */
+/* Especialidade — secundária suave (order: 2, acima do nome no DOM mas abaixo visualmente) */
+.hero__doctor-specialty {
+	order: 2;
+	display: block;
+	font-family: var(--hero-font-body);
+	font-size: 0.85rem;
+	font-weight: 400;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--hero-color-secondary-60);
+	margin-top: 10px;
+	line-height: 1.7;
+	max-width: 480px;
+}
+
+/* Divisória — 30% secundária com opacidade */
+.hero__divider {
+	order: 3;
+	width: 36px;
+	height: 1px;
+	background: var(--hero-color-secondary-30);
+	margin: 18px 0;
+}
+
+/* ============================================================
+   HEADLINE DE IMPACTO
+   60% Primária → texto principal
+   30% Secundária → subtítulo
+   ============================================================ */
 .hero__headline {
-	font-family: var(--font-heading);
-	font-size: clamp(2.4rem, 8vw, 4.2rem);
-	font-weight: 700;
-	line-height: 1.1;
-	color: #fff;
-	letter-spacing: -0.02em;
-	text-align: center;
-	text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+	font-family: var(--hero-font-heading);
+	font-size: clamp(2.2rem, 5vw, 3.6rem);
+	font-weight: 300;
+	line-height: 1.12;
+	color: var(--hero-color-primary);
+	letter-spacing: -0.01em;
+	text-align: left;
+	text-shadow: 0 4px 30px rgba(34, 20, 14, 0.7);
 }
 
 .hero__headline-accent {
 	display: block;
-	font-size: 0.45em;
-	font-weight: 600;
-	letter-spacing: 0.2em;
-	text-transform: uppercase;
-	color: #fff;
-	margin-top: 32px;
-	text-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
+	font-family: var(--hero-font-body);
+	font-size: 1rem;
+	font-weight: 300;
+	letter-spacing: 0.04em;
+	line-height: 1.65;
+	color: var(--hero-color-primary-80);
+	margin-top: 20px;
+	max-width: 480px;
+	text-shadow: 0 2px 12px rgba(34, 20, 14, 0.5);
 }
 
-/* --- CTA — WhatsApp --- */
+/* ============================================================
+   CTA — 10% Destaque: o único elemento vivo da tela
+   ============================================================ */
 .hero__actions {
 	width: 100%;
 	display: flex;
-	justify-content: center;
-	margin-top: 80px;
+	justify-content: flex-start;
+	margin-top: 48px;
 }
 
 .hero__cta {
 	display: inline-flex;
 	align-items: center;
-	gap: 12px;
-	font-family: var(--font-body);
-	font-size: 1rem;
-	font-weight: 600;
-	letter-spacing: 0.05em;
+	gap: 10px;
+	font-family: var(--hero-font-body);
+	font-size: 0.9rem;
+	font-weight: 500;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
 	color: #fff;
-	padding: 20px 48px;
+	padding: 18px 40px;
 	border-radius: 100px;
-	background: var(--color-sage);
+	background: #25D366;
 	text-decoration: none;
 	transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-	box-shadow: 0 15px 30px rgba(0, 155, 77, 0.2);
+	box-shadow: 0 12px 32px rgba(37, 211, 102, 0.30);
 }
 
 .hero__cta:hover {
-	background: var(--color-sage-dark);
-	transform: translateY(-5px) scale(1.02);
-	box-shadow: 0 20px 40px rgba(0, 155, 77, 0.3);
+	background: #1ebe5d;
+	transform: translateY(-4px) scale(1.02);
+	box-shadow: 0 20px 48px rgba(37, 211, 102, 0.40);
 }
 
 .hero__cta:active {
 	transform: translateY(-2px);
 }
 
-/* --- Animations --- */
+/* --- Animação --- */
 @keyframes zoomOut {
-	from {
-		transform: scale(1.15);
+	from { transform: scale(1.15); }
+	to   { transform: scale(1); }
+}
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+@media (max-width: 1024px) {
+	.hero__container {
+		align-items: center;
+		padding: 40px 24px;
 	}
-	to {
-		transform: scale(1);
+
+	.hero__card {
+		max-width: 100%;
+		align-items: center;
+		padding: 44px 32px;
+	}
+
+	.hero__doctor {
+		align-items: center;
+		text-align: center;
+	}
+
+	.hero__divider {
+		margin: 16px auto;
+	}
+
+	.hero__headline {
+		text-align: center;
+	}
+
+	.hero__actions {
+		justify-content: center;
+	}
+
+	.hero__bg-overlay {
+		background: linear-gradient(
+			180deg,
+			rgba(34, 20, 14, 0.75) 0%,
+			rgba(34, 20, 14, 0.55) 100%
+		);
 	}
 }
 
-/* --- Responsive Overrides --- */
 @media (max-width: 768px) {
 	.hero__container {
 		padding: 20px 16px;
 	}
 
 	.hero__card {
-		padding: 40px 24px;
-		border-radius: 30px;
+		padding: 36px 20px;
 	}
 
 	.hero__headline {
-		font-size: clamp(2rem, 10vw, 2.8rem);
-		margin-bottom: 32px;
+		font-size: clamp(2rem, 8vw, 2.8rem);
 	}
 
 	.hero__doctor-specialty {
-		font-size: 0.7rem;
+		font-size: 0.66rem;
 		letter-spacing: 0.2em;
 	}
 }
@@ -215,6 +316,6 @@
 		width: 100%;
 		justify-content: center;
 		padding: 18px 24px;
-		font-size: 0.9rem;
+		font-size: 0.85rem;
 	}
 }

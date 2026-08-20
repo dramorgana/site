@@ -13,7 +13,7 @@ interface Props {
 
 const { 
 	title, 
-	description = "Emagrecimento guiado pela ciência, focado na sua saúde. Acompanhamento médico individualizado que respeita o seu metabolismo.",
+	description = "Dra. Morgana Motta é médica especialista em emagrecimento e ganho de massa muscular em Belo Horizonte. Acompanhamento médico individualizado, presencial e online.",
 	ogImage = "/og-image.png", // Default image
 	canonicalURL = new URL(Astro.url.pathname, Astro.site).toString()
 } = Astro.props;
@@ -22,7 +22,7 @@ const {
 const schema = {
   "@context": "https://schema.org",
   "@type": "MedicalBusiness",
-  "name": "Dra. Carolina Mendes — Emagrecimento e Saúde Metabólica",
+  "name": "Dra. Morgana Motta — Emagrecimento e ganho de massa muscular em BH",
   "description": description,
   "url": canonicalURL,
   "logo": new URL("/favicon.svg", Astro.site).toString(),
