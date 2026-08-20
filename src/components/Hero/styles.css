@@ -154,16 +154,16 @@
 	margin-top: 3px;
 }
 
-/* Especialidade — secundária suave (order: 2, acima do nome no DOM mas abaixo visualmente) */
+/* Especialidade — H1 visualmente proeminente, alinhado com peso semântico */
 .hero__doctor-specialty {
 	order: 2;
 	display: block;
 	font-family: var(--hero-font-body);
-	font-size: 0.85rem;
-	font-weight: 400;
+	font-size: clamp(0.8rem, 1.2vw, 1rem);
+	font-weight: 500;
 	letter-spacing: 0.18em;
 	text-transform: uppercase;
-	color: var(--hero-color-secondary-60);
+	color: var(--hero-color-secondary);
 	margin-top: 10px;
 	line-height: 1.7;
 	max-width: 480px;

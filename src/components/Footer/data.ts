@@ -6,14 +6,14 @@ const sanityData = await sanityClient.fetch(`*[_type == "footerContent"][0]`).ca
 // Valores de fallback
 const defaultContent = {
 	doctor: {
-		name: "Dra. Carolina Mendes",
-		credentials: "CRM 00000 • RQE 00000",
+		name: "Dra. Morgana Motta",
+		credentials: "CRM 96204",
 	},
 	address: {
-		street: "Rua Exemplo, 123",
-		neighborhood: "Bairro Nobre",
-		cityState: "São Paulo/SP",
-		cep: "00000-000",
+		street: "Av. Barbacena, 600 - Sl 105",
+		neighborhood: "Santo Agostinho",
+		cityState: "Belo Horizonte/MG",
+		cep: "30180-060",
 	},
 	links: [
 		{ label: "Política de Privacidade", url: "/privacidade" },
@@ -21,10 +21,10 @@ const defaultContent = {
 	],
 	social: [
 		{ label: "Instagram", url: "https://instagram.com", icon: "instagram" },
-		{ label: "WhatsApp", url: "https://wa.me/5500000000000", icon: "whatsapp" },
+		{ label: "WhatsApp", url: "https://wa.me/5531991995849", icon: "whatsapp" },
 		{ label: "LinkedIn", url: "https://linkedin.com", icon: "linkedin" },
 	],
-	copyrightText: "Dra. Carolina Mendes. Todos os direitos reservados.",
+	copyrightText: "Dra. Morgana Motta. Todos os direitos reservados.",
 };
 
 // Exporta o conteúdo formatado

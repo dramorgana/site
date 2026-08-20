@@ -8,20 +8,20 @@ const defaultContent = {
 	title: "Localização e Contato",
 	subtitle: "Agende sua visita em nosso espaço dedicado ao seu bem-estar e saúde metabólica.",
 	address: {
-		full: "Rua Exemplo, 123 - Sala 456, Bairro Nobre, São Paulo - SP",
-		short: "Bairro Nobre, São Paulo",
+		full: "Av. Barbacena, 600 - Sl 105 - Santo Agostinho, Belo Horizonte - MG, 30180-060",
+		short: "Santo Agostinho, Belo Horizonte",
 	},
 	whatsapp: {
-		number: "5511999999999",
-		display: "(11) 99999-9999",
+		number: "5531991995849",
+		display: "(31) 99199-5849",
 		message: "Olá, gostaria de agendar uma consulta.",
 	},
 	phone: {
-		number: "+551100000000",
-		display: "(11) 0000-0000",
+		number: "+5531991995849",
+		display: "(31) 99199-5849",
 	},
-	email: "contato@dracarolinamendes.com.br",
-	mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1975!2d-46.6523!3d-23.5617!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDMzJzQyLjEiUyA0NsKwMzknMDguMyJX!5e0!3m2!1spt-BR!2sbr!4v1600000000000!5m2!1spt-BR!2sbr",
+	email: "contato@drmorganamota.com.br",
+	mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3750.123!2d-43.9352!3d-19.9328!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDU2JzAwLjEiUyA0M8KwNTYnMDYuNyJX!5e0!3m2!1spt-BR!2sbr!4v1600000000000!5m2!1spt-BR!2sbr",
 };
 
 // Processamento dos dados
