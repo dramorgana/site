@@ -75,6 +75,55 @@ import "./styles.css";
 									/>
 								</svg>
 							)}
+							{service.icon === "muscle" && (
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.5"
+								>
+									<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" stroke-linecap="round" stroke-linejoin="round" />
+									<line x1="4" y1="22" x2="4" y2="15" stroke-linecap="round" />
+								</svg>
+							)}
+							{service.icon === "glp1" && (
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+									<path d="M19 3l2 2-2.5 2.5-2-2L19 3z" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M16.5 5.5L6 16l-1 3 3-1 10.5-10.5-2-2z" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M5 19l-2 2" stroke-linecap="round"/>
+									<path d="M10 9l2 2" stroke-linecap="round"/>
+								</svg>
+							)}
+							{service.icon === "brain" && (
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+									<path d="M12 5a3 3 0 00-3 3 3 3 0 00-3 3c0 1.1.6 2.1 1.5 2.6A3.5 3.5 0 009 17h6a3.5 3.5 0 001.5-6.6A3 3 0 0015 8a3 3 0 00-3-3z" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M12 17v4" stroke-linecap="round"/>
+									<path d="M9 21h6" stroke-linecap="round"/>
+								</svg>
+							)}
+							{service.icon === "flower" && (
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+									<circle cx="12" cy="12" r="2" stroke-linecap="round"/>
+									<path d="M12 2a3 3 0 000 6 3 3 0 000-6zM12 16a3 3 0 000 6 3 3 0 000-6zM2 12a3 3 0 006 0 3 3 0 00-6 0zM16 12a3 3 0 006 0 3 3 0 00-6 0zM5.5 5.5a3 3 0 004.25 4.25A3 3 0 005.5 5.5zM14.25 14.25a3 3 0 004.25 4.25 3 3 0 00-4.25-4.25zM14.25 9.75a3 3 0 004.25-4.25 3 3 0 00-4.25 4.25zM5.5 18.5a3 3 0 004.25-4.25A3 3 0 005.5 18.5z" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							)}
+							{service.icon === "bone" && (
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+									<path d="M3.5 9A2.5 2.5 0 006 6.5 2.5 2.5 0 008.5 9c0 .64-.24 1.22-.63 1.66l5.47 5.47A2.49 2.49 0 0115 15.5a2.5 2.5 0 102.5 2.5c0-.64-.24-1.22-.63-1.66L11.4 10.87A2.49 2.49 0 0012 9.5 2.5 2.5 0 009.5 7 2.5 2.5 0 007 9.5c0-.28.05-.55.13-.8A2.49 2.49 0 006 8.5 2.5 2.5 0 003.5 9z" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							)}
+							{service.icon === "flask" && (
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+									<path d="M9 3h6M9 3v6l-4 9a1 1 0 00.9 1.5h12.2A1 1 0 0023 18l-4-9V3" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M6 15h12" stroke-linecap="round"/>
+								</svg>
+							)}
+							{service.icon === "video" && (
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+									<path d="M15 10l4.55-2.27A1 1 0 0121 8.62v6.76a1 1 0 01-1.45.9L15 14" stroke-linecap="round" stroke-linejoin="round"/>
+									<rect x="3" y="8" width="12" height="8" rx="2" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							)}
 						</div>
 						<div class="servicos__info">
 							<h3 class="servicos__name">{service.name}</h3>
@@ -83,6 +132,22 @@ import "./styles.css";
 					</div>
 				))
 			}
+		</div>
+
+		<div class="servicos__cta">
+			<a
+				href={content.whatsappUrl}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="servicos__cta-btn"
+				id="services-cta-whatsapp"
+			>
+				<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+					<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.432.178.88.28 1.21.085.33-.198.614-.735.794-.545.18-.99.131-1.29-.069-.297-.149-.57-.347-.708-.57-.546-.09-.347-.297-.198-.56l.016-.03c.18-.313.381-.3.545-.3.164 0 .347.002.496.007.163.006.382-.062.581.44.204.516.694 1.7.752 1.822.059.123.1.267.02.428-.079.16-.119.26-.238.397-.119.138-.249.317-.397.486-.149.168-.306.189-.545.064-.237-.124-1.006-.463-1.912-1.488-.674-.765-1.141-1.712-1.19-2.034-.05-.322.035-.513.262-.676l.042-.046c.198-.215.42-.347.669-.347z"></path>
+					<path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.108-1.14l-.292-.176-2.848.846.846-2.848-.176-.292A7.96 7.96 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"></path>
+				</svg>
+				Agende sua avaliação
+			</a>
 		</div>
 	</div>
 </section>

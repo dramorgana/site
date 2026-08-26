@@ -1,9 +1,21 @@
 /* ============================================
    SERVIÇOS — Design System
+   Paleta: espelhada do Hero
+   60% Primária (#EEE4DB) · 30% Secundária (#D8AF9D) · 10% Accent (#885F4D)
    ============================================ */
+
+/* --- Tokens locais da seção --- */
 .servicos {
+	--s-primary: #EEE4DB;
+	--s-primary-soft: #F7F2ED;
+	--s-secondary: #D8AF9D;
+	--s-secondary-30: rgba(216, 175, 157, 0.30);
+	--s-accent: #885F4D;
+	--s-accent-dark: #6B4A3C;
+	--s-accent-glow: rgba(136, 95, 77, 0.18);
+
 	padding: 120px 24px;
-	background-color: #f0f7f4;
+	background-color: var(--s-primary);
 	position: relative;
 }
 
@@ -12,39 +24,63 @@
 	margin: 0 auto;
 }
 
+/* Override do kicker para usar a paleta da seção */
+.servicos .section-header__kicker {
+	color: var(--s-accent-dark);
+}
+
+/* Override do título para usar a paleta da seção */
+.servicos .section-header__title {
+	color: var(--s-accent-dark);
+}
+
+/* ============================================
+   GRID DE SERVIÇOS
+   ============================================ */
 .servicos__grid {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	gap: 40px;
+	gap: 32px;
+	margin-top: 56px;
 }
 
 .servicos__item {
-	background: #fff;
+	background: var(--s-primary-soft);
 	padding: 40px;
-	border-radius: 24px;
+	border-radius: 20px;
 	display: flex;
 	align-items: flex-start;
 	gap: 24px;
-	transition: all 0.3s ease;
-	border: 1px solid rgba(0, 0, 0, 0.05);
+	transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+	border: 1px solid var(--s-secondary-30);
+	box-shadow: 0 2px 12px rgba(136, 95, 77, 0.06);
 }
 
 .servicos__item:hover {
-	border-color: var(--color-sage-light);
-	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+	border-color: var(--s-secondary);
+	box-shadow: 0 16px 40px rgba(136, 95, 77, 0.14);
 	transform: translateY(-5px);
+	background: #fff;
 }
 
+/* ============================================
+   ÍCONE
+   ============================================ */
 .servicos__icon {
 	flex-shrink: 0;
 	width: 54px;
 	height: 54px;
-	background: #faf5e9;
-	border-radius: 12px;
+	background: rgba(136, 95, 77, 0.10);
+	border-radius: 14px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: var(--color-sage);
+	color: var(--s-accent);
+	transition: background 0.3s ease;
+}
+
+.servicos__item:hover .servicos__icon {
+	background: rgba(136, 95, 77, 0.18);
 }
 
 .servicos__icon svg {
@@ -52,26 +88,73 @@
 	height: 26px;
 }
 
+/* ============================================
+   TEXTOS
+   ============================================ */
 .servicos__name {
-	font-family: var(--font-heading);
-	font-size: 1.4rem;
-	color: var(--color-dark-text);
-	margin-bottom: 12px;
+	font-family: 'Cormorant Garamond', serif;
+	font-size: 1.35rem;
+	font-weight: 900;
+	color: var(--s-accent-dark);
+	margin-bottom: 10px;
+	letter-spacing: 0.01em;
 }
 
 .servicos__text {
-	font-family: var(--font-body);
-	font-size: 0.95rem;
-	color: var(--color-body-text);
-	line-height: 1.6;
+	font-family: 'DM Sans', sans-serif;
+	font-size: 0.93rem;
+	color: #5a3d30;
+	line-height: 1.65;
 }
 
 /* ============================================
-   RESPONSIVE SERVIÇOS
+   CTA WHATSAPP
+   ============================================ */
+.servicos__cta {
+	display: flex;
+	justify-content: center;
+	margin-top: 56px;
+}
+
+.servicos__cta-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font-family: 'DM Sans', sans-serif;
+	font-size: 0.9rem;
+	font-weight: 500;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: #fff;
+	padding: 18px 44px;
+	border-radius: 100px;
+	background: #25D366;
+	text-decoration: none;
+	transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+	box-shadow: 0 12px 32px rgba(37, 211, 102, 0.28);
+}
+
+.servicos__cta-btn:hover {
+	background: #1ebe5d;
+	transform: translateY(-4px) scale(1.02);
+	box-shadow: 0 20px 48px rgba(37, 211, 102, 0.40);
+}
+
+.servicos__cta-btn:active {
+	transform: translateY(-2px);
+}
+
+/* ============================================
+   RESPONSIVE
    ============================================ */
 @media (max-width: 768px) {
+	.servicos {
+		padding: 80px 24px;
+	}
+
 	.servicos__grid {
 		grid-template-columns: 1fr;
+		gap: 24px;
 	}
 
 	.servicos__item {
@@ -80,8 +163,12 @@
 		text-align: center;
 		align-items: center;
 	}
+}
 
-	.servicos {
-		padding: 80px 24px;
+@media (max-width: 480px) {
+	.servicos__cta-btn {
+		width: 100%;
+		justify-content: center;
+		padding: 18px 24px;
 	}
 }

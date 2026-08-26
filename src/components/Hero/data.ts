@@ -1,8 +1,8 @@
 import { sanityClient } from '../../lib/sanity';
 
 // Busca os dados no Sanity
-//const sanityData = await sanityClient.fetch(`*[_type == "heroContent"][0]`).catch(() => null);
-const sanityData = null
+const sanityData = await sanityClient.fetch(`*[_type == "heroContent"][0]`).catch(() => null);
+//const sanityData = null
 // Dados de reserva (Fallback) caso o Sanity esteja vazio
 const defaultDoctor = {
   name: "Morgana Motta",
