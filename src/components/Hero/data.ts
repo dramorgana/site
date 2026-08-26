@@ -11,13 +11,17 @@ const defaultDoctor = {
   credentials: "CRM 96204",
 };
 
+
 const defaultHeadline = {
-  main: "Sente que seu esforço<br />não gera resultados?",
+  main: "Treinou, se cuidou e ainda sente que falta alguma coisa?",
   accent: "Um acompanhamento médico individualizado pode ser o próximo passo. Atendimento presencial ou por telemedicina.",
+  //main: "Sente que seu esforço<br />não gera resultados?",
+  //accent: "Um acompanhamento médico individualizado pode ser o próximo passo. Atendimento presencial ou por telemedicina.",
 };
 
+
 const defaultCta = {
-  text: "Agendar Minha Avaliação",
+  text: "Clique aqui e descubra como podemos ajudar",
   phone: "5531991995849",
   message: "Olá, gostaria de agendar uma consulta.",
 };

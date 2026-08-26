@@ -13,22 +13,54 @@ const whatsappUrl = cta.phone
 ---
 
 <slot name="head">
-	<link rel="preload" as="image" href={heroSvgSrc} fetchpriority="high" />
+	<link
+		rel="preload"
+		as="image"
+		href="/images/hero-section/hero-1280w.webp"
+		imagesrcset="
+			/images/hero-section/hero-480w.webp   480w,
+			/images/hero-section/hero-768w.webp   768w,
+			/images/hero-section/hero-1024w.webp 1024w,
+			/images/hero-section/hero-1280w.webp 1280w,
+			/images/hero-section/hero-1920w.webp 1920w
+		"
+		imagesizes="(max-width: 480px) 480px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, (max-width: 1280px) 1280px, 1920px"
+		fetchpriority="high"
+	/>
 </slot>
 
 <section id="hero" class="hero">
 	<!-- Background image full-bleed -->
 	<div class="hero__bg">
 		<div class="hero__bg-wrapper">
-			<img
-				src={heroSvgSrc}
-				alt={background.alt || doctor.name}
-				class="hero__bg-image"
-				loading="eager"
-				fetchpriority="high"
-				width="3168"
-				height="1344"
-			/>
+			<picture>
+				<source
+					type="image/webp"
+					srcset="
+						/images/hero-section/hero-480w.webp   480w,
+						/images/hero-section/hero-768w.webp   768w,
+						/images/hero-section/hero-1024w.webp 1024w,
+						/images/hero-section/hero-1280w.webp 1280w,
+						/images/hero-section/hero-1920w.webp 1920w
+					"
+					sizes="
+						(max-width: 480px)  480px,
+						(max-width: 768px)  768px,
+						(max-width: 1024px) 1024px,
+						(max-width: 1280px) 1280px,
+						1920px
+					"
+				/>
+				<img
+					src="/images/hero-section/hero-image.jpg"
+					alt={background.alt || doctor.name}
+					class="hero__bg-image"
+					loading="eager"
+					fetchpriority="high"
+					width="3168"
+					height="1344"
+				/>
+			</picture>
 		</div>
 		<div class="hero__bg-overlay"></div>
 	</div>
@@ -54,9 +86,11 @@ const whatsappUrl = cta.phone
 			<!-- Headline de Impacto (H2) -->
 			<h2 class="hero__headline">
 				<Fragment set:html={headline.main} />
-				<span class="hero__headline-accent">
+				{
+					/*<span class="hero__headline-accent">
 					{headline.accent}
-				</span>
+				</span> */
+				}
 			</h2>
 
 			<!-- CTA — WhatsApp -->

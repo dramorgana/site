@@ -12,23 +12,25 @@
 /* --- Tokens locais do Hero (sobrescrevem o global apenas nesta seção) --- */
 .hero {
 	/* 60% — Primária: areia quente, fundo e superfícies */
-	--hero-color-primary:    #EEE4DB;
+	--hero-color-primary: #EEE4DB;
 	--hero-color-primary-80: rgba(238, 228, 219, 0.80);
 	--hero-color-primary-40: rgba(238, 228, 219, 0.40);
 
 	/* 30% — Secundária: rosê médio, textos e detalhes de suporte */
-	--hero-color-secondary:    #D8AF9D;
+	--hero-color-secondary: #D8AF9D;
 	--hero-color-secondary-60: rgba(216, 175, 157, 0.60);
 	--hero-color-secondary-30: rgba(216, 175, 157, 0.30);
 
 	/* 10% — Destaque: terra queimada, CTAs e elementos de ação */
-	--hero-color-accent:      #885F4D;
+	--hero-color-accent: #885F4D;
 	--hero-color-accent-dark: #6B4A3C;
 	--hero-color-accent-glow: rgba(136, 95, 77, 0.30);
 
 	/* Fontes */
-	--hero-font-heading: 'Cormorant Garamond', serif;   /* → substituir por Holland */
-	--hero-font-body:    'DM Sans', sans-serif;          /* → substituir por Fregan Sans */
+	--hero-font-heading: 'Cormorant Garamond', serif;
+	/* → substituir por Holland */
+	--hero-font-body: 'DM Sans', sans-serif;
+	/* → substituir por Fregan Sans */
 }
 
 /* ============================================================
@@ -71,16 +73,15 @@
 	will-change: transform;
 }
 
-/* Overlay warm-tone: fundo escuro aquecer com a primária em vez de preto puro */
+/* Overlay warm-tone: sombra concentrada à esquerda (texto) — direita limpa (foto) */
 .hero__bg-overlay {
 	position: absolute;
 	inset: 0;
-	background: linear-gradient(
-		105deg,
-		rgba(34, 20, 14, 0.82) 0%,     /* sombra profunda à esq. */
-		rgba(68, 38, 26, 0.55) 50%,    /* tom terra médio */
-		rgba(136, 95, 77, 0.10) 100%   /* toque do destaque suave */
-	);
+	background: linear-gradient(to right,
+			rgba(20, 10, 5, 0.55) 0%,
+			rgba(20, 10, 5, 0.35) 40%,
+			rgba(20, 10, 5, 0.10) 65%,
+			rgba(20, 10, 5, 0.00) 100%);
 }
 
 /* --- Container & Card --- */
@@ -114,97 +115,102 @@
 
 /* ============================================================
    IDENTIDADE MÉDICA
-   30% Secundária → textos de suporte e credencial
-   60% Primária   → nome principal (legibilidade máxima)
    ============================================================ */
 .hero__doctor {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 	text-align: left;
-	margin-bottom: 24px;
+	margin-bottom: 8px;
 }
 
-/* Nome — 60% primária, tipografia heading (Holland/Cormorant) */
+/* Nome — grande, elegante, com sombra para destacar sobre fundo claro */
 .hero__doctor-name {
 	order: 1;
 	font-family: var(--hero-font-heading);
-	font-size: clamp(1.6rem, 4vw, 2.2rem);
-	font-weight: 500;
+	font-size: clamp(2rem, 4.5vw, 2.8rem);
+	font-weight: 600;
 	font-style: italic;
-	letter-spacing: 0.02em;
-	color: var(--hero-color-primary);
+	letter-spacing: 0.01em;
+	color: #fff;
 	margin-bottom: 4px;
-	text-shadow: 0 2px 16px rgba(34, 20, 14, 0.5);
+	text-shadow:
+		0 2px 4px rgba(20, 10, 5, 0.6),
+		0 8px 24px rgba(20, 10, 5, 0.45);
 }
 
 .hero__doctor-name strong {
-	font-weight: 500;
+	font-weight: 600;
 }
 
-/* CRM — 30% secundária, fonte body (Fregan/DM Sans) */
+/* CRM — discreto mas legível */
 .hero__doctor-credentials {
 	display: block;
 	font-family: var(--hero-font-body);
-	font-size: 0.68rem;
-	font-weight: 400;
-	letter-spacing: 0.25em;
+	font-size: 0.72rem;
+	font-weight: 500;
+	letter-spacing: 0.28em;
 	text-transform: uppercase;
-	color: var(--hero-color-secondary);
-	margin-top: 3px;
+	color: var(--hero-color-primary);
+	margin-top: 4px;
+	text-shadow: 0 1px 6px rgba(20, 10, 5, 0.5);
 }
 
-/* Especialidade — H1 visualmente proeminente, alinhado com peso semântico */
+/* Especialidade — H1 semântico, eyebrow premium */
 .hero__doctor-specialty {
 	order: 2;
 	display: block;
 	font-family: var(--hero-font-body);
-	font-size: clamp(0.8rem, 1.2vw, 1rem);
-	font-weight: 500;
-	letter-spacing: 0.18em;
+	font-size: 1rem;
+	font-weight: 600;
+	letter-spacing: 0.2em;
 	text-transform: uppercase;
-	color: var(--hero-color-secondary);
-	margin-top: 10px;
+	color: var(--hero-color-accent);
+	margin-top: 12px;
 	line-height: 1.7;
-	max-width: 480px;
+	max-width: 500px;
+	text-shadow: none;
 }
 
-/* Divisória — 30% secundária com opacidade */
+/* Divisória refinada */
 .hero__divider {
 	order: 3;
-	width: 36px;
-	height: 1px;
-	background: var(--hero-color-secondary-30);
-	margin: 18px 0;
+	width: 48px;
+	height: 1.5px;
+	background: linear-gradient(90deg, var(--hero-color-secondary), transparent);
+	margin: 20px 0;
 }
 
 /* ============================================================
    HEADLINE DE IMPACTO
-   60% Primária → texto principal
-   30% Secundária → subtítulo
    ============================================================ */
 .hero__headline {
 	font-family: var(--hero-font-heading);
-	font-size: clamp(2.2rem, 5vw, 3.6rem);
+	font-size: clamp(2.6rem, 6vw, 4.2rem);
 	font-weight: 300;
-	line-height: 1.12;
-	color: var(--hero-color-primary);
-	letter-spacing: -0.01em;
+	line-height: 1.08;
+	color: #fff;
+	letter-spacing: -0.02em;
 	text-align: left;
-	text-shadow: 0 4px 30px rgba(34, 20, 14, 0.7);
+	text-shadow:
+		0 2px 4px rgba(20, 10, 5, 0.55),
+		0 8px 32px rgba(20, 10, 5, 0.40);
 }
 
 .hero__headline-accent {
 	display: block;
 	font-family: var(--hero-font-body);
-	font-size: 1rem;
-	font-weight: 300;
-	letter-spacing: 0.04em;
-	line-height: 1.65;
-	color: var(--hero-color-primary-80);
-	margin-top: 20px;
+	font-size: clamp(1rem, 1.6vw, 1.2rem);
+	font-weight: 500;
+	letter-spacing: 0.02em;
+	line-height: 1.7;
+	color: #fff;
+	margin-top: 22px;
 	max-width: 480px;
-	text-shadow: 0 2px 12px rgba(34, 20, 14, 0.5);
+	text-shadow:
+		0 1px 4px rgba(10, 5, 2, 0.85),
+		0 4px 16px rgba(10, 5, 2, 0.65),
+		0 8px 32px rgba(10, 5, 2, 0.40);
 }
 
 /* ============================================================
@@ -247,8 +253,13 @@
 
 /* --- Animação --- */
 @keyframes zoomOut {
-	from { transform: scale(1.15); }
-	to   { transform: scale(1); }
+	from {
+		transform: scale(1.15);
+	}
+
+	to {
+		transform: scale(1);
+	}
 }
 
 /* ============================================================
@@ -284,11 +295,9 @@
 	}
 
 	.hero__bg-overlay {
-		background: linear-gradient(
-			180deg,
-			rgba(34, 20, 14, 0.75) 0%,
-			rgba(34, 20, 14, 0.55) 100%
-		);
+		background: linear-gradient(180deg,
+				rgba(34, 20, 14, 0.75) 0%,
+				rgba(34, 20, 14, 0.55) 100%);
 	}
 }
 
