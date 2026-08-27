@@ -14,6 +14,10 @@
 
 	padding: 120px 24px;
 	background-color: var(--f-primary-soft);
+	background-image: linear-gradient(rgba(247, 242, 237, 0.88), rgba(247, 242, 237, 0.92)), url('/images/faq-bg.webp');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
 	position: relative;
 }
 
