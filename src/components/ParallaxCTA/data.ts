@@ -1,26 +1,26 @@
 import { sanityClient, urlFor } from "../../lib/sanity";
 
 // Busca os dados no Sanity
-const sanityData = await sanityClient.fetch(`*[_type == "parallaxCTAContent"][0]`).catch(() => null);
-
+//const sanityData = await sanityClient.fetch(`*[_type == "parallaxCTAContent"][0]`).catch(() => null);
+const sanityData = null;
 // Valores de fallback
 const defaultContent = {
-	title: "Pronta para transformar sua saúde e recuperar sua autoestima?",
-	text: "Dê o primeiro passo hoje. Agende sua consulta e comece seu protocolo personalizado com acompanhamento médico especializado.",
+	title: "Protocolo genérico não funciona porque você não é genérica!",
+	text: "Cada corpo pede uma estratégia diferente. Chame no WhatsApp e entenda como funciona o acompanhamento individualizado da Dra. Morgana Mota.",
 	cta: {
-		text: "Agendar Minha Consulta Agora",
+		text: "Agendar Minha Avaliação",
 		url: "https://wa.me/5500000000000?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20minha%20avalia%C3%A7%C3%A3o%20m%C3%A9dica.",
 	},
 	bgImage: "/images/parallax-cta-bg-v3.png",
 };
 
 // Geração de imagens otimizadas
-const desktopUrl = sanityData?.bgImage 
-	? urlFor(sanityData.bgImage).width(1920).quality(80).auto('format').url() 
+const desktopUrl = sanityData?.bgImage
+	? urlFor(sanityData.bgImage).width(1920).quality(80).auto('format').url()
 	: defaultContent.bgImage;
 
-const mobileUrl = sanityData?.bgImage 
-	? urlFor(sanityData.bgImage).width(800).quality(70).auto('format').url() 
+const mobileUrl = sanityData?.bgImage
+	? urlFor(sanityData.bgImage).width(800).quality(70).auto('format').url()
 	: defaultContent.bgImage;
 
 export const content = {
