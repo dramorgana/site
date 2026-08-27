@@ -1,11 +1,19 @@
 /* ============================================
    ABOUT — Design System
+   Paleta: espelhada do Hero/Services
+   60% Primária (#EEE4DB) · 30% Secundária (#D8AF9D) · 10% Accent (#885F4D)
    ============================================ */
 .about {
+	--a-primary:      #EEE4DB;
+	--a-primary-soft: #F7F2ED;
+	--a-secondary:    #D8AF9D;
+	--a-accent:       #885F4D;
+	--a-accent-dark:  #6B4A3C;
+
 	padding: 140px 24px;
 	background: linear-gradient(135deg,
-			var(--color-alabaster) 0%,
-			rgba(0, 155, 77, 0.05) 100%);
+			#F7F2ED 0%,
+			#EEE4DB 100%);
 	position: relative;
 	overflow: hidden;
 }
@@ -25,7 +33,7 @@
 .about::before {
 	width: 500px;
 	height: 500px;
-	background: var(--color-sage-light);
+	background: rgba(216, 175, 157, 0.6);
 	top: -150px;
 	right: -100px;
 }
@@ -33,7 +41,7 @@
 .about::after {
 	width: 450px;
 	height: 450px;
-	background: var(--color-sand-light);
+	background: rgba(136, 95, 77, 0.25);
 	bottom: -100px;
 	left: -150px;
 	animation-delay: -10s;
@@ -68,39 +76,82 @@
 }
 
 .about__text {
-	font-family: var(--font-body);
-	font-size: 1.1rem;
-	color: var(--color-body-text);
+	font-family: 'DM Sans', sans-serif;
+	font-size: 1.05rem;
+	color: #5a3d30;
 	margin-bottom: 24px;
 	max-width: 540px;
+	line-height: 1.7;
+}
+
+/* Override do SectionHeader para paleta warm-tone */
+.about .section-header__kicker {
+	color: #885F4D;
+}
+
+.about .section-header__title {
+	color: #6B4A3C;
+}
+
+.about .section-header__description {
+	color: #5a3d30;
 }
 
 .about__highlights {
 	list-style: none;
 	display: grid;
-	gap: 16px;
+	grid-template-columns: 1fr 1fr;
+	gap: 12px;
 }
 
 .about__highlight {
 	display: flex;
-	align-items: center;
-	gap: 16px;
+	align-items: flex-start;
+	gap: 12px;
+	background: rgba(107, 74, 60, 0.06);
+	border: 1px solid rgba(216, 175, 157, 0.35);
+	border-radius: 12px;
+	padding: 14px 16px;
+	transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.about__highlight:hover {
+	background: rgba(107, 74, 60, 0.11);
+	border-color: rgba(216, 175, 157, 0.65);
+	transform: translateY(-2px);
+	box-shadow: 0 8px 24px rgba(107, 74, 60, 0.10);
 }
 
 .about__highlight-dot {
-	width: 8px;
-	height: 8px;
+	width: 20px;
+	height: 20px;
+	min-width: 20px;
 	border-radius: 50%;
-	background-color: var(--color-sage);
+	background-color: #885F4D;
 	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 1px;
+}
+
+.about__highlight-dot::after {
+	content: "";
+	width: 5px;
+	height: 9px;
+	border-right: 2px solid #fff;
+	border-bottom: 2px solid #fff;
+	transform: rotate(45deg) translate(-1px, -1px);
+	display: block;
 }
 
 .about__highlight-label {
-	font-family: var(--font-body);
-	font-size: 0.95rem;
+	font-family: 'DM Sans', sans-serif;
+	font-size: 0.875rem;
 	font-weight: 500;
-	color: var(--color-dark-text);
-	letter-spacing: 0.02em;
+	color: #6B4A3C;
+	letter-spacing: 0.01em;
+	line-height: 1.45;
 }
 
 /* --- Visual --- */
@@ -128,7 +179,7 @@
 	position: absolute;
 	width: 140px;
 	height: 140px;
-	border: 1px solid var(--color-sand);
+	border: 1px solid #D8AF9D;
 	z-index: 1;
 	border-radius: 12px;
 }
@@ -169,23 +220,23 @@
 
 .about__doctor-specialty {
 	display: block;
-	font-family: var(--font-body);
+	font-family: 'DM Sans', sans-serif;
 	font-size: 0.75rem;
 	font-weight: 600;
 	letter-spacing: 0.35em;
 	text-transform: uppercase;
-	color: var(--color-sage);
+	color: #885F4D;
 	margin-top: 12px;
 	margin-bottom: 20px;
 }
 
 .about__profile-btn {
 	display: inline-block;
-	font-family: var(--font-body);
+	font-family: 'DM Sans', sans-serif;
 	font-size: 0.9rem;
 	font-weight: 600;
 	color: #fff;
-	background-color: var(--color-sage);
+	background-color: #885F4D;
 	padding: 10px 24px;
 	border-radius: 30px;
 	text-decoration: none;
@@ -193,7 +244,7 @@
 }
 
 .about__profile-btn:hover {
-	background-color: var(--color-sage-dark);
+	background-color: #6B4A3C;
 	transform: translateY(-2px);
 }
 

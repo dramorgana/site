@@ -1,14 +1,14 @@
 import { sanityClient } from "../../lib/sanity";
 
 // Busca os dados no Sanity
-const sanityData = await sanityClient.fetch(`*[_type == "servicesContent"][0]`).catch(() => null);
-//const sanityData = null;
+//const sanityData = await sanityClient.fetch(`*[_type == "servicesContent"][0]`).catch(() => null);
+const sanityData = null;
 // Valores de fallback
 const defaultContent = {
 	kicker: "Nossas Especialidades",
 	title: "Cuidado completo para sua jornada.",
 	description:
-		"Priorizo a combinação de todos os fatores: mudança de hábitos, medicamentos e suplementação. Avalio o dia a dia do paciente como um todo para identificar os pontos que podemos otimizar e alcançar os melhores resultados.",
+		"Tratamentos personalizados com base em evidências científicas e foco na sua saúde metabólica.",
 	services: [
 		{
 			name: "Emagrecimento Saudável Baseado na Ciência",
