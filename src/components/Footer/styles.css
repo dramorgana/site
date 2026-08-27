@@ -1,54 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+
 /* ============================================
    FOOTER — Design System
+   Paleta invertida do Hero/Services/About
+   Fundo: Accent Dark (#6B4A3C)
+   Textos: Primária (#EEE4DB) · Secundária (#D8AF9D)
    ============================================ */
 .footer {
-	background-color: var(--color-dark-text);
-	color: #ffffff;
+	--f-primary:      #EEE4DB;
+	--f-secondary:    #D8AF9D;
+	--f-accent:       #885F4D;
+	--f-accent-dark:  #6B4A3C;
+	--f-muted:        rgba(238, 228, 219, 0.55);
+	--f-border:       rgba(216, 175, 157, 0.18);
+
+	background-color: var(--f-accent-dark);
+	color: var(--f-primary);
 	padding: 80px 24px 40px;
-	font-family: var(--font-body);
+	font-family: 'DM Sans', sans-serif;
 }
 
+/* --- Container --- */
 .footer__container {
 	max-width: 1200px;
 	margin: 0 auto;
 }
 
+/* --- Top grid --- */
 .footer__top {
 	display: grid;
 	grid-template-columns: 1.5fr 1fr 1fr;
 	gap: 60px;
 	padding-bottom: 60px;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	border-bottom: 1px solid var(--f-border);
 }
 
+/* --- Brand --- */
 .footer__doctor-name {
-	font-family: var(--font-heading);
-	font-size: 1.8rem;
+	font-family: 'Cormorant Garamond', serif;
+	font-size: 1.9rem;
+	font-weight: 600;
 	margin-bottom: 12px;
-	color: #ffffff;
+	color: var(--f-primary);
+	letter-spacing: 0.02em;
 }
 
 .footer__doctor-creds {
-	font-size: 0.85rem;
-	color: var(--color-sage-light);
-	letter-spacing: 0.1em;
+	font-family: 'DM Sans', sans-serif;
+	font-size: 0.78rem;
+	color: var(--f-secondary);
+	letter-spacing: 0.14em;
 	text-transform: uppercase;
+	font-weight: 500;
 }
 
+/* --- Títulos de coluna --- */
 .footer__title {
-	font-family: var(--font-heading);
+	font-family: 'Cormorant Garamond', serif;
 	font-size: 1.1rem;
+	font-weight: 600;
 	margin-bottom: 24px;
-	color: #ffffff;
+	color: var(--f-secondary);
+	letter-spacing: 0.04em;
 }
 
+/* --- Endereço --- */
 .footer__address p {
-	font-size: 0.95rem;
-	color: rgba(255, 255, 255, 0.7);
-	line-height: 1.6;
+	font-family: 'DM Sans', sans-serif;
+	font-size: 0.93rem;
+	color: var(--f-muted);
+	line-height: 1.65;
 	margin-bottom: 4px;
 }
 
+/* --- Social links --- */
 .footer__social-links {
 	display: flex;
 	flex-direction: column;
@@ -56,16 +81,21 @@
 }
 
 .footer__social-link {
-	color: rgba(255, 255, 255, 0.7);
+	color: var(--f-muted);
 	text-decoration: none;
-	font-size: 0.95rem;
+	font-family: 'DM Sans', sans-serif;
+	font-size: 0.93rem;
 	transition: color 0.3s ease;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
 }
 
 .footer__social-link:hover {
-	color: var(--color-sage-light);
+	color: var(--f-secondary);
 }
 
+/* --- Bottom bar --- */
 .footer__bottom {
 	padding-top: 40px;
 	display: flex;
@@ -76,8 +106,9 @@
 }
 
 .footer__copyright {
-	font-size: 0.85rem;
-	color: rgba(255, 255, 255, 0.5);
+	font-family: 'DM Sans', sans-serif;
+	font-size: 0.82rem;
+	color: var(--f-muted);
 }
 
 .footer__nav {
@@ -86,23 +117,24 @@
 }
 
 .footer__nav-link {
-	color: rgba(255, 255, 255, 0.5);
+	color: var(--f-muted);
 	text-decoration: none;
-	font-size: 0.85rem;
+	font-family: 'DM Sans', sans-serif;
+	font-size: 0.82rem;
 	transition: color 0.3s ease;
 }
 
 .footer__nav-link:hover {
-	color: #ffffff;
+	color: var(--f-primary);
 }
 
-/* Responsive */
+/* --- Responsive --- */
 @media (max-width: 992px) {
 	.footer__top {
 		grid-template-columns: 1fr 1fr;
 		gap: 40px;
 	}
-	
+
 	.footer__brand {
 		grid-column: span 2;
 	}
@@ -112,7 +144,7 @@
 	.footer__top {
 		grid-template-columns: 1fr;
 	}
-	
+
 	.footer__brand {
 		grid-column: span 1;
 	}
@@ -126,5 +158,6 @@
 	.footer__nav {
 		justify-content: center;
 		gap: 16px;
+		flex-wrap: wrap;
 	}
 }

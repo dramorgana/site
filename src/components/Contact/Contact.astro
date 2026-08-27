@@ -1,13 +1,13 @@
 ---
-import { content } from './data';
-import SectionHeader from '../SectionHeader/SectionHeader.astro';
-import './styles.css';
+import { content } from "./data";
+import SectionHeader from "../SectionHeader/SectionHeader.astro";
+import "./styles.css";
 ---
 
 <section id="contato" class="contact">
 	<div class="contact__container">
 		<div class="contact__info">
-			<SectionHeader 
+			<SectionHeader
 				title={content.title}
 				description={content.subtitle}
 			/>
@@ -25,8 +25,12 @@ import './styles.css';
 							content.contact.map((item) => (
 								<li class="contact__list-item">
 									<a href={item.url} class="contact__link">
-										<span class="contact__link-type">{item.type}:</span>
-										<span class="contact__link-value">{item.value}</span>
+										<span class="contact__link-type">
+											{item.type}:
+										</span>
+										<span class="contact__link-value">
+											{item.value}
+										</span>
 									</a>
 								</li>
 							))
@@ -45,8 +49,7 @@ import './styles.css';
 					style="border:0;"
 					allowfullscreen=""
 					loading="lazy"
-					title="Localização do Consultório"
-				></iframe>
+					title="Localização do Consultório"></iframe>
 			</div>
 		</div>
 	</div>
