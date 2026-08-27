@@ -1,11 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+
 /* ============================================
    CONTACT — Design System
+   Paleta: espelhada do Hero/Services/About/Pilares/FAQ
+   60% Primária (#EEE4DB) · 30% Secundária (#D8AF9D) · 10% Accent (#885F4D)
    ============================================ */
 .contact {
-	padding: 120px 24px;
-	background-color: #f0f7f4;
-	position: relative;
+	--c-primary:      #EEE4DB;
+	--c-primary-soft: #F7F2ED;
+	--c-secondary:    #D8AF9D;
+	--c-accent:       #885F4D;
+	--c-accent-dark:  #6B4A3C;
 
+	padding: 120px 24px;
+	background-color: var(--c-primary);
+	position: relative;
+}
+
+/* Override SectionHeader */
+.contact .section-header__kicker {
+	color: var(--c-accent);
+}
+
+.contact .section-header__title {
+	color: var(--c-accent-dark);
+}
+
+.contact .section-header__description {
+	color: #5a3d30;
 }
 
 .contact__container {
@@ -15,29 +37,29 @@
 	grid-template-columns: 1fr 1fr;
 	gap: 80px;
 	align-items: center;
-
-
 }
 
 .contact__details {
 	display: grid;
 	gap: 40px;
+	margin-top: 40px;
 }
 
 .contact__item-title {
-	font-family: var(--font-heading);
-	font-size: 1.2rem;
+	font-family: 'DM Sans', sans-serif;
+	font-size: 0.85rem;
+	font-weight: 600;
 	margin-bottom: 12px;
-	color: var(--color-sage);
+	color: var(--c-accent);
 	text-transform: uppercase;
-	letter-spacing: 0.1em;
+	letter-spacing: 0.15em;
 }
 
 .contact__item-text {
-	font-family: var(--font-body);
+	font-family: 'DM Sans', sans-serif;
 	font-size: 1.1rem;
-	color: var(--color-dark-text);
-	line-height: 1.5;
+	color: var(--c-accent-dark);
+	line-height: 1.6;
 }
 
 .contact__list {
@@ -50,28 +72,29 @@
 	text-decoration: none;
 	display: flex;
 	gap: 8px;
-	font-family: var(--font-body);
-	font-size: 1.1rem;
-	transition: color 0.3s ease;
+	font-family: 'DM Sans', sans-serif;
+	font-size: 1.05rem;
+	transition: all 0.3s ease;
 }
 
 .contact__link-type {
 	font-weight: 600;
-	color: var(--color-dark-text);
+	color: var(--c-accent-dark);
 }
 
 .contact__link-value {
-	color: var(--color-body-text);
+	color: #5a3d30;
 }
 
 .contact__link:hover .contact__link-value {
-	color: var(--color-sage);
+	color: var(--c-accent);
 }
 
 .contact__map-frame {
-	border-radius: 30px;
+	border-radius: 24px;
 	overflow: hidden;
-	box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 30px 60px -15px rgba(136, 95, 77, 0.15);
+	border: 1px solid rgba(216, 175, 157, 0.30);
 	line-height: 0;
 }
 
