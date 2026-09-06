@@ -6,16 +6,19 @@ import { sanityClient, urlFor } from "../../lib/sanity";
 import "../../styles/post.css";
 
 export async function getStaticPaths() {
-  const posts = await sanityClient.fetch(`*[_type == "post"]{ "slug": slug.current }`);
+  const posts = await sanityClient.fetch(
+    `*[_type == "post"]{ "slug": slug.current }`,
+  );
   return posts.map((post: any) => ({
-    params: { slug: post.slug }
+    params: { slug: post.slug },
   }));
 }
 
 const { slug } = Astro.params;
 
 // Buscamos o post específico do Sanity
-const postSanity = await sanityClient.fetch(`
+const postSanity = await sanityClient.fetch(
+  `
   *[_type == "post" && slug.current == $slug][0] {
     title,
     description,
@@ -27,50 +30,64 @@ const postSanity = await sanityClient.fetch(`
     "authorImage": author->image,
     body
   }
-`, { slug });
+`,
+  { slug },
+);
 
-const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800";
+const DEFAULT_IMAGE =
+  "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800";
 
 const post = {
   ...postSanity,
-  image: postSanity.mainImage ? urlFor(postSanity.mainImage).width(1200).url() : DEFAULT_IMAGE,
-  description: postSanity.description || "Leia mais sobre este assunto em nosso blog completo.",
-  date: new Date(postSanity.publishedAt || new Date()).toLocaleDateString('pt-BR', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric'
-  }).replace('.', ''),
-  author: postSanity.authorName || "Dra. Carolina Mendes",
+  image: postSanity.mainImage
+    ? urlFor(postSanity.mainImage).width(1200).url()
+    : DEFAULT_IMAGE,
+  description:
+    postSanity.description ||
+    "Leia mais sobre este assunto em nosso blog completo.",
+  date: new Date(postSanity.publishedAt || new Date())
+    .toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    })
+    .replace(".", ""),
+  author: postSanity.authorName || "Dra. Morgana Motta",
   authorCrm: postSanity.authorCrm || "CRM-SP 123456",
-  seoDescription: postSanity.description || "Artigo sobre saúde e bem-estar pela Dra. Carolina Mendes."
+  seoDescription:
+    postSanity.description ||
+    "Artigo sobre saúde e bem-estar pela Dra. Morgana Motta.",
 };
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://drmorganamota.com.br');
+const canonicalURL = new URL(
+  Astro.url.pathname,
+  Astro.site || "https://drmorganamota.com.br",
+);
 
 const schemaData = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": post.title,
-  "description": post.seoDescription,
-  "image": post.image,
-  "datePublished": post.publishedAt,
-  "author": {
+  headline: post.title,
+  description: post.seoDescription,
+  image: post.image,
+  datePublished: post.publishedAt,
+  author: {
     "@type": "Person",
-    "name": post.author
+    name: post.author,
   },
-  "publisher": {
+  publisher: {
     "@type": "Organization",
-    "name": "Dra. Carolina Mendes",
-    "logo": {
+    name: "Dra. Morgana Motta",
+    logo: {
       "@type": "ImageObject",
-      "url": "/favicon.svg"
-    }
-  }
+      url: "/favicon.svg",
+    },
+  },
 };
 ---
 
-<Layout 
-  title={`${post.title} | Blog Dra. Carolina Mendes`}
+<Layout
+  title={`${post.title} | Blog Dra. Morgana Motta`}
   description={post.seoDescription}
 >
   <head slot="head">
@@ -98,12 +115,30 @@ const schemaData = {
       <img src={post.image} alt={post.title} class="post-hero-image" />
 
       <div class="post-content">
-        {post.body ? <PortableText value={post.body} /> : <p>{post.description}</p>}
+        {
+          post.body ? (
+            <PortableText value={post.body} />
+          ) : (
+            <p>{post.description}</p>
+          )
+        }
       </div>
 
       <footer class="post-footer">
         <a href="/blog" class="back-to-blog">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><line x1="19" y1="12" x2="5" y2="12"></line><polyline
+              points="12 19 5 12 12 5"></polyline></svg
+          >
           Voltar para o Blog
         </a>
       </footer>

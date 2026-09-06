@@ -9,7 +9,7 @@ const defaultContent = {
 	title: "Uma abordagem humana para resultados reais.",
 	description: "Ciência, escuta ativa e um olhar completo sobre o seu dia a dia — para resultados que duram.",
 	paragraphs: [
-		"Com ampla experiência no acompanhamento de pacientes em processo de emagrecimento e hipertrofia — incluindo o uso de medicamentos emagrecedores e terapias hormonais —, a Dra. Morgana Mota constrói, a cada consulta, um plano de cuidado 100% individualizado. Não existem protocolos prontos: cada tratamento nasce da análise cuidadosa do histórico, dos exames laboratoriais e das queixas de cada paciente.",
+		"Com ampla experiência no acompanhamento de pacientes em processo de emagrecimento e hipertrofia — incluindo o uso de medicamentos emagrecedores e terapias hormonais —, a Dra. Morgana Motta constrói, a cada consulta, um plano de cuidado 100% individualizado. Não existem protocolos prontos: cada tratamento nasce da análise cuidadosa do histórico, dos exames laboratoriais e das queixas de cada paciente.",
 		"O diferencial do seu atendimento está justamente aí: individualização real e acompanhamento próximo em cada etapa. A combinação de mudança de hábitos, medicação e suplementação é ajustada ao dia a dia de cada pessoa, sempre com foco em resultados sustentáveis — redução de peso, melhora metabólica e longevidade.",
 		"A verdadeira transformação do corpo — seja no emagrecimento ou no ganho de massa magra — só acontece com a mudança completa de hábitos. Não basta rever a alimentação e iniciar uma atividade física: é preciso também trabalhar a mente e fortalecer a consciência sobre o próprio processo.",
 	],

@@ -22,7 +22,7 @@ const sanityData = await sanityClient.fetch(query).catch(() => ({ posts: [], hea
 const defaultHeader = {
   kicker: "Conteúdo Especializado",
   title: "Posts e Novidades",
-  description: "Fique por dentro das últimas novidades, dicas e artigos sobre saúde metabólica, emagrecimento e qualidade de vida escritos pela Dra. Carolina Mendes.",
+  description: "Fique por dentro das últimas novidades, dicas e artigos sobre saúde metabólica, emagrecimento e qualidade de vida escritos pela Dra. Morgana Motta.",
   viewAllLabel: "Ver todos os artigos no Blog"
 };
 
@@ -66,7 +66,7 @@ export const posts = sanityData.posts.map((post: any) => {
       month: 'short',
       year: 'numeric'
     }).replace('.', ''),
-    authorName: post.authorName || "Dra. Carolina Mendes",
+    authorName: post.authorName || "Dra. Morgana Motta",
     authorCrm: post.authorCrm || "CRM-SP 123456",
     authorImage: post.authorImage ? urlFor(post.authorImage).width(100).url() : "https://ui-avatars.com/api/?name=Carolina+Mendes&background=c5a059&color=fff",
     category: post.category || "Saúde Integrativa",

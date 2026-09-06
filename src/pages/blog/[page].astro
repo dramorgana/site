@@ -21,20 +21,29 @@ export async function getStaticPaths({ paginate }: { paginate: any }) {
     }
   `);
 
-  const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800";
+  const DEFAULT_IMAGE =
+    "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800";
 
   const formattedPosts = sanityPosts.map((post: any) => ({
     ...post,
-    image: post.mainImage ? urlFor(post.mainImage).width(800).url() : DEFAULT_IMAGE,
-    description: post.description || "Leia mais sobre este assunto em nosso blog completo.",
-    date: new Date(post.publishedAt || new Date()).toLocaleDateString('pt-BR', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric'
-    }).replace('.', ''),
-    authorName: post.authorName || "Dra. Carolina Mendes",
+    image: post.mainImage
+      ? urlFor(post.mainImage).width(800).url()
+      : DEFAULT_IMAGE,
+    description:
+      post.description ||
+      "Leia mais sobre este assunto em nosso blog completo.",
+    date: new Date(post.publishedAt || new Date())
+      .toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .replace(".", ""),
+    authorName: post.authorName || "Dra. Morgana Motta",
     authorCrm: post.authorCrm || "CRM-SP 123456",
-    authorImage: post.authorImage ? urlFor(post.authorImage).width(100).url() : "https://ui-avatars.com/api/?name=Carolina+Mendes&background=c5a059&color=fff"
+    authorImage: post.authorImage
+      ? urlFor(post.authorImage).width(100).url()
+      : "https://ui-avatars.com/api/?name=Carolina+Mendes&background=c5a059&color=fff",
   }));
 
   return paginate(formattedPosts, { pageSize: 3 });
@@ -43,41 +52,109 @@ export async function getStaticPaths({ paginate }: { paginate: any }) {
 const { page } = Astro.props;
 ---
 
-<Layout title={`Blog - Página ${page.currentPage} | Dra. Carolina Mendes`}>
+<Layout title={`Blog - Página ${page.currentPage} | Dra. Morgana Motta`}>
   <main style="padding-top: 80px;">
     <section class="blog-page">
       <div class="container">
-        <BlogSection limit={undefined} showPagination={false} customPosts={page.data} />
-        
+        <BlogSection
+          limit={undefined}
+          showPagination={false}
+          customPosts={page.data}
+        />
+
         <nav class="pagination" aria-label="Navegação de posts">
-          {page.url.prev ? (
-            <a href={page.url.prev === "/blog/1" ? "/blog" : page.url.prev} class="pagination-btn" aria-label="Página anterior">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </a>
-          ) : (
-            <span class="pagination-btn disabled">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </span>
-          )}
+          {
+            page.url.prev ? (
+              <a
+                href={page.url.prev === "/blog/1" ? "/blog" : page.url.prev}
+                class="pagination-btn"
+                aria-label="Página anterior"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </a>
+            ) : (
+              <span class="pagination-btn disabled">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </span>
+            )
+          }
 
-          {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((pageNum) => (
-            <a 
-              href={pageNum === 1 ? "/blog" : `/blog/${pageNum}`} 
-              class={`pagination-btn ${page.currentPage === pageNum ? 'active' : ''}`}
-            >
-              {pageNum}
-            </a>
-          ))}
+          {
+            Array.from({ length: page.lastPage }, (_, i) => i + 1).map(
+              (pageNum) => (
+                <a
+                  href={pageNum === 1 ? "/blog" : `/blog/${pageNum}`}
+                  class={`pagination-btn ${page.currentPage === pageNum ? "active" : ""}`}
+                >
+                  {pageNum}
+                </a>
+              ),
+            )
+          }
 
-          {page.url.next ? (
-            <a href={page.url.next} class="pagination-btn" aria-label="Próxima página">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </a>
-          ) : (
-            <span class="pagination-btn disabled">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </span>
-          )}
+          {
+            page.url.next ? (
+              <a
+                href={page.url.next}
+                class="pagination-btn"
+                aria-label="Próxima página"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </a>
+            ) : (
+              <span class="pagination-btn disabled">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </span>
+            )
+          }
         </nav>
       </div>
     </section>
@@ -89,7 +166,7 @@ const { page } = Astro.props;
   .blog-page {
     padding-bottom: 100px;
   }
-  
+
   .container {
     max-width: 1200px;
     margin: 0 auto;

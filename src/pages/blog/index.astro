@@ -3,12 +3,15 @@ import Layout from "../../layouts/Layout.astro";
 import BlogSection from "../../components/BlogSection/BlogSection.astro";
 import Footer from "../../components/Footer/Footer.astro";
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://drmorganamota.com.br');
+const canonicalURL = new URL(
+  Astro.url.pathname,
+  Astro.site || "https://drmorganamota.com.br",
+);
 ---
 
-<Layout 
-  title="Blog | Dra. Carolina Mendes - Saúde Metabólica e Emagrecimento"
-  description="Artigos e novidades sobre saúde metabólica, nutrição e emagrecimento consciente escritos pela Dra. Carolina Mendes."
+<Layout
+  title="Blog | Dra. Morgana Motta - Saúde Metabólica e Emagrecimento"
+  description="Artigos e novidades sobre saúde metabólica, nutrição e emagrecimento consciente escritos pela Dra. Morgana Motta."
 >
   <head slot="head">
     <link rel="canonical" href={canonicalURL} />

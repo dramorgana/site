@@ -6,7 +6,7 @@ const sanityData = null;
 // Valores de fallback
 const defaultContent = {
 	title: "Protocolo genérico não funciona porque você não é genérica!",
-	text: "Cada corpo pede uma estratégia diferente. Chame no WhatsApp e entenda como funciona o acompanhamento individualizado da Dra. Morgana Mota.",
+	text: "Cada corpo pede uma estratégia diferente. Chame no WhatsApp e entenda como funciona o acompanhamento individualizado da Dra. Morgana Motta.",
 	cta: {
 		text: "Agendar Minha Avaliação",
 		url: "https://wa.me/5500000000000?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20minha%20avalia%C3%A7%C3%A3o%20m%C3%A9dica.",
