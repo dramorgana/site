@@ -84,12 +84,14 @@ const whatsappUrl = cta.phone
 			<!-- Headline de Impacto (H2) -->
 			<h2 class="hero__headline">
 				<Fragment set:html={headline.main} />
-				{
-					/*<span class="hero__headline-accent">
-					{headline.accent}
-				</span> */
-				}
 			</h2>
+			{
+				headline.accent && (
+					<p class="hero__headline-accent">
+						<Fragment set:html={headline.accent} />
+					</p>
+				)
+			}
 
 			<!-- CTA — WhatsApp -->
 			<div class="hero__actions">

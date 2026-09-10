@@ -7,16 +7,14 @@ const sanityData = await sanityClient.fetch(`*[_type == "heroContent"][0]`).catc
 const defaultDoctor = {
   name: "Morgana Motta",
   prefix: "Dra.",
-  specialty: "Cuidado Médico para Emagrecimento e Ganho de Massa Muscular em Belo Horizonte.",
+  specialty: "Emagrecimento e ganho de massa muscular",
   credentials: "CRM 96204",
 };
 
 
 const defaultHeadline = {
-  main: "Treinou, se cuidou e ainda sente que falta alguma coisa?",
-  accent: "Um acompanhamento médico individualizado pode ser o próximo passo. Atendimento presencial ou por telemedicina.",
-  //main: "Sente que seu esforço<br />não gera resultados?",
-  //accent: "Um acompanhamento médico individualizado pode ser o próximo passo. Atendimento presencial ou por telemedicina.",
+  main: "Sente que seu esforço<br />não gera resultados?",
+  accent: "O problema não é esforço. É seguir um plano genérico para um corpo que é só seu. Protocolo individual, com acompanhamento próximo em cada etapa.<br /><br />📍 Atendimento presencial em Belo Horizonte e online para todo o Brasil",
 };
 
 

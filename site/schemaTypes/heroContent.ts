@@ -22,7 +22,7 @@ export default defineType({
       type: 'object',
       fields: [
         { name: 'main', title: 'Texto Principal', type: 'string', description: 'Aceita <br /> para quebra de linha' },
-        { name: 'accent', title: 'Texto de Destaque', type: 'string' },
+        { name: 'accent', title: 'Texto de Destaque', type: 'string', description: 'Aceita <br /> para quebra de linha' },
       ],
     }),
     defineField({

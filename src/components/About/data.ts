@@ -30,7 +30,7 @@ const defaultContent = {
 	doctor: {
 		name: "Morgana Motta",
 		prefix: "Dra.",
-		specialty: "Emagrecimento & Saúde Metabólica",
+		specialty: "Emagrecimento e ganho de massa muscular",
 	},
 };
 

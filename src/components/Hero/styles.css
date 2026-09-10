@@ -156,20 +156,26 @@
 	text-shadow: 0 1px 6px rgba(20, 10, 5, 0.5);
 }
 
-/* Especialidade — H1 semântico, eyebrow premium */
+/* Especialidade — H1 semântico, destacada com fundo para máxima legibilidade */
 .hero__doctor-specialty {
 	order: 2;
-	display: block;
+	display: inline-block;
 	font-family: var(--hero-font-body);
-	font-size: 1rem;
+	font-size: 0.85rem;
 	font-weight: 600;
-	letter-spacing: 0.2em;
+	letter-spacing: 0.18em;
 	text-transform: uppercase;
-	color: var(--hero-color-accent);
-	margin-top: 12px;
-	line-height: 1.7;
-	max-width: 500px;
+	color: #162A1F;
+	background-color: rgba(148, 153, 137, 0.88);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	padding: 6px 14px;
+	border-radius: 2px;
+	margin-top: 14px;
+	line-height: 1.4;
+	max-width: 100%;
 	text-shadow: none;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 /* Divisória refinada */
@@ -315,8 +321,9 @@
 	}
 
 	.hero__doctor-specialty {
-		font-size: 0.66rem;
-		letter-spacing: 0.2em;
+		font-size: 0.72rem;
+		letter-spacing: 0.14em;
+		padding: 5px 10px;
 	}
 }
 
