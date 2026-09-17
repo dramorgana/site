@@ -12,7 +12,7 @@ const { PUBLIC_SANITY_PROJECT_ID, PUBLIC_SANITY_DATASET } = loadEnv(
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://dracarolinamendes.com.br',
+  site: 'https://www.dramorganamotta.com.br',
   integrations: [
     sitemap(),
     sanity({

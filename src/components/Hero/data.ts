@@ -2,7 +2,8 @@ import { sanityClient } from '../../lib/sanity';
 
 // Busca os dados no Sanity
 const sanityData = await sanityClient.fetch(`*[_type == "heroContent"][0]`).catch(() => null);
-//const sanityData = null
+
+console.log({ sanityData })
 // Dados de reserva (Fallback) caso o Sanity esteja vazio
 const defaultDoctor = {
   name: "Morgana Motta",
@@ -11,12 +12,10 @@ const defaultDoctor = {
   credentials: "CRM 96204",
 };
 
-
 const defaultHeadline = {
-  main: "Sente que seu esforço<br />não gera resultados?",
-  accent: "O problema não é esforço. É seguir um plano genérico para um corpo que é só seu. Protocolo individual, com acompanhamento próximo em cada etapa.<br /><br />📍 Atendimento presencial em Belo Horizonte e online para todo o Brasil",
+  main: "Seu esforço não é o problema.<br />O plano genérico é.",
+  accent: "Protocolo individual para o seu corpo, com acompanhamento próximo em cada etapa — não um plano pronto pra todo mundo.<br /><br />Atendimento presencial em Belo Horizonte e online para todo o Brasil.",
 };
-
 
 const defaultCta = {
   text: "Clique aqui e descubra como podemos ajudar",
@@ -29,11 +28,28 @@ const defaultBackground = {
   image: null,
 };
 
+// Helper local para evitar valores nulos/inválidos do Sanity
+function fallbackStr(value: unknown, fallback: string): string {
+  if (typeof value !== 'string') return fallback;
+  const trimmed = value.trim();
+  return trimmed !== '' ? trimmed : fallback;
+}
+
+const raw = sanityData?.doctor;
+
 // Exporta variáveis individuais combinando Sanity + Fallback
-export const doctor = { ...defaultDoctor, ...sanityData?.doctor };
-export const headline = { ...defaultHeadline, ...sanityData?.headline };
+export const doctor = {
+  name: fallbackStr(raw?.name, defaultDoctor.name),
+  prefix: fallbackStr(raw?.prefix, defaultDoctor.prefix),
+  specialty: fallbackStr(raw?.specialty, defaultDoctor.specialty),
+  credentials: fallbackStr(raw?.credentials, defaultDoctor.credentials),
+};
+
+export const headline = {
+  main: fallbackStr(sanityData?.headline?.main, defaultHeadline.main),
+  accent: fallbackStr(sanityData?.headline?.accent, defaultHeadline.accent),
+};
+
 export const cta = { ...defaultCta, ...sanityData?.cta };
 export const background = { ...defaultBackground, ...sanityData?.background };
-
-// Mantemos o export do content original apenas por compatibilidade se necessário
 export const content = sanityData;

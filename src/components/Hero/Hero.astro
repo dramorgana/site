@@ -3,13 +3,28 @@ import { doctor, headline, cta, background } from "./data";
 import { urlFor } from "../../lib/sanity";
 import "./styles.css";
 
-// Caminho para a imagem SVG do Hero
-const heroSvgSrc = "/images/hero-section/hero-image.svg";
+const _doctorName =
+	doctor && doctor.name && doctor.name.trim()
+		? doctor.name.trim()
+		: "Morgana Motta";
+const _prefix =
+	doctor && doctor.prefix && doctor.prefix.trim()
+		? doctor.prefix.trim()
+		: "Dra.";
+const _specialty =
+	doctor && doctor.specialty && doctor.specialty.trim()
+		? doctor.specialty.trim()
+		: "Emagrecimento e ganho de massa muscular";
+const _credentials =
+	doctor && doctor.credentials && doctor.credentials.trim()
+		? doctor.credentials.trim()
+		: "CRM 96204";
 
 // Construção automática da URL do WhatsApp
-const whatsappUrl = cta.phone
-	? `https://wa.me/${cta.phone.replace(/\D/g, "")}?text=${encodeURIComponent(cta.message || "")}`
-	: "#";
+const whatsappUrl =
+	cta && cta.phone
+		? `https://wa.me/${cta.phone.replace(/\D/g, "")}?text=${encodeURIComponent(cta.message || "")}`
+		: "#";
 ---
 
 <slot name="head">
@@ -51,7 +66,7 @@ const whatsappUrl = cta.phone
 				/>
 				<img
 					src="/images/hero-section/hero-image.jpg"
-					alt={background.alt || doctor.name}
+					alt={background.alt || `${_prefix} ${_doctorName}`}
 					class="hero__bg-image"
 					loading="eager"
 					fetchpriority="high"
@@ -65,85 +80,92 @@ const whatsappUrl = cta.phone
 
 	<!-- Content Container -->
 	<div class="hero__container">
-		<div class="hero__card">
-			<!-- Identidade Médica e Título SEO -->
-			<header class="hero__doctor">
-				<h1 class="hero__doctor-specialty">
-					{doctor.specialty}
+		<div class="hero__content-box">
+			<!-- Título Principal em Destaque: Logo ao Lado Esquerdo Alinhada Verticalmente com o Nome -->
+			<header class="hero__header">
+				<h1 class="hero__brand">
+					<div class="hero__brand-row">
+						<div class="hero__doctor-details">
+							<span class="hero__doctor-name-text"
+								>{_prefix}
+								<span>{doctor.name}</span>
+								<span class="hero__doctor-crm"
+									>{_credentials}</span
+								>
+								<span class="hero__doctor-specialty"
+									>{_specialty}</span
+								>
+							</span>
+						</div>
+					</div>
 				</h1>
-				<h2 class="hero__doctor-name">
-					<strong>{doctor.prefix}</strong>
-					<strong>{doctor.name}</strong>
-					<span class="hero__doctor-credentials">
-						{doctor.credentials}
-					</span>
+
+				<!-- Headline de Impacto Abaixo do Título -->
+				<h2 class="hero__headline">
+					<Fragment set:html={headline.main} />
 				</h2>
-				<div class="hero__divider"></div>
-			</header>
 
-			<!-- Headline de Impacto (H2) -->
-			<h2 class="hero__headline">
-				<Fragment set:html={headline.main} />
-			</h2>
-			{
-				headline.accent && (
-					<p class="hero__headline-accent">
-						<Fragment set:html={headline.accent} />
-					</p>
-				)
-			}
+				<!-- Subtítulo / Descrição Accent -->
+				{
+					headline.accent && (
+						<p class="hero__headline-accent">
+							<Fragment set:html={headline.accent} />
+						</p>
+					)
+				}
 
-			<!-- CTA — WhatsApp -->
-			<div class="hero__actions">
-				<a
-					href={whatsappUrl}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="hero__cta"
-					id="hero-cta-whatsapp"
-				>
-					<svg
-						class="hero__cta-icon"
-						viewBox="0 0 24 24"
-						fill="currentColor"
-						width="22"
-						height="22"
+				<!-- CTA WhatsApp -->
+				<div class="hero__actions">
+					<a
+						href={whatsappUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="hero__cta"
+						id="hero-cta-whatsapp"
 					>
-						<path
-							d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.432.178.88.28 1.21.085.33-.198.614-.735.794-.545.18-.99.131-1.29-.069-.297-.149-.57-.347-.708-.57-.546-.09-.347-.297-.198-.56l.016-.03c.18-.313.381-.3.545-.3.164 0 .347.002.496.007.163.006.382-.062.581.44.204.516.694 1.7.752 1.822.059.123.1.267.02.428-.079.16-.119.26-.238.397-.119.138-.249.317-.397.486-.149.168-.306.189-.545.064-.237-.124-1.006-.463-1.912-1.488-.674-.765-1.141-1.712-1.19-2.034-.05-.322.035-.513.262-.676l.042-.046c.198-.215.42-.347.669-.347z"
-						></path>
-						<path
-							d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.108-1.14l-.292-.176-2.848.846.846-2.848-.176-.292A7.96 7.96 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"
-						></path>
-					</svg>
-					{cta.text}
-				</a>
-			</div>
+						<span class="hero__cta-text">{cta.text}</span>
+						<svg
+							class="hero__cta-arrow"
+							viewBox="0 0 24 24"
+							width="18"
+							height="18"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<line x1="5" y1="12" x2="19" y2="12"></line>
+							<polyline points="12 5 19 12 12 19"></polyline>
+						</svg>
+					</a>
+				</div>
+			</header>
 		</div>
 	</div>
-</section>
 
-<script>
-	const heroWrapper = document.querySelector(
-		".hero__bg-wrapper",
-	) as HTMLElement;
-	if (heroWrapper) {
-		let ticking = false;
-		window.addEventListener(
-			"scroll",
-			() => {
-				if (!ticking) {
-					window.requestAnimationFrame(() => {
-						const scrollValue = window.scrollY;
-						if (scrollValue < window.innerHeight) {
-							heroWrapper.style.transform = `translate3d(0, ${scrollValue * 0.4}px, 0)`;
-						}
-						ticking = false;
-					});
-					ticking = true;
-				}
-			},
-			{ passive: true },
-		);
-	}
-</script>
+	<script>
+		const heroWrapper = document.querySelector(
+			".hero__bg-wrapper",
+		) as HTMLElement;
+		if (heroWrapper) {
+			let ticking = false;
+			window.addEventListener(
+				"scroll",
+				() => {
+					if (!ticking) {
+						window.requestAnimationFrame(() => {
+							const scrollValue = window.scrollY;
+							if (scrollValue < window.innerHeight) {
+								heroWrapper.style.transform = `translate3d(0, ${scrollValue * 0.4}px, 0)`;
+							}
+							ticking = false;
+						});
+						ticking = true;
+					}
+				},
+				{ passive: true },
+			);
+		}
+	</script>
+</section>
