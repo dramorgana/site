@@ -1,6 +1,6 @@
 ---
-import { Image } from 'astro:assets';
-import doctorImage from '../../assets/about-doctor.png';
+import { Image } from "astro:assets";
+import doctorImage from "../../assets/about-doctor.png";
 import SectionHeader from "../SectionHeader/SectionHeader.astro";
 import { content } from "./data";
 import "./styles.css";
@@ -40,8 +40,8 @@ import "./styles.css";
 		<div class="about__visual">
 			<div class="about__image-frame">
 				{
-					content.image.src.startsWith('http') ? (
-						<img 
+					content.image.src.startsWith("http") ? (
+						<img
 							src={content.image.src}
 							srcset={content.image.srcset}
 							sizes="(max-width: 768px) 100vw, 600px"
@@ -76,9 +76,11 @@ import "./styles.css";
 				<span class="about__doctor-specialty">
 					{content.doctor.specialty}
 				</span>
-				<a href="/perfil" class="about__profile-btn">
+				{
+					/* 	<a href="/perfil" class="about__profile-btn">
 					Ver perfil completo
-				</a>
+				</a> */
+				}
 			</div>
 		</div>
 	</div>

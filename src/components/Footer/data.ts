@@ -8,6 +8,8 @@ const defaultContent = {
 	doctor: {
 		name: "Dra. Morgana Motta",
 		credentials: "CRM 96204",
+		specialty: "Emagrecimento e ganho de massa muscular",
+		bio: "Tratamento individualizado com acompanhamento de perto em cada etapa da sua evolução.",
 	},
 	address: {
 		street: "Av. Barbacena, 600 - Sl 105",
@@ -32,6 +34,8 @@ export const content = {
 	doctor: {
 		name: sanityData?.doctor?.name || defaultContent.doctor.name,
 		credentials: sanityData?.doctor?.credentials || defaultContent.doctor.credentials,
+		specialty: sanityData?.doctor?.specialty || defaultContent.doctor.specialty,
+		bio: sanityData?.doctor?.bio || defaultContent.doctor.bio,
 	},
 	address: {
 		street: sanityData?.address?.street || defaultContent.address.street,
