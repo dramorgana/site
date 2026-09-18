@@ -2,6 +2,7 @@
 import '@fontsource-variable/inter';
 import '@fontsource-variable/playfair-display';
 import '../styles/global.css';
+import Header from "../components/Header/Header.astro";
 import WhatsAppButton from "../components/WhatsAppButton/WhatsAppButton.astro";
 
 interface Props {
@@ -14,8 +15,8 @@ interface Props {
 const { 
 	title, 
 	description = "Dra. Morgana Motta é médica especialista em emagrecimento e ganho de massa muscular em Belo Horizonte. Acompanhamento médico individualizado, presencial e online.",
-	ogImage = "/og-image.png", // Default image
-	canonicalURL = new URL(Astro.url.pathname, Astro.site).toString()
+	ogImage = "/og-image.png",
+	canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://drmorganamota.com.br").toString()
 } = Astro.props;
 
 // Schema.org Data
@@ -25,8 +26,8 @@ const schema = {
   "name": "Dra. Morgana Motta — Emagrecimento e ganho de massa muscular em BH",
   "description": description,
   "url": canonicalURL,
-  "logo": new URL("/favicon.svg", Astro.site).toString(),
-  "image": new URL(ogImage, Astro.site).toString(),
+  "logo": new URL("/favicon.svg", Astro.site || "https://drmorganamota.com.br").toString(),
+  "image": new URL(ogImage, Astro.site || "https://drmorganamota.com.br").toString(),
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Av. Barbacena, 600 - Sl 105",
@@ -57,19 +58,20 @@ const schema = {
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonicalURL} />
-		<meta property="og:image" content={new URL(ogImage, Astro.site)} />
+		<meta property="og:image" content={new URL(ogImage, Astro.site || "https://drmorganamota.com.br")} />
 
 		<!-- Twitter -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+		<meta name="twitter:image" content={new URL(ogImage, Astro.site || "https://drmorganamota.com.br")} />
 
 		<!-- Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify(schema)} />
 		<slot name="head" />
 	</head>
 	<body>
+		<Header />
 		<slot />
 		<WhatsAppButton />
 	</body>

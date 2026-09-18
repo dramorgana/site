@@ -1,0 +1,111 @@
+---
+import "./styles.css";
+import { navLinks, logo, cta } from "./data";
+---
+
+<header class="navbar" id="navbar">
+  <div class="navbar__container">
+    <!-- Logo à esquerda -->
+    <a href="/" class="navbar__brand" aria-label="Home Dra. Morgana Motta">
+      <img
+        src={logo.src}
+        alt={logo.alt}
+        class="navbar__logo"
+        width="180"
+        height="45"
+      />
+    </a>
+
+    <!-- Menu Hamburger para Mobile -->
+    <button
+      class="navbar__toggle"
+      id="navbar-toggle"
+      aria-label="Abrir menu de navegação"
+      aria-expanded="false"
+    >
+      <span class="navbar__toggle-bar"></span>
+      <span class="navbar__toggle-bar"></span>
+      <span class="navbar__toggle-bar"></span>
+    </button>
+
+    <!-- Links à direita -->
+    <nav class="navbar__nav" id="navbar-menu">
+      <ul class="navbar__list">
+        {
+          navLinks.map((link) => (
+            <li class="navbar__item">
+              <a href={link.href} class="navbar__link">
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="navbar__cta-wrapper">
+        <a
+          href={cta.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="navbar__cta-btn"
+        >
+          {cta.label}
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const navbar = document.getElementById("navbar");
+    const toggle = document.getElementById("navbar-toggle");
+    const menu = document.getElementById("navbar-menu");
+    const links = document.querySelectorAll(".navbar__link");
+    const heroSection = document.getElementById("hero");
+
+    function updateNavbarVisibility() {
+      if (!navbar) return;
+
+      // Em páginas sem a seção hero (ex: /blog ou /perfil), exibe o header de forma direta
+      if (!heroSection) {
+        navbar.classList.add("navbar--visible", "navbar--scrolled");
+        return;
+      }
+
+      // Na home (com #hero), exibe somente quando rola além do limite da Hero (início da próxima seção)
+      const scrollThreshold = Math.min(window.innerHeight * 0.45, 420);
+      if (window.scrollY > scrollThreshold) {
+        navbar.classList.add("navbar--visible", "navbar--scrolled");
+      } else {
+        navbar.classList.remove("navbar--visible", "navbar--scrolled");
+      }
+    }
+
+    window.addEventListener("scroll", updateNavbarVisibility, {
+      passive: true,
+    });
+    updateNavbarVisibility(); // Checagem inicial ao carregar a página
+
+    // Toggle menu mobile
+    if (toggle && menu) {
+      toggle.addEventListener("click", () => {
+        const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+        toggle.setAttribute("aria-expanded", (!isExpanded).toString());
+        toggle.classList.toggle("navbar__toggle--active");
+        menu.classList.toggle("navbar__nav--active");
+        document.body.classList.toggle("menu-open");
+      });
+
+      // Fechar menu ao clicar em um link
+      links.forEach((link) => {
+        link.addEventListener("click", () => {
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.classList.remove("navbar__toggle--active");
+          menu.classList.remove("navbar__nav--active");
+          document.body.classList.remove("menu-open");
+        });
+      });
+    }
+  });
+</script>
