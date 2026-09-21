@@ -1,8 +1,8 @@
 import { sanityClient, urlFor } from '../../lib/sanity';
 
 // Busca os dados no Sanity
-//const sanityData = await sanityClient.fetch(`*[_type == "aboutContent"][0]`).catch(() => null);
-const sanityData = null;
+const sanityData = await sanityClient.fetch(`*[_type == "aboutContent"][0]`).catch(() => null);
+//const sanityData = null;
 // Valores de fallback (caso o Sanity esteja vazio)
 const defaultContent = {
 	kicker: "Autoridade & Acolhimento",
@@ -22,7 +22,7 @@ const defaultContent = {
 		"Escuta ativa das queixas do paciente",
 	],
 	image: {
-		src: "/images/about-doctor.png",
+		src: "/images/about/about.jpeg",
 		alt: "Dra. Morgana Motta — Especialista em Saúde Metabólica",
 		width: 600,
 		height: 750,
