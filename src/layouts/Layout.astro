@@ -15,9 +15,11 @@ interface Props {
 const { 
 	title, 
 	description = "Dra. Morgana Motta é médica especialista em emagrecimento e ganho de massa muscular em Belo Horizonte. Acompanhamento médico individualizado, presencial e online.",
-	ogImage = "/og-image.png",
+	ogImage = "/images/about/about.jpeg",
 	canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://drmorganamota.com.br").toString()
 } = Astro.props;
+
+const fullOgImage = new URL(ogImage, Astro.url).href;
 
 // Schema.org Data
 const schema = {
@@ -26,8 +28,8 @@ const schema = {
   "name": "Dra. Morgana Motta — Emagrecimento e ganho de massa muscular em BH",
   "description": description,
   "url": canonicalURL,
-  "logo": new URL("/favicon.svg", Astro.site || "https://drmorganamota.com.br").toString(),
-  "image": new URL(ogImage, Astro.site || "https://drmorganamota.com.br").toString(),
+  "logo": new URL("/favicon.svg", Astro.url).href,
+  "image": fullOgImage,
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Av. Barbacena, 600 - Sl 105",
@@ -58,13 +60,13 @@ const schema = {
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonicalURL} />
-		<meta property="og:image" content={new URL(ogImage, Astro.site || "https://drmorganamota.com.br")} />
+		<meta property="og:image" content={fullOgImage} />
 
 		<!-- Twitter -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={new URL(ogImage, Astro.site || "https://drmorganamota.com.br")} />
+		<meta name="twitter:image" content={fullOgImage} />
 
 		<!-- Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify(schema)} />

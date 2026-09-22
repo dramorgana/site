@@ -13,8 +13,8 @@ const defaultDoctor = {
 };
 
 const defaultHeadline = {
-  main: "Seu esforço não é o problema.<br />O plano genérico é.",
-  accent: "Protocolo individual para o seu corpo, com acompanhamento próximo em cada etapa — não um plano pronto pra todo mundo.<br /><br />Atendimento presencial em Belo Horizonte e online para todo o Brasil.",
+  main: "Seu esforço sempre foi real.<br />Só faltava um plano que enxergasse isso.",
+  accent: `Protocolo individual, feito sob medida pro seu corpo, com acompanhamento próximo em cada etapa — porque ninguém deveria seguir um plano pronto pra "todo mundo" quando o problema nunca foi generalizado.`,
 };
 
 const defaultCta = {
