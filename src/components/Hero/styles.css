@@ -429,7 +429,7 @@
 		display: block;
 		font-family: var(--hero-font-heading);
 		font-size: clamp(1.3rem, 5.2vw, 1.65rem);
-		font-weight: 300;
+		font-weight: 500;
 		font-style: italic;
 		line-height: 1.4;
 		color: #ffffff;
