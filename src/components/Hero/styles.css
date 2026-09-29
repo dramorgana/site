@@ -303,24 +303,25 @@
    ============================================================ */
 @media (max-width: 1024px) {
 	.hero {
-		align-items: flex-end;
+		align-items: center;
+		padding-top: 60px;
 	}
 
 	.hero__bg-image {
-		object-position: 50% 20%;
+		object-position: 50% 15%;
 	}
 
 	.hero__bg-overlay {
 		background: linear-gradient(180deg,
-				rgba(12, 9, 7, 0.15) 0%,
-				rgba(12, 9, 7, 0.50) 35%,
-				rgba(12, 9, 7, 0.90) 70%,
+				rgba(12, 9, 7, 0.35) 0%,
+				rgba(12, 9, 7, 0.65) 40%,
+				rgba(12, 9, 7, 0.90) 80%,
 				rgba(12, 9, 7, 0.98) 100%);
 	}
 
 	.hero__container {
 		align-items: center;
-		padding: 60px 24px 54px 24px;
+		padding: 40px 24px 40px 24px;
 		text-align: center;
 	}
 
@@ -332,6 +333,7 @@
 
 	.hero__header {
 		align-items: center;
+		margin-bottom: 16px;
 	}
 
 	.hero__brand {
@@ -354,11 +356,12 @@
 
 	.hero__headline {
 		text-align: center;
+		padding-top: 12px;
 	}
 
 	.hero__headline-accent {
 		text-align: center;
-		margin: 0 auto 32px auto;
+		margin: 0 auto 24px auto;
 	}
 
 	.hero__actions {
@@ -367,8 +370,17 @@
 }
 
 @media (max-width: 768px) {
+	.hero {
+		align-items: flex-start;
+		padding-top: 80px;
+	}
+
 	.hero__container {
-		padding: 50px 20px 44px 20px;
+		padding: 20px 20px 40px 20px;
+	}
+
+	.hero__header {
+		margin-bottom: 12px;
 	}
 
 	.hero__doctor-name {
@@ -386,12 +398,13 @@
 
 	.hero__headline {
 		font-size: clamp(1.35rem, 5.5vw, 1.8rem);
-		margin-bottom: 14px;
+		margin-bottom: 12px;
+		padding-top: 8px;
 	}
 
 	.hero__headline-accent {
 		font-size: clamp(0.92rem, 3.8vw, 1.08rem);
-		margin-bottom: 28px;
+		margin-bottom: 24px;
 	}
 
 	.hero__cta {
@@ -404,8 +417,25 @@
 }
 
 @media (max-width: 480px) {
+	.hero {
+		padding-top: 70px;
+	}
+
 	.hero__container {
-		padding: 40px 16px 36px 16px;
+		padding: 16px 16px 36px 16px;
+	}
+
+	.hero__header {
+		margin-bottom: 10px;
+	}
+
+	.hero__headline {
+		padding-top: 4px;
+		margin-bottom: 10px;
+	}
+
+	.hero__headline-accent {
+		margin-bottom: 20px;
 	}
 
 	.hero__cta {
