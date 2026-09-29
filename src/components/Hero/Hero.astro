@@ -89,20 +89,27 @@ const whatsappUrl =
 							<span class="hero__doctor-name-text"
 								>{_prefix}
 								<span>{doctor.name}</span>
+							</span>
+							<div class="hero__doctor-meta-line">
 								<span class="hero__doctor-crm"
 									>{_credentials}</span
 								>
 								<span class="hero__doctor-specialty"
 									>{_specialty}</span
 								>
-							</span>
+							</div>
 						</div>
 					</div>
 				</h1>
 
-				<!-- Headline de Impacto Abaixo do Título -->
-				<h2 class="hero__headline">
+				<!-- Headline Desktop -->
+				<h2 class="hero__headline hero__headline--desktop">
 					<Fragment set:html={headline.main} />
+				</h2>
+
+				<!-- Headline Mobile -->
+				<h2 class="hero__headline hero__headline--mobile">
+					Protocolo individual, feito sob medida pro seu corpo, com acompanhamento próximo em cada etapa
 				</h2>
 
 				<!-- Subtítulo / Descrição Accent -->
