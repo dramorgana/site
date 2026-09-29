@@ -425,10 +425,10 @@
 	.hero__headline--mobile {
 		display: block;
 		font-family: var(--hero-font-heading);
-		font-size: clamp(1.3rem, 5.2vw, 1.65rem);
+		font-size: clamp(1.45rem, 5.6vw, 1.85rem);
 		font-weight: 500;
 		font-style: italic;
-		line-height: 1.4;
+		line-height: 1.38;
 		color: #ffffff;
 		margin-top: 32px;
 		margin-bottom: 36px;
@@ -467,8 +467,8 @@
 	.hero__headline--mobile {
 		margin-top: 28px;
 		margin-bottom: 32px;
-		font-size: clamp(1.22rem, 5vw, 1.45rem);
-		line-height: 1.4;
+		font-size: clamp(1.35rem, 5.4vw, 1.6rem);
+		line-height: 1.38;
 	}
 
 	.hero__cta {
