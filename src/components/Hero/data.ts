@@ -13,7 +13,7 @@ const defaultDoctor = {
 };
 
 const defaultHeadline = {
-  main: "Seu esforço sempre foi real.<br />Só faltava um plano que enxergasse isso.",
+  main: "Protocolo individual para emagrecimento e ganho de massa muscular feito sob medida pro seu corpo, com acompanhamento próximo em cada etapa",
   accent: `Protocolo individual, feito sob medida pro seu corpo, com acompanhamento próximo em cada etapa — porque ninguém deveria seguir um plano pronto pra "todo mundo" quando o problema nunca foi generalizado.`,
 };
 
