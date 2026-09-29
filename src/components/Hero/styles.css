@@ -215,13 +215,7 @@
 	padding-top: 32px;
 }
 
-.hero__headline--mobile {
-	display: none;
-}
 
-.hero__headline--desktop {
-	display: block;
-}
 
 /* ============================================================
    SUBTÍTULO / DESCRIÇÃO ACCENT
@@ -418,23 +412,14 @@
 		display: none;
 	}
 
-	.hero__headline--desktop {
-		display: none;
-	}
-
-	.hero__headline--mobile {
-		display: block;
-		font-family: var(--hero-font-heading);
+	.hero__headline {
 		font-size: clamp(1.45rem, 5.6vw, 1.85rem);
 		font-weight: 500;
-		font-style: italic;
 		line-height: 1.38;
-		color: #ffffff;
 		margin-top: 32px;
 		margin-bottom: 36px;
 		padding-top: 0;
 		text-shadow: 0 3px 18px rgba(0, 0, 0, 0.85);
-		text-align: center;
 	}
 
 	.hero__headline-accent {
@@ -464,7 +449,7 @@
 		margin-top: 12px;
 	}
 
-	.hero__headline--mobile {
+	.hero__headline {
 		margin-top: 28px;
 		margin-bottom: 32px;
 		font-size: clamp(1.35rem, 5.4vw, 1.6rem);
