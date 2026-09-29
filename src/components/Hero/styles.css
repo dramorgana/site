@@ -382,11 +382,11 @@
 @media (max-width: 768px) {
 	.hero {
 		align-items: flex-start;
-		padding-top: 84px;
+		padding-top: 96px;
 	}
 
 	.hero__container {
-		padding: 24px 20px 36px 20px;
+		padding: 32px 24px 48px 24px;
 	}
 
 	.hero__header {
@@ -394,8 +394,8 @@
 	}
 
 	.hero__doctor-name-text {
-		font-size: clamp(2rem, 7.5vw, 2.7rem);
-		line-height: 1.1;
+		font-size: clamp(2.1rem, 7.8vw, 2.8rem);
+		line-height: 1.15;
 	}
 
 	.hero__doctor-meta-line {
@@ -404,8 +404,8 @@
 		flex-wrap: wrap;
 		align-items: center;
 		justify-content: center;
-		gap: 4px 10px;
-		margin-top: 8px;
+		gap: 6px 12px;
+		margin-top: 14px;
 	}
 
 	.hero__doctor-crm {
@@ -428,13 +428,13 @@
 	.hero__headline--mobile {
 		display: block;
 		font-family: var(--hero-font-heading);
-		font-size: clamp(1.25rem, 5vw, 1.6rem);
+		font-size: clamp(1.3rem, 5.2vw, 1.65rem);
 		font-weight: 300;
 		font-style: italic;
-		line-height: 1.35;
+		line-height: 1.4;
 		color: #ffffff;
-		margin-top: 20px;
-		margin-bottom: 24px;
+		margin-top: 32px;
+		margin-bottom: 36px;
 		padding-top: 0;
 		text-shadow: 0 3px 18px rgba(0, 0, 0, 0.85);
 		text-align: center;
@@ -447,34 +447,35 @@
 	.hero__cta {
 		width: 100%;
 		max-width: 380px;
-		padding: 16px 24px;
-		font-size: 0.84rem;
+		padding: 18px 28px;
+		font-size: 0.86rem;
 		justify-content: center;
 	}
 }
 
 @media (max-width: 480px) {
 	.hero {
-		padding-top: 76px;
+		padding-top: 88px;
 	}
 
 	.hero__container {
-		padding: 16px 16px 32px 16px;
+		padding: 24px 20px 40px 20px;
 	}
 
 	.hero__doctor-meta-line {
-		gap: 2px 6px;
-		margin-top: 6px;
+		gap: 6px 10px;
+		margin-top: 12px;
 	}
 
 	.hero__headline--mobile {
-		margin-top: 16px;
-		margin-bottom: 20px;
-		font-size: clamp(1.18rem, 4.8vw, 1.35rem);
+		margin-top: 28px;
+		margin-bottom: 32px;
+		font-size: clamp(1.22rem, 5vw, 1.45rem);
+		line-height: 1.4;
 	}
 
 	.hero__cta {
-		padding: 14px 20px;
-		font-size: 0.8rem;
+		padding: 16px 24px;
+		font-size: 0.84rem;
 	}
 }
