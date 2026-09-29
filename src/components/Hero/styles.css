@@ -415,10 +415,7 @@
 	}
 
 	.hero__doctor-specialty {
-		margin-top: 0;
-		font-size: clamp(0.78rem, 3.2vw, 0.88rem);
-		letter-spacing: 0.1em;
-		text-align: center;
+		display: none;
 	}
 
 	.hero__headline--desktop {
