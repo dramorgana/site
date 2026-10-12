@@ -2,8 +2,8 @@
 
 .navbar {
   --nav-font: 'DM Sans', sans-serif;
-  --nav-bg: rgba(12, 9, 7, 0.45);
-  --nav-bg-scrolled: rgba(12, 9, 7, 0.92);
+  --nav-bg: rgba(64, 38, 27, 0.75);
+  --nav-bg-scrolled: rgba(54, 32, 23, 0.95);
   --nav-text: #EEE4DB;
   --nav-accent: #D8AF9D;
   --nav-accent-dark: #885F4D;
@@ -197,7 +197,7 @@
     max-width: 320px;
     height: 100vh;
     height: 100dvh;
-    background: #0c0907;
+    background: var(--nav-bg-scrolled);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     flex-direction: column;
