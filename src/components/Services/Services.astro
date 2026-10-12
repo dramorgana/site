@@ -1,5 +1,6 @@
 ---
 import { content } from "./data";
+import type { ServiceItem } from "./types";
 import SectionHeader from "../SectionHeader/SectionHeader.astro";
 import "./styles.css";
 ---
@@ -15,7 +16,7 @@ import "./styles.css";
 
 		<div class="servicos__grid">
 			{
-				content.services.map((service) => (
+				content.services.map((service: ServiceItem) => (
 					<div class="servicos__item">
 						<div class="servicos__icon">
 							{service.icon === "heart" && (
@@ -116,6 +117,12 @@ import "./styles.css";
 								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
 									<path d="M9 3h6M9 3v6l-4 9a1 1 0 00.9 1.5h12.2A1 1 0 0023 18l-4-9V3" stroke-linecap="round" stroke-linejoin="round"/>
 									<path d="M6 15h12" stroke-linecap="round"/>
+								</svg>
+							)}
+							{service.icon === "pill" && (
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+									<path d="M10.5 20.5l10-10a4.95 4.95 0 10-7-7l-10 10a4.95 4.95 0 107 7z" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M8.5 8.5l7 7" stroke-linecap="round" stroke-linejoin="round"/>
 								</svg>
 							)}
 							{service.icon === "video" && (

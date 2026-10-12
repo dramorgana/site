@@ -94,7 +94,7 @@
 .servicos__name {
 	font-family: 'Cormorant Garamond', serif;
 	font-size: 1.35rem;
-	font-weight: 900;
+	font-weight: bolder;
 	color: var(--s-accent-dark);
 	margin-bottom: 10px;
 	letter-spacing: 0.01em;
