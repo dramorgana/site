@@ -13,8 +13,8 @@ const defaultDoctor = {
 };
 
 const defaultHeadline = {
-  main: "Protocolo individual para emagrecimento e ganho de massa muscular feito sob medida pro seu corpo, com acompanhamento próximo em cada etapa",
-  accent: `Protocolo individual, feito sob medida pro seu corpo, com acompanhamento próximo em cada etapa — porque ninguém deveria seguir um plano pronto pra "todo mundo" quando o problema nunca foi generalizado.`,
+  main: "Tratamento individualizado e próximo, não vendo protocolos engessados.",
+  accent: `Todo tratamento será criado do zero de acordo com a individualidade do paciente, sua necessidades, seus sonhos, seus objetivos.`,
 };
 
 const defaultCta = {
