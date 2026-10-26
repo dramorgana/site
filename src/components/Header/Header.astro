@@ -11,6 +11,7 @@ import { navLinks, logo, cta, headerColors } from "./data";
         src={logo.src}
         alt={logo.alt}
         class="navbar__logo"
+        id="navbar-logo"
         width="180"
         height="45"
       />
@@ -55,22 +56,52 @@ import { navLinks, logo, cta, headerColors } from "./data";
     </nav>
   </div>
 
-  <!-- Paleta de cores (temporária) para testar o fundo do header -->
-  <div class="navbar__palette" role="radiogroup" aria-label="Cor de fundo do header">
-    {
-      headerColors.map((color) => (
-        <button
-          type="button"
-          class="navbar__swatch"
-          style={`background:${color}`}
-          data-color={color}
-          role="radio"
-          aria-checked="false"
-          aria-label={`Cor ${color}`}
-          title={color}
-        />
-      ))
-    }
+  <!-- Paletas (temporárias): fundo do header e cor da logo -->
+  <div class="navbar__palettes">
+    <div class="navbar__palette" role="radiogroup" aria-label="Cor de fundo do header">
+      <span class="navbar__palette-label">Fundo</span>
+      {
+        headerColors.map((color) => (
+          <button
+            type="button"
+            class="navbar__swatch"
+            style={`background:${color}`}
+            data-color={color}
+            role="radio"
+            aria-checked="false"
+            aria-label={`Fundo ${color}`}
+            title={color}
+          />
+        ))
+      }
+    </div>
+    <div class="navbar__palette" role="radiogroup" aria-label="Cor da logo">
+      <span class="navbar__palette-label">Logo</span>
+      <button
+        type="button"
+        class="navbar__logo-swatch navbar__logo-swatch--original navbar__swatch--active"
+        data-logo={logo.src}
+        role="radio"
+        aria-checked="true"
+        aria-label="Logo original"
+        title="Original"
+      />
+      {
+        headerColors.map((color) => (
+          <button
+            type="button"
+            class="navbar__logo-swatch"
+            style={`background:${color}`}
+            data-logo={`/images/logo-variations/logo-${color.slice(1).toLowerCase()}.png`}
+            data-color={color}
+            role="radio"
+            aria-checked="false"
+            aria-label={`Logo ${color}`}
+            title={color}
+          />
+        ))
+      }
+    </div>
   </div>
 </header>
 
@@ -86,6 +117,28 @@ import { navLinks, logo, cta, headerColors } from "./data";
     navbar?.classList.add("navbar--visible", "navbar--scrolled");
     void heroSection;
 
+    // Paleta da logo: troca a imagem pela variação de cor e aplica a mesma cor aos textos do menu
+    let logoColor: string | null = null; // null = logo original (texto segue o contraste do fundo)
+    let bgText = "#EEE4DB";
+    const applyTextColor = () => {
+      navbar?.style.setProperty("--nav-text", logoColor ?? bgText);
+    };
+    const logoImg = document.getElementById("navbar-logo") as HTMLImageElement | null;
+    const logoSwatches = document.querySelectorAll<HTMLButtonElement>(".navbar__logo-swatch");
+    logoSwatches.forEach((s) =>
+      s.addEventListener("click", () => {
+        if (!logoImg || !s.dataset.logo) return;
+        logoImg.src = s.dataset.logo;
+        logoColor = s.dataset.color ?? null;
+        applyTextColor();
+        logoSwatches.forEach((o) => {
+          const active = o === s;
+          o.classList.toggle("navbar__swatch--active", active);
+          o.setAttribute("aria-checked", String(active));
+        });
+      }),
+    );
+
     // Paleta de cores: altera o fundo do header
     const swatches = document.querySelectorAll<HTMLButtonElement>(".navbar__swatch");
     const applyColor = (color: string) => {
@@ -96,7 +149,8 @@ import { navLinks, logo, cta, headerColors } from "./data";
       const isLight = (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.6;
       navbar.style.setProperty("--nav-bg", color);
       navbar.style.setProperty("--nav-bg-scrolled", color);
-      navbar.style.setProperty("--nav-text", isLight ? "#402E26" : "#EEE4DB");
+      bgText = isLight ? "#402E26" : "#EEE4DB";
+      applyTextColor();
       navbar.style.setProperty("--nav-accent", isLight ? "#885F4D" : "#D8AF9D");
       swatches.forEach((s) => {
         const active = s.dataset.color === color;

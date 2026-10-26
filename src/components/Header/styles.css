@@ -235,7 +235,7 @@
     font-weight: 500;
     display: block;
     width: 100%;
-    color: #EEE4DB;
+    color: var(--nav-text);
   }
 
   .navbar__cta-wrapper {
@@ -294,6 +294,61 @@
   }
 
   .navbar__swatch {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* --- Paletas empilhadas (fundo + logo) --- */
+.navbar__palettes {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.navbar__palettes .navbar__palette {
+  position: static;
+  transform: none;
+  margin-top: 0;
+  align-items: center;
+}
+
+.navbar__palette-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #402E26;
+  min-width: 42px;
+}
+
+.navbar__logo-swatch {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.navbar__logo-swatch:hover {
+  transform: scale(1.15);
+}
+
+.navbar__logo-swatch--original {
+  background: linear-gradient(135deg, #7a5a3a, #e8c89a, #8a6a45);
+}
+
+@media (max-width: 600px) {
+  .navbar__logo-swatch {
     width: 22px;
     height: 22px;
   }
