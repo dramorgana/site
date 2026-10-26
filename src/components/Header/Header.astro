@@ -1,9 +1,9 @@
 ---
 import "./styles.css";
-import { navLinks, logo, cta } from "./data";
+import { navLinks, logo, cta, headerColors } from "./data";
 ---
 
-<header class="navbar" id="navbar">
+<header class="navbar navbar--visible navbar--scrolled" id="navbar">
   <div class="navbar__container">
     <!-- Logo à esquerda -->
     <a href="/" class="navbar__brand" aria-label="Home Dra. Morgana Motta">
@@ -54,6 +54,24 @@ import { navLinks, logo, cta } from "./data";
       </div>
     </nav>
   </div>
+
+  <!-- Paleta de cores (temporária) para testar o fundo do header -->
+  <div class="navbar__palette" role="radiogroup" aria-label="Cor de fundo do header">
+    {
+      headerColors.map((color) => (
+        <button
+          type="button"
+          class="navbar__swatch"
+          style={`background:${color}`}
+          data-color={color}
+          role="radio"
+          aria-checked="false"
+          aria-label={`Cor ${color}`}
+          title={color}
+        />
+      ))
+    }
+  </div>
 </header>
 
 <script>
@@ -64,28 +82,31 @@ import { navLinks, logo, cta } from "./data";
     const links = document.querySelectorAll(".navbar__link");
     const heroSection = document.getElementById("hero");
 
-    function updateNavbarVisibility() {
+    // Por hora o header fica sempre visível (lógica de exibição por scroll desativada)
+    navbar?.classList.add("navbar--visible", "navbar--scrolled");
+    void heroSection;
+
+    // Paleta de cores: altera o fundo do header
+    const swatches = document.querySelectorAll<HTMLButtonElement>(".navbar__swatch");
+    const applyColor = (color: string) => {
       if (!navbar) return;
-
-      // Em páginas sem a seção hero (ex: /blog ou /perfil), exibe o header de forma direta
-      if (!heroSection) {
-        navbar.classList.add("navbar--visible", "navbar--scrolled");
-        return;
-      }
-
-      // Na home (com #hero), exibe somente quando rola além do limite da Hero (início da próxima seção)
-      const scrollThreshold = Math.min(window.innerHeight * 0.45, 420);
-      if (window.scrollY > scrollThreshold) {
-        navbar.classList.add("navbar--visible", "navbar--scrolled");
-      } else {
-        navbar.classList.remove("navbar--visible", "navbar--scrolled");
-      }
-    }
-
-    window.addEventListener("scroll", updateNavbarVisibility, {
-      passive: true,
-    });
-    updateNavbarVisibility(); // Checagem inicial ao carregar a página
+      const r = parseInt(color.slice(1, 3), 16);
+      const g = parseInt(color.slice(3, 5), 16);
+      const b = parseInt(color.slice(5, 7), 16);
+      const isLight = (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.6;
+      navbar.style.setProperty("--nav-bg", color);
+      navbar.style.setProperty("--nav-bg-scrolled", color);
+      navbar.style.setProperty("--nav-text", isLight ? "#402E26" : "#EEE4DB");
+      navbar.style.setProperty("--nav-accent", isLight ? "#885F4D" : "#D8AF9D");
+      swatches.forEach((s) => {
+        const active = s.dataset.color === color;
+        s.classList.toggle("navbar__swatch--active", active);
+        s.setAttribute("aria-checked", String(active));
+      });
+    };
+    swatches.forEach((s) =>
+      s.addEventListener("click", () => s.dataset.color && applyColor(s.dataset.color)),
+    );
 
     // Toggle menu mobile
     if (toggle && menu) {

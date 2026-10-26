@@ -33,3 +33,17 @@ export const cta: HeaderCta = {
   label: "Agendar Consulta",
   href: "https://wa.me/5531991995849?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta.",
 };
+
+export const headerColors: string[] = [
+  "#A7776C",
+  "#CD9C91",
+  "#D8AF9D",
+  "#E6D1CB",
+  "#EEE4DB",
+  "#DABFAF",
+  "#BEA091",
+  "#A5816C",
+  "#402E26",
+  "#885F4D",
+  "#F1F1F0", // cinza claro (aproximado da imagem em anexo)
+];
