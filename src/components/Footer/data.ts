@@ -12,8 +12,8 @@ const defaultContent = {
 		bio: "Tratamento individualizado com acompanhamento de perto em cada etapa da sua evolução.",
 	},
 	address: {
-		street: "Av. Barbacena, 600 - Sl 105",
-		neighborhood: "Santo Agostinho",
+		street: "Avenida Barbacena, 600",
+		neighborhood: "Barro Preto",
 		cityState: "Belo Horizonte/MG",
 		cep: "30180-060",
 	},
@@ -23,7 +23,7 @@ const defaultContent = {
 	],
 	social: [
 		{ label: "Instagram", url: "https://instagram.com", icon: "instagram" },
-		{ label: "WhatsApp", url: "https://wa.me/5531991995849", icon: "whatsapp" },
+		{ label: "WhatsApp", url: "https://wa.me/5531989067668", icon: "whatsapp" },
 		{ label: "LinkedIn", url: "https://linkedin.com", icon: "linkedin" },
 	],
 	copyrightText: "Dra. Morgana Motta. Todos os direitos reservados.",
@@ -38,9 +38,9 @@ export const content = {
 		bio: sanityData?.doctor?.bio || defaultContent.doctor.bio,
 	},
 	address: {
-		street: sanityData?.address?.street || defaultContent.address.street,
-		neighborhood: sanityData?.address?.neighborhood || defaultContent.address.neighborhood,
-		cityState: sanityData?.address?.cityState || defaultContent.address.cityState,
+		street: defaultContent.address.street,
+		neighborhood: defaultContent.address.neighborhood,
+		cityState: defaultContent.address.cityState,
 		cep: sanityData?.address?.cep || defaultContent.address.cep,
 	},
 	links: sanityData?.links?.map((l: any) => ({
@@ -49,7 +49,7 @@ export const content = {
 	})) || defaultContent.links,
 	social: sanityData?.social?.map((s: any) => ({
 		label: s.label,
-		url: s.url,
+		url: s.icon === "whatsapp" || s.label?.toLowerCase().includes("whatsapp") ? "https://wa.me/5531989067668" : s.url,
 		icon: s.icon,
 	})) || defaultContent.social,
 	copyright: `© ${new Date().getFullYear()} ${sanityData?.copyrightText || defaultContent.copyrightText}`,

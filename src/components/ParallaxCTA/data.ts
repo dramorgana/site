@@ -9,7 +9,7 @@ const defaultContent = {
 	text: "Cada corpo pede uma estratégia diferente. Chame no WhatsApp e entenda como funciona o acompanhamento individualizado da Dra. Morgana Motta.",
 	cta: {
 		text: "Agendar Minha Avaliação",
-		url: "https://wa.me/5500000000000?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20minha%20avalia%C3%A7%C3%A3o%20m%C3%A9dica.",
+		url: "https://wa.me/5531989067668?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20minha%20avalia%C3%A7%C3%A3o%20m%C3%A9dica.",
 	},
 	bgImage: "/images/parallax-cta-bg-v3.png",
 };
@@ -33,9 +33,5 @@ export const content = {
 	images: {
 		desktop: desktopUrl,
 		mobile: mobileUrl
-	},
-	videos: [
-		"/video/Doctor_and_patient_consulting_20261026204401.mp4",
-		"/video/Doctor_and_patient_talking_20261026204358.mp4",
-	],
+	}
 };

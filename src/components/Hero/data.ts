@@ -19,7 +19,7 @@ const defaultHeadline = {
 
 const defaultCta = {
   text: "Clique aqui e descubra como podemos ajudar",
-  phone: "5531991995849",
+  phone: "5531989067668",
   message: "Olá, gostaria de agendar uma consulta.",
 };
 
@@ -50,6 +50,6 @@ export const headline = {
   accent: fallbackStr(sanityData?.headline?.accent, defaultHeadline.accent),
 };
 
-export const cta = { ...defaultCta, ...sanityData?.cta };
+export const cta = { ...defaultCta, ...sanityData?.cta, phone: "5531989067668" };
 export const background = { ...defaultBackground, ...sanityData?.background };
 export const content = sanityData;

@@ -58,7 +58,7 @@ const defaultContent: {
 	],
 };
 
-const whatsappPhone = "5531991995849";
+const whatsappPhone = "5531989067668";
 const whatsappMessage = encodeURIComponent("Olá, gostaria de agendar uma avaliação.");
 
 // Exporta o conteúdo formatado
