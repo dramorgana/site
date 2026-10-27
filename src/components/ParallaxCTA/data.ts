@@ -33,5 +33,9 @@ export const content = {
 	images: {
 		desktop: desktopUrl,
 		mobile: mobileUrl
-	}
+	},
+	videos: [
+		"/video/Doctor_and_patient_consulting_20261026204401.mp4",
+		"/video/Doctor_and_patient_talking_20261026204358.mp4",
+	],
 };

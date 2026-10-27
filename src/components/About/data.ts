@@ -22,11 +22,12 @@ const defaultContent = {
 		"Escuta ativa das queixas do paciente",
 	],
 	image: {
-		src: "/images/about/about.jpeg",
+		src: "/images/about/foto_04.jpg.jpeg_2K_20261026204728.jpg",
 		alt: "Dra. Morgana Motta — Especialista em Saúde Metabólica",
 		width: 600,
 		height: 750,
 	},
+	video: "/images/about/Woman_writing_in_notebook_20261026215813.mp4",
 	doctor: {
 		name: "Morgana Motta",
 		prefix: "Dra.",
@@ -34,13 +35,9 @@ const defaultContent = {
 	},
 };
 
-// Geração de srcset para imagens responsivas
-const imageSrc = sanityData?.image ? urlFor(sanityData.image).width(600).url() : defaultContent.image.src;
-const srcset = sanityData?.image ? [
-	`${urlFor(sanityData.image).width(400).url()} 400w`,
-	`${urlFor(sanityData.image).width(600).url()} 600w`,
-	`${urlFor(sanityData.image).width(800).url()} 800w`
-].join(', ') : null;
+// Imagem local definida para a seção About
+const imageSrc = defaultContent.image.src;
+const srcset = null;
 
 // Exporta o conteúdo sincronizado com o Sanity
 export const content = {
@@ -56,6 +53,7 @@ export const content = {
 		width: defaultContent.image.width,
 		height: defaultContent.image.height,
 	},
+	video: defaultContent.video,
 	doctor: {
 		name: sanityData?.doctor?.name || defaultContent.doctor.name,
 		prefix: sanityData?.doctor?.prefix || defaultContent.doctor.prefix,

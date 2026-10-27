@@ -164,15 +164,67 @@
 	padding: 20px;
 }
 
+.about__media-container {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 4 / 5;
+	border-radius: 20px;
+	overflow: hidden;
+	box-shadow: 0 40px 80px -20px rgba(45, 58, 54, 0.15);
+	z-index: 2;
+	background-color: #EEE4DB;
+	isolation: isolate;
+	cursor: pointer;
+}
+
 .about__image {
 	width: 100%;
-	height: auto;
-	aspect-ratio: 4 / 5;
+	height: 100%;
 	object-fit: cover;
-	border-radius: 20px;
-	box-shadow: 0 40px 80px -20px rgba(45, 58, 54, 0.15);
+	object-position: center 20%;
+	display: block;
 	position: relative;
+	z-index: 1;
+	transform: scale(1);
+	filter: blur(0px);
+	opacity: 1;
+	transition: 
+		opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+		transform 1.4s cubic-bezier(0.25, 1, 0.5, 1),
+		filter 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+	will-change: opacity, transform, filter;
+}
+
+.about__video {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 	z-index: 2;
+	opacity: 0;
+	transform: scale(1.05);
+	filter: blur(4px);
+	pointer-events: none;
+	transition: 
+		opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+		transform 1.4s cubic-bezier(0.25, 1, 0.5, 1),
+		filter 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+	will-change: opacity, transform, filter;
+	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+}
+
+.about__media-container.is-video-active .about__video {
+	opacity: 1;
+	transform: scale(1);
+	filter: blur(0px);
+}
+
+.about__media-container.is-video-active .about__image {
+	opacity: 0;
+	transform: scale(1.03);
+	filter: blur(3px);
 }
 
 .about__image-accent {

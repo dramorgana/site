@@ -4,10 +4,30 @@ import './styles.css';
 ---
 
 <section class="parallax-cta">
-	<div 
-		class="parallax-cta__bg" 
-		style={`--bg-desktop: url('${content.images.desktop}'); --bg-mobile: url('${content.images.mobile}');`}
-	></div>
+	<!-- Vídeos de fundo: tocam em sequência e se alternam em loop com transição suave -->
+	<div
+		class="parallax-cta__video-container"
+		data-videos={JSON.stringify(content.videos)}
+		aria-hidden="true"
+	>
+		<video
+			class="parallax-cta__video is-active"
+			src={content.videos[0]}
+			poster={content.images.desktop}
+			autoplay
+			muted
+			playsinline
+			preload="auto"
+		></video>
+		<video
+			class="parallax-cta__video"
+			src={content.videos[1] || content.videos[0]}
+			poster={content.images.desktop}
+			muted
+			playsinline
+			preload="auto"
+		></video>
+	</div>
 	<div class="parallax-cta__overlay"></div>
 	<div class="parallax-cta__container">
 		<h2 class="parallax-cta__title">{content.title}</h2>
@@ -35,3 +55,111 @@ import './styles.css';
 		</div>
 	</div>
 </section>
+
+<script>
+	const container = document.querySelector(".parallax-cta__video-container") as HTMLElement | null;
+	if (container) {
+		const videos: string[] = JSON.parse(container.dataset.videos || "[]");
+		const videoElements = container.querySelectorAll<HTMLVideoElement>(".parallax-cta__video");
+
+		if (videos.length > 1 && videoElements.length >= 2) {
+			let currentIdx = 0;
+			let activeVideo = videoElements[0];
+			let nextVideo = videoElements[1];
+			let isTransitioning = false;
+			const CROSSFADE_SEC = 1.6;
+			const LEAD_TIME = 2.2; // Antecede o fim do vídeo para garantir sobreposição contínua sem travamento
+
+			const startTransition = () => {
+				if (isTransitioning) return;
+				isTransitioning = true;
+
+				const nextIdx = (currentIdx + 1) % videos.length;
+				const nextSrc = videos[nextIdx];
+
+				if (!nextVideo.src.endsWith(nextSrc)) {
+					nextVideo.src = nextSrc;
+					nextVideo.load();
+				}
+
+				nextVideo.currentTime = 0;
+
+				let hasFaded = false;
+				const triggerFade = () => {
+					if (hasFaded) return;
+					hasFaded = true;
+
+					requestAnimationFrame(() => {
+						nextVideo.classList.add("is-entering");
+
+						setTimeout(() => {
+							nextVideo.classList.add("is-active");
+							nextVideo.classList.remove("is-entering");
+
+							activeVideo.classList.remove("is-active");
+							activeVideo.pause();
+
+							// Prepara o próximo vídeo no buffer inativo
+							const upcomingIdx = (nextIdx + 1) % videos.length;
+							const upcomingSrc = videos[upcomingIdx];
+							if (!activeVideo.src.endsWith(upcomingSrc)) {
+								activeVideo.src = upcomingSrc;
+								activeVideo.load();
+							}
+
+							// Alterna as instâncias
+							const prevActive = activeVideo;
+							activeVideo = nextVideo;
+							nextVideo = prevActive;
+							currentIdx = nextIdx;
+							isTransitioning = false;
+						}, CROSSFADE_SEC * 1000);
+					});
+				};
+
+				// Aguarda o próximo vídeo iniciar os quadros para evitar qualquer salto
+				const onPlaying = () => {
+					nextVideo.removeEventListener("playing", onPlaying);
+					triggerFade();
+				};
+				nextVideo.addEventListener("playing", onPlaying);
+
+				// Fallback de segurança se o evento demorar
+				setTimeout(triggerFade, 250);
+
+				nextVideo.play().catch(() => {
+					triggerFade();
+				});
+			};
+
+			const handleTimeUpdate = (vid: HTMLVideoElement) => {
+				if (vid !== activeVideo || isTransitioning) return;
+				if (vid.duration && vid.currentTime >= vid.duration - LEAD_TIME) {
+					startTransition();
+				}
+			};
+
+			const handleEnded = (vid: HTMLVideoElement) => {
+				if (vid === activeVideo && !isTransitioning) {
+					startTransition();
+				}
+			};
+
+			videoElements.forEach((vid) => {
+				vid.addEventListener("timeupdate", () => handleTimeUpdate(vid));
+				vid.addEventListener("ended", () => handleEnded(vid));
+			});
+
+			if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+				activeVideo.pause();
+				nextVideo.pause();
+			}
+		} else if (videoElements.length >= 1 && videos.length === 1) {
+			const singleVideo = videoElements[0];
+			singleVideo.loop = true;
+			if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+				singleVideo.pause();
+			}
+		}
+	}
+</script>

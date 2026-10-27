@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import doctorImage from "../../assets/about-doctor.png";
+import doctorImage from "../../assets/about-doctor-foto04.jpg";
 import SectionHeader from "../SectionHeader/SectionHeader.astro";
 import { content } from "./data";
 import "./styles.css";
@@ -36,32 +36,48 @@ import "./styles.css";
 			</ul>
 		</div>
 
-		<!-- Lado Visual (Foto) -->
+		<!-- Lado Visual (Foto e Vídeo em transição) -->
 		<div class="about__visual">
 			<div class="about__image-frame">
-				{
-					content.image.src.startsWith("http") ? (
-						<img
-							src={content.image.src}
-							srcset={content.image.srcset}
-							sizes="(max-width: 768px) 100vw, 600px"
-							alt={content.image.alt}
-							class="about__image"
-							loading="lazy"
-							width={content.image.width}
-							height={content.image.height}
-						/>
-					) : (
-						<Image
-							src={doctorImage}
-							alt={content.image.alt}
-							class="about__image"
-							widths={[400, 600, 800]}
-							sizes="(max-width: 768px) 90vw, 600px"
-							loading="lazy"
-						/>
-					)
-				}
+				<div class="about__media-container" id="about-media-container">
+					{
+						content.image.src.startsWith("http") ? (
+							<img
+								src={content.image.src}
+								srcset={content.image.srcset}
+								sizes="(max-width: 768px) 100vw, 600px"
+								alt={content.image.alt}
+								class="about__image"
+								loading="lazy"
+								width={content.image.width}
+								height={content.image.height}
+							/>
+						) : (
+							<Image
+								src={doctorImage}
+								alt={content.image.alt}
+								class="about__image"
+								widths={[400, 600, 800, 1200]}
+								sizes="(max-width: 768px) 90vw, 600px"
+								loading="lazy"
+							/>
+						)
+					}
+					{
+						content.video && (
+							<video
+								class="about__video"
+								id="about-video"
+								data-src={content.video}
+								muted
+								playsinline
+								loop
+								preload="none"
+								aria-hidden="true"
+							></video>
+						)
+					}
+				</div>
 				<!-- Elementos decorativos premium -->
 				<div class="about__image-accent about__image-accent--top"></div>
 				<div class="about__image-accent about__image-accent--bottom">
@@ -99,3 +115,83 @@ import "./styles.css";
 		</svg>
 	</div>
 </section>
+
+<script>
+	const section = document.getElementById("about");
+	const mediaContainer = document.getElementById("about-media-container");
+	const video = document.getElementById("about-video") as HTMLVideoElement | null;
+
+	if (section && mediaContainer && video && video.dataset.src) {
+		const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+		const nav = navigator as unknown as { connection?: { saveData?: boolean } };
+		const isSaveData = Boolean(nav.connection?.saveData);
+
+		if (!prefersReducedMotion && !isSaveData) {
+			let isLoaded = false;
+			let leaveTimeout: number | undefined;
+
+			// Carrega o vídeo sob demanda em segundo plano
+			const loadVideo = () => {
+				if (isLoaded) return;
+				isLoaded = true;
+				if (video.dataset.src && !video.src) {
+					video.src = video.dataset.src;
+					video.load();
+				}
+			};
+
+			// Pré-carrega o vídeo quando a seção estiver a 400px de distância para que o hover seja instantâneo
+			const preloadObserver = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							loadVideo();
+							preloadObserver.disconnect();
+						}
+					});
+				},
+				{
+					rootMargin: "400px 0px 0px 0px",
+				}
+			);
+			preloadObserver.observe(section);
+
+			// Inicia o vídeo ao passar o mouse por cima da imagem (hover)
+			const handleMouseEnter = () => {
+				if (leaveTimeout) {
+					clearTimeout(leaveTimeout);
+					leaveTimeout = undefined;
+				}
+
+				loadVideo();
+
+				video.play().then(() => {
+					mediaContainer.classList.add("is-video-active");
+				}).catch(() => {
+					mediaContainer.classList.add("is-video-active");
+				});
+			};
+
+			// Retorna à foto suavemente ao retirar o mouse
+			const handleMouseLeave = () => {
+				mediaContainer.classList.remove("is-video-active");
+				// Pausa o vídeo após a transição suave de volta para a foto (1.2s)
+				leaveTimeout = window.setTimeout(() => {
+					video.pause();
+				}, 1200);
+			};
+
+			mediaContainer.addEventListener("mouseenter", handleMouseEnter);
+			mediaContainer.addEventListener("mouseleave", handleMouseLeave);
+
+			// Suporte a toque no mobile (alterna no toque)
+			mediaContainer.addEventListener("click", () => {
+				if (mediaContainer.classList.contains("is-video-active")) {
+					handleMouseLeave();
+				} else {
+					handleMouseEnter();
+				}
+			});
+		}
+	}
+</script>
