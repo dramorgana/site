@@ -61,15 +61,30 @@ const defaultContent: {
 const whatsappPhone = "5531989067668";
 const whatsappMessage = encodeURIComponent("Olá, gostaria de agendar uma avaliação.");
 
+// Card fixo de modalidade de atendimento (sempre exibido ao final da lista,
+// mesmo quando os serviços vêm do Sanity)
+const attendanceCard: ServiceItem = {
+	name: "Atendimento On-line e Presencial",
+	text: "Consultas presenciais no consultório em Belo Horizonte ou por telemedicina, de onde você estiver, com o mesmo cuidado, atenção e acompanhamento individualizado.",
+	icon: "video",
+};
+
+const baseServices = (sanityData?.services?.map((s: any) => ({
+	name: String(s.name || ""),
+	text: String(s.text || ""),
+	icon: String(s.icon || ""),
+})) || defaultContent.services) as ServiceItem[];
+
+// Evita duplicar caso o card venha a ser cadastrado no Sanity
+const hasAttendanceCard = baseServices.some(
+	(s) => s.name.trim().toLowerCase() === attendanceCard.name.toLowerCase()
+);
+
 // Exporta o conteúdo formatado
 export const content: ServicesContent = {
 	kicker: sanityData?.kicker || defaultContent.kicker,
 	title: sanityData?.title || defaultContent.title,
 	description: sanityData?.description || defaultContent.description,
 	whatsappUrl: `https://wa.me/${whatsappPhone}?text=${whatsappMessage}`,
-	services: (sanityData?.services?.map((s: any) => ({
-		name: String(s.name || ""),
-		text: String(s.text || ""),
-		icon: String(s.icon || ""),
-	})) || defaultContent.services) as ServiceItem[],
+	services: hasAttendanceCard ? baseServices : [...baseServices, attendanceCard],
 };
