@@ -90,15 +90,82 @@
 	color: var(--c-accent);
 }
 
+.contact__map {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	perspective: 1200px;
+}
+
+/* Moldura com aspecto 3D sofisticado, chanfro e profundidade */
 .contact__map-frame {
-	border-radius: 24px;
-	overflow: hidden;
-	box-shadow: 0 30px 60px -15px rgba(136, 95, 77, 0.15);
-	border: 1px solid rgba(216, 175, 157, 0.30);
-	line-height: 0;
+	position: relative;
+	width: 100%;
+	padding: 14px;
+	background: linear-gradient(145deg, #ffffff 0%, #f6efe9 100%);
+	border-radius: 28px;
+	box-sizing: border-box;
+	transform: rotateX(3deg) rotateY(-4deg);
+	transform-style: preserve-3d;
+	transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+	border: 1px solid rgba(255, 255, 255, 0.9);
+	box-shadow: 
+		1px 1px 0 rgba(255, 255, 255, 0.9) inset,
+		-1px -1px 0 rgba(136, 95, 77, 0.15) inset,
+		0 2px 4px rgba(107, 74, 60, 0.04),
+		12px 20px 35px -10px rgba(107, 74, 60, 0.22),
+		20px 35px 65px -15px rgba(90, 61, 48, 0.18);
+}
+
+/* Brilho superior chanfrado da moldura física */
+.contact__map-frame::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: 28px;
+	pointer-events: none;
+	background: linear-gradient(
+		135deg,
+		rgba(255, 255, 255, 0.6) 0%,
+		rgba(255, 255, 255, 0) 45%,
+		rgba(136, 95, 77, 0.08) 100%
+	);
+	box-shadow: inset 0 0 0 1px rgba(216, 175, 157, 0.35);
+}
+
+.contact__map-frame:hover {
+	transform: rotateX(0deg) rotateY(0deg) translateY(-6px) scale(1.01);
+	box-shadow: 
+		1px 1px 0 rgba(255, 255, 255, 1) inset,
+		-1px -1px 0 rgba(136, 95, 77, 0.2) inset,
+		0 8px 16px rgba(107, 74, 60, 0.06),
+		16px 28px 45px -8px rgba(107, 74, 60, 0.26),
+		24px 45px 75px -12px rgba(90, 61, 48, 0.2);
+}
+
+.contact__map-frame iframe {
+	display: block;
+	width: 100%;
+	height: 440px;
+	border-radius: 18px;
+	border: 1px solid rgba(136, 95, 77, 0.2) !important;
+	box-shadow: 
+		inset 0 2px 6px rgba(0, 0, 0, 0.12),
+		0 1px 2px rgba(255, 255, 255, 0.8);
+	background-color: #f7f2ed;
 }
 
 /* Responsive */
+@media (max-width: 992px) {
+	.contact__map-frame {
+		transform: none;
+	}
+
+	.contact__map-frame:hover {
+		transform: translateY(-4px);
+	}
+}
 @media (max-width: 992px) {
 	.contact__container {
 		grid-template-columns: 1fr;
