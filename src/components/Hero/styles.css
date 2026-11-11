@@ -29,20 +29,17 @@
 .hero__bg-wrapper {
 	position: absolute;
 	inset: 0;
-	width: 112%;
-	height: 120%;
-	top: -10%;
+	width: 100%;
+	height: 100%;
+	top: 0;
 	left: 0;
-	will-change: transform;
 }
 
 .hero__bg-image {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	object-position: 80% 25%;
-	animation: zoomOut 30s ease-in-out infinite alternate;
-	will-change: transform;
+	object-position: 70% center;
 }
 
 /* Overlay claro que garante contraste com nitidez para a imagem */
@@ -291,17 +288,6 @@
 	transform: translateY(-1px);
 }
 
-/* --- Animação --- */
-@keyframes zoomOut {
-	from {
-		transform: scale(1.12);
-	}
-
-	to {
-		transform: scale(1);
-	}
-}
-
 /* ============================================================
    RESPONSIVO
    ============================================================ */
@@ -319,12 +305,12 @@
 	}
 
 	.hero__bg-image {
-		object-position: 61.5% 20%;
+		object-position: 73% center;
 	}
 
 	.hero__bg-overlay {
 		background:
-			radial-gradient(circle at 61.5% 35%, rgba(12, 9, 7, 0.45) 0%, rgba(12, 9, 7, 0.75) 70%, rgba(12, 9, 7, 0.92) 100%),
+			radial-gradient(circle at 50% 35%, rgba(12, 9, 7, 0.45) 0%, rgba(12, 9, 7, 0.75) 70%, rgba(12, 9, 7, 0.92) 100%),
 			linear-gradient(180deg,
 				rgba(12, 9, 7, 0.50) 0%,
 				rgba(12, 9, 7, 0.65) 40%,
@@ -398,7 +384,7 @@
 	}
 
 	.hero__bg-image {
-		object-position: 61.5% 25%;
+		object-position: 74% 15%;
 	}
 
 	.hero__container {

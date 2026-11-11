@@ -145,29 +145,4 @@ const whatsappUrl =
 			</header>
 		</div>
 	</div>
-
-	<script>
-		const heroWrapper = document.querySelector(
-			".hero__bg-wrapper",
-		) as HTMLElement;
-		if (heroWrapper) {
-			let ticking = false;
-			window.addEventListener(
-				"scroll",
-				() => {
-					if (!ticking) {
-						window.requestAnimationFrame(() => {
-							const scrollValue = window.scrollY;
-							if (scrollValue < window.innerHeight) {
-								heroWrapper.style.transform = `translate3d(0, ${scrollValue * 0.4}px, 0)`;
-							}
-							ticking = false;
-						});
-						ticking = true;
-					}
-				},
-				{ passive: true },
-			);
-		}
-	</script>
 </section>
