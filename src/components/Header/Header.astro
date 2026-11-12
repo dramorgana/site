@@ -7,7 +7,10 @@ import { navLinks, logo, cta } from "./data";
 const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "";
 ---
 
-<header class={`navbar ${!isHome ? "navbar--visible navbar--scrolled" : ""}`} id="navbar">
+<header
+  class={`navbar ${!isHome ? "navbar--visible navbar--scrolled" : ""}`}
+  id="navbar"
+>
   <div class="navbar__container">
     <!-- Logo à esquerda -->
     <a href="/" class="navbar__brand" aria-label="Home Dra. Morgana Motta">
@@ -16,8 +19,10 @@ const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "";
         alt={logo.alt}
         class="navbar__logo"
         id="navbar-logo"
-        width={180}
-        height={45}
+        width={400}
+        height={101}
+        densities={[1, 2, 3]}
+        quality="max"
         loading="eager"
       />
     </a>
@@ -100,7 +105,7 @@ const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "";
           ticking = true;
         }
       },
-      { passive: true }
+      { passive: true },
     );
 
     // Verificação inicial
