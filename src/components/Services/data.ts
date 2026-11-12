@@ -49,25 +49,20 @@ const defaultContent: {
 			text: "Acompanhamento médico para obesidade e sobrepeso com foco em saúde metabólica, emagrecimento saudável e manutenção de resultados a lingo prazo . Avaliação de resultados laboratoriais e existência de doenças crônicas associadas para tratamento adequado.",
 			icon: "clock",
 		},
-		{
-			name: "Acompanhamento Pós Bariátrica",
-			text: "Cuidado médico especializado no pós-operatório para monitorar seu metabolismo, repor vitaminas essenciais e garantir a manutenção do peso a longo prazo, com disposição e segurança.",
-			icon: "chart",
-		},
-
 	],
 };
 
 const whatsappPhone = "5531989067668";
 const whatsappMessage = encodeURIComponent("Olá, gostaria de agendar uma avaliação.");
 
-// Card fixo de modalidade de atendimento (sempre exibido ao final da lista,
-// mesmo quando os serviços vêm do Sanity)
-const attendanceCard: ServiceItem = {
-	name: "Atendimento On-line e Presencial",
-	text: "Consultas presenciais no consultório em Belo Horizonte ou por telemedicina, de onde você estiver, com o mesmo cuidado, atenção e acompanhamento individualizado.",
-	icon: "video",
-};
+const EXCLUDED_SERVICES = [
+	"acompanhamento pós bariátrica",
+	"acompanhamento pos bariatrica",
+	"atendimento on-line e presencial",
+	"atendimento online e presencial",
+	"atendimento on-line",
+	"atendimento online",
+];
 
 const baseServices = (sanityData?.services?.map((s: any) => ({
 	name: String(s.name || ""),
@@ -75,9 +70,8 @@ const baseServices = (sanityData?.services?.map((s: any) => ({
 	icon: String(s.icon || ""),
 })) || defaultContent.services) as ServiceItem[];
 
-// Evita duplicar caso o card venha a ser cadastrado no Sanity
-const hasAttendanceCard = baseServices.some(
-	(s) => s.name.trim().toLowerCase() === attendanceCard.name.toLowerCase()
+const filteredServices = baseServices.filter(
+	(s) => !EXCLUDED_SERVICES.includes(s.name.trim().toLowerCase())
 );
 
 // Exporta o conteúdo formatado
@@ -86,5 +80,5 @@ export const content: ServicesContent = {
 	title: sanityData?.title || defaultContent.title,
 	description: sanityData?.description || defaultContent.description,
 	whatsappUrl: `https://wa.me/${whatsappPhone}?text=${whatsappMessage}`,
-	services: hasAttendanceCard ? baseServices : [...baseServices, attendanceCard],
+	services: filteredServices,
 };
