@@ -1,9 +1,9 @@
 ---
 import { Image } from "astro:assets";
-import clinicReception from "../../assets/clinic_reception.png";
-import clinicConsultation from "../../assets/clinic_consultation.png";
-import clinicDetail from "../../assets/clinic_detail.png";
-import clinicHallway from "../../assets/clinic_hallway.png";
+import clinicReception from "../../assets/environment/clinic_reception.webp";
+import clinicConsultation from "../../assets/environment/clinic_consultation.webp";
+import clinicDetail from "../../assets/environment/clinic_detail.webp";
+import clinicHallway from "../../assets/environment/clinic_hallway.webp";
 import "./styles.css";
 ---
 
@@ -19,25 +19,53 @@ import "./styles.css";
   <div class="env-images">
     <div class="env-img-wrapper img-1">
       <div class="polaroid">
-        <Image src={clinicReception} alt="Recepção da clínica" />
+        <Image
+          src={clinicReception}
+          alt="Recepção da clínica"
+          width={560}
+          height={438}
+          loading="lazy"
+          decoding="async"
+        />
         <div class="polaroid-caption">Recepção</div>
       </div>
     </div>
     <div class="env-img-wrapper img-2">
       <div class="polaroid">
-        <Image src={clinicDetail} alt="Detalhes do ambiente" />
+        <Image
+          src={clinicDetail}
+          alt="Detalhes do ambiente"
+          width={560}
+          height={438}
+          loading="lazy"
+          decoding="async"
+        />
         <div class="polaroid-caption">Conforto</div>
       </div>
     </div>
     <div class="env-img-wrapper img-3">
       <div class="polaroid">
-        <Image src={clinicHallway} alt="Corredor da clínica" />
+        <Image
+          src={clinicHallway}
+          alt="Corredor da clínica"
+          width={560}
+          height={438}
+          loading="lazy"
+          decoding="async"
+        />
         <div class="polaroid-caption">Estrutura</div>
       </div>
     </div>
     <div class="env-img-wrapper img-4">
       <div class="polaroid">
-        <Image src={clinicConsultation} alt="Consultório médico" />
+        <Image
+          src={clinicConsultation}
+          alt="Consultório médico"
+          width={560}
+          height={438}
+          loading="lazy"
+          decoding="async"
+        />
         <div class="polaroid-caption">Consultório</div>
       </div>
     </div>
