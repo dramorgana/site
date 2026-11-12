@@ -1,10 +1,14 @@
 ---
+import { getImage } from "astro:assets";
+import faqBgImage from "../../assets/FAQ/faq-bg.webp";
 import { content } from "./data";
 import SectionHeader from "../SectionHeader/SectionHeader.astro";
 import "./styles.css";
+
+const optimizedFaqBg = await getImage({ src: faqBgImage, format: "webp", quality: 80 });
 ---
 
-<section id="faq" class="faq">
+<section id="faq" class="faq" style={`--faq-bg: url('${optimizedFaqBg.src}');`}>
 	<div class="faq__container">
 		<div class="faq__header">
 			<SectionHeader

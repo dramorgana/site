@@ -1,9 +1,12 @@
 ---
 import { Image } from "astro:assets";
-import doctorImage from "../../assets/about-doctor-foto04.jpg";
+import doctorImage from "../../assets/About/about-doctor-foto04.jpg";
+import doctorVideo from "../../assets/About/Woman_writing_in_notebook_20261026215813.mp4";
 import SectionHeader from "../SectionHeader/SectionHeader.astro";
 import { content } from "./data";
 import "./styles.css";
+
+const videoSrc = content.video && content.video.startsWith("http") ? content.video : doctorVideo;
 ---
 
 <section id="about" class="about">
@@ -64,11 +67,11 @@ import "./styles.css";
 						)
 					}
 					{
-						content.video && (
+						videoSrc && (
 							<video
 								class="about__video"
 								id="about-video"
-								data-src={content.video}
+								data-src={videoSrc}
 								muted
 								playsinline
 								loop

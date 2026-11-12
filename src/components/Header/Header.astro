@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import logoImg from "../../assets/Header/logo.png";
 import "./styles.css";
 import { navLinks, logo, cta } from "./data";
 
@@ -9,13 +11,14 @@ const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "";
   <div class="navbar__container">
     <!-- Logo à esquerda -->
     <a href="/" class="navbar__brand" aria-label="Home Dra. Morgana Motta">
-      <img
-        src={logo.src}
+      <Image
+        src={logoImg}
         alt={logo.alt}
         class="navbar__logo"
         id="navbar-logo"
-        width="180"
-        height="45"
+        width={180}
+        height={45}
+        loading="eager"
       />
     </a>
 

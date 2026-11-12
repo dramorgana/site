@@ -1,4 +1,6 @@
 ---
+import { Image, getImage } from "astro:assets";
+import heroImg from "../../assets/Hero/hero-image.jpg";
 import { doctor, headline, cta, background } from "./data";
 import { urlFor } from "../../lib/sanity";
 import "./styles.css";
@@ -25,23 +27,15 @@ const whatsappUrl =
 	cta && cta.phone
 		? `https://wa.me/${cta.phone.replace(/\D/g, "")}?text=${encodeURIComponent(cta.message || "")}`
 		: "#";
+
+const heroPreload = await getImage({ src: heroImg, width: 1920, format: "webp" });
 ---
 
 <slot name="head">
 	<link
 		rel="preload"
 		as="image"
-		href="/images/hero-section/hero-3168w.webp"
-		imagesrcset="
-			/images/hero-section/hero-480w.webp   480w,
-			/images/hero-section/hero-768w.webp   768w,
-			/images/hero-section/hero-1024w.webp 1024w,
-			/images/hero-section/hero-1280w.webp 1280w,
-			/images/hero-section/hero-1920w.webp 1920w,
-			/images/hero-section/hero-2560w.webp 2560w,
-			/images/hero-section/hero-3168w.webp 3168w
-		"
-		imagesizes="100vw"
+		href={heroPreload.src}
 		fetchpriority="high"
 	/>
 </slot>
@@ -50,30 +44,15 @@ const whatsappUrl =
 	<!-- Background image full-bleed -->
 	<div class="hero__bg">
 		<div class="hero__bg-wrapper">
-			<picture>
-				<source
-					type="image/webp"
-					srcset="
-						/images/hero-section/hero-480w.webp   480w,
-						/images/hero-section/hero-768w.webp   768w,
-						/images/hero-section/hero-1024w.webp 1024w,
-						/images/hero-section/hero-1280w.webp 1280w,
-						/images/hero-section/hero-1920w.webp 1920w,
-						/images/hero-section/hero-2560w.webp 2560w,
-						/images/hero-section/hero-3168w.webp 3168w
-					"
-					sizes="100vw"
-				/>
-				<img
-					src="/images/hero-section/hero-image.jpg"
-					alt={background.alt || `${_prefix} ${_doctorName}`}
-					class="hero__bg-image"
-					loading="eager"
-					fetchpriority="high"
-					width="3168"
-					height="1344"
-				/>
-			</picture>
+			<Image
+				src={heroImg}
+				widths={[480, 768, 1024, 1280, 1920, 2560, 3168]}
+				sizes="100vw"
+				alt={background.alt || `${_prefix} ${_doctorName}`}
+				class="hero__bg-image"
+				loading="eager"
+				fetchpriority="high"
+			/>
 		</div>
 		<div class="hero__bg-overlay"></div>
 	</div>

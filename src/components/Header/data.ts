@@ -14,7 +14,7 @@ export interface HeaderLogo {
 }
 
 export const logo: HeaderLogo = {
-  src: "/images/logo-variations/logo-a5816c.png",
+  src: "",
   alt: "Dra. Morgana Motta Logo",
 };
 

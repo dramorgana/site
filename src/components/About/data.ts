@@ -22,12 +22,12 @@ const defaultContent = {
 		"Escuta ativa das queixas do paciente",
 	],
 	image: {
-		src: "/images/about/foto_04.jpg.jpeg_2K_20261026204728.jpg",
+		src: "",
 		alt: "Dra. Morgana Motta — Especialista em Saúde Metabólica",
 		width: 600,
 		height: 750,
 	},
-	video: "/images/about/Woman_writing_in_notebook_20261026215813.mp4",
+	video: "",
 	doctor: {
 		name: "Morgana Motta",
 		prefix: "Dra.",
