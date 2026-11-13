@@ -13,6 +13,13 @@ const query = `{
     "authorCrm": author->crm,
     "authorImage": author->image,
     "category": categories[0]->title
+    updatedAt,
+    readTime,
+    category,
+    image,
+    "imageAlt": image.alt,
+    "excerptText": pt::text(excerpt),
+    "authorName": seo.authorName
   },
   "header": *[_type == "blogContent"][0]
 }`;
@@ -49,11 +56,11 @@ export const header = {
 
 // Exporta a lista de posts processada (com fallback local se o Sanity não retornar posts)
 const sanityPosts = sanityData.posts.map((post: any) => {
-  const imageSrc = post.mainImage ? urlFor(post.mainImage).width(800).url() : DEFAULT_IMAGE;
-  const imageSrcset = post.mainImage ? [
-    `${urlFor(post.mainImage).width(400).url()} 400w`,
-    `${urlFor(post.mainImage).width(600).url()} 600w`,
-    `${urlFor(post.mainImage).width(800).url()} 800w`
+  const imageSrc = post.image ? urlFor(post.image).width(800).url() : DEFAULT_IMAGE;
+  const imageSrcset = post.image ? [
+    `${urlFor(post.image).width(400).url()} 400w`,
+    `${urlFor(post.image).width(600).url()} 600w`,
+    `${urlFor(post.image).width(800).url()} 800w`
   ].join(', ') : null;
 
   return {
@@ -61,17 +68,17 @@ const sanityPosts = sanityData.posts.map((post: any) => {
     slug: post.slug?.current || "#",
     image: imageSrc,
     srcset: imageSrcset,
-    description: post.description || DESCRIPTIONS_FALLBACK[post.slug?.current] || "Leia mais sobre este assunto em nosso blog completo.",
+    description: post.excerptText || DESCRIPTIONS_FALLBACK[post.slug?.current] || "Leia mais sobre este assunto em nosso blog completo.",
     date: new Date(post.publishedAt || new Date()).toLocaleDateString('pt-BR', {
       day: '2-digit',
       month: 'short',
       year: 'numeric'
     }).replace('.', ''),
     authorName: post.authorName || "Dra. Morgana Motta",
-    authorCrm: post.authorCrm || "CRM-MG 96204",
-    authorImage: post.authorImage ? urlFor(post.authorImage).width(100).url() : "https://ui-avatars.com/api/?name=Morgana+Motta&background=c5a059&color=fff",
-    category: post.category || "Saúde Metabólica",
-    altText: post.title
+    authorCrm: "CRM-MG 96204",
+    authorImage: "https://ui-avatars.com/api/?name=Morgana+Motta&background=c5a059&color=fff",
+    category: (Array.isArray(post.category) ? post.category[0] : post.category) || "Saúde Metabólica",
+    altText: post.imageAlt || post.title
   };
 });
 

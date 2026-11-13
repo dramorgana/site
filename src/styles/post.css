@@ -632,6 +632,117 @@
   transform: translateY(-2px);
 }
 
+/* --- Metadados extras (Atualização / Revisão Médica) --- */
+.post-updated-date,
+.post-reviewed-date {
+  margin: 4px 0 0;
+  font-size: 0.82rem;
+  color: var(--p-text-muted);
+}
+
+.post-reviewed-date {
+  color: var(--p-primary-dark);
+  font-weight: 500;
+}
+
+/* --- FAQ & Referências Bibliográficas --- */
+.post-section-heading {
+  font-family: var(--p-font-heading);
+  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
+  font-weight: 600;
+  color: var(--p-primary-dark);
+  margin: 0 0 20px;
+}
+
+.post-faq {
+  margin-top: 48px;
+  padding-top: 36px;
+  border-top: 1px solid var(--p-border);
+}
+
+.post-faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.post-faq__item {
+  background-color: var(--p-surface);
+  border: 1px solid var(--p-border);
+  border-radius: 14px;
+  padding: 16px 20px;
+}
+
+.post-faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  font-size: 1.02rem;
+  color: var(--p-primary-dark);
+}
+
+.post-faq__question::-webkit-details-marker {
+  display: none;
+}
+
+.post-faq__chevron {
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--p-accent);
+  transition: transform 0.2s ease;
+}
+
+.post-faq__item[open] .post-faq__chevron {
+  transform: rotate(45deg);
+}
+
+.post-faq__answer {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--p-border);
+  font-size: 0.98rem;
+  line-height: 1.75;
+  color: var(--p-text);
+}
+
+.post-faq__answer p:last-child {
+  margin-bottom: 0;
+}
+
+.post-references {
+  margin-top: 40px;
+  padding: 24px 28px;
+  background-color: var(--p-cream-soft);
+  border: 1px solid var(--p-border);
+  border-radius: 16px;
+}
+
+.post-references__body {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--p-text-muted);
+}
+
+.post-references__body ol,
+.post-references__body ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.post-references__body li {
+  margin-bottom: 8px;
+}
+
+.post-references__body a {
+  color: var(--p-primary-brown);
+  text-decoration: underline;
+  word-break: break-word;
+}
+
 @media (max-width: 768px) {
   .post-page {
     padding: 104px 16px 72px;

@@ -9,6 +9,8 @@ import ScrollReveal from "../components/ScrollReveal/ScrollReveal.astro";
 interface Props {
 	title: string;
 	description?: string;
+	ogTitle?: string;
+	ogDescription?: string;
 	ogImage?: string;
 	canonicalURL?: string;
 	ogType?: "website" | "article";
@@ -19,6 +21,8 @@ interface Props {
 const { 
 	title, 
 	description = "Dra. Morgana Motta é médica especialista em emagrecimento e ganho de massa muscular em Belo Horizonte. Acompanhamento médico individualizado, presencial e online.",
+	ogTitle,
+	ogDescription,
 	ogImage = "/images/about/about.jpeg",
 	canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://www.dramorganamotta.com.br").toString(),
 	ogType = "website",
@@ -70,6 +74,8 @@ const schema = {
 		<!-- SEO / Open Graph -->
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
+		<meta property="og:title" content={ogTitle || title} />
+		<meta property="og:description" content={ogDescription || description} />
 		<meta property="og:type" content={ogType} />
 		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:image" content={fullOgImage} />
@@ -78,6 +84,8 @@ const schema = {
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
+		<meta name="twitter:title" content={ogTitle || title} />
+		<meta name="twitter:description" content={ogDescription || description} />
 		<meta name="twitter:image" content={fullOgImage} />
 
 		<!-- Structured Data -->
