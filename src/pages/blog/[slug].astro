@@ -1,68 +1,179 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
 import { PortableText } from "astro-portabletext";
+import PortableTextImage from "../../components/BlogSection/PortableTextImage.astro";
+import PortableTextHeading from "../../components/BlogSection/PortableTextHeading.astro";
 import Footer from "../../components/Footer/Footer.astro";
 import { sanityClient, urlFor } from "../../lib/sanity";
+import { fallbackPosts } from "../../components/BlogSection/fallbackPosts";
+import doctorAvatar from "../../assets/About/about-doctor-foto04.jpg";
 import "../../styles/post.css";
 
 export async function getStaticPaths() {
-  const posts = await sanityClient.fetch(
-    `*[_type == "post"]{ "slug": slug.current }`,
-  );
-  return posts.map((post: any) => ({
-    params: { slug: post.slug },
+  const sanityPosts = await sanityClient
+    .fetch(`*[_type == "post"]{ "slug": slug.current }`)
+    .catch(() => []);
+  const slugs = new Set<string>([
+    ...sanityPosts.map((p: any) => p.slug).filter(Boolean),
+    ...fallbackPosts.map((p) => p.slug),
+  ]);
+  return Array.from(slugs).map((slug) => ({
+    params: { slug },
   }));
 }
 
 const { slug } = Astro.params;
 
-// Buscamos o post específico do Sanity
-const postSanity = await sanityClient.fetch(
-  `
+const postSanity = await sanityClient
+  .fetch(
+    `
   *[_type == "post" && slug.current == $slug][0] {
     title,
     description,
+    summary,
+    disclaimer,
     publishedAt,
     "category": categories[0]->title,
     mainImage,
+    "mainImageAlt": mainImage.alt,
     "authorName": author->name,
     "authorCrm": author->crm,
+    "authorSpecialty": author->specialty,
     "authorImage": author->image,
+    "authorBio": pt::text(author->bio),
+    seo {
+      metaTitle,
+      metaDescription,
+      keywords,
+      ogImage,
+      canonicalUrl,
+      noIndex
+    },
     body
   }
 `,
-  { slug },
-);
+    { slug },
+  )
+  .catch(() => null);
+
+const fallback = fallbackPosts.find((p) => p.slug === slug);
+const rawPost = postSanity || fallback || fallbackPosts[0];
 
 const DEFAULT_IMAGE =
   "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800";
 
+const rawBody: any[] = Array.isArray(rawPost.body) ? rawPost.body : [];
+
+// Remove o bloco manual "Índice" e sua lista imediata, pois o Sumário já é exibido na barra lateral
+const bodyBlocks: any[] = [];
+let skippingIndexList = false;
+for (const block of rawBody) {
+  const text =
+    block?._type === "block"
+      ? (block.children || []).map((c: any) => c.text || "").join("").trim()
+      : "";
+
+  if (block?._type === "block" && block.style === "h2" && /^índice$/i.test(text)) {
+    skippingIndexList = true;
+    continue;
+  }
+  if (skippingIndexList) {
+    if (block?._type === "block" && block.listItem) {
+      continue;
+    }
+    skippingIndexList = false;
+  }
+  bodyBlocks.push(block);
+}
+
+// Extrai os tópicos (h2) para o Sumário
+const slugify = (str: string) =>
+  str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+const tocItems = bodyBlocks
+  .filter((b) => b?._type === "block" && (b.style === "h2" || b.style === "h1"))
+  .map((b) => {
+    const label = (b.children || []).map((c: any) => c.text || "").join("").trim();
+    return { id: slugify(label), label };
+  })
+  .filter((item) => item.label && item.id);
+
+// Calcula tempo estimado de leitura
+const totalWords = bodyBlocks.reduce((acc, b) => {
+  if (b?._type === "block") {
+    const t = (b.children || []).map((c: any) => c.text || "").join(" ");
+    return acc + t.split(/\s+/).filter(Boolean).length;
+  }
+  return acc;
+}, 0);
+const readingMinutes = Math.max(1, Math.ceil(totalWords / 200));
+
 const post = {
-  ...postSanity,
-  image: postSanity.mainImage
+  ...rawPost,
+  image: postSanity?.mainImage
     ? urlFor(postSanity.mainImage).width(1200).url()
-    : DEFAULT_IMAGE,
+    : fallback?.image || DEFAULT_IMAGE,
+  imageAlt: rawPost.mainImageAlt || rawPost.title,
   description:
-    postSanity.description ||
+    rawPost.description ||
     "Leia mais sobre este assunto em nosso blog completo.",
-  date: new Date(postSanity.publishedAt || new Date())
+  summary:
+    rawPost.summary ||
+    rawPost.description ||
+    "Leia mais sobre este assunto em nosso blog completo.",
+  disclaimer:
+    rawPost.disclaimer ||
+    "Este conteúdo possui caráter meramente educativo e informativo. Não substitui consulta médica. Agende uma avaliação médica para orientação individualizada sobre o seu caso.",
+  date: new Date(rawPost.publishedAt || new Date())
     .toLocaleDateString("pt-BR", {
       day: "2-digit",
-      month: "short",
+      month: "long",
       year: "numeric",
-    })
-    .replace(".", ""),
-  author: postSanity.authorName || "Dra. Morgana Motta",
-  authorCrm: postSanity.authorCrm || "CRM-SP 123456",
+    }),
+  author: rawPost.authorName || "Dra. Morgana Motta",
+  authorCrm: rawPost.authorCrm || "CRM-MG 96204",
+  authorSpecialty:
+    rawPost.authorSpecialty ||
+    "Médica • Emagrecimento e Ganho de Massa Muscular",
+  authorBio:
+    rawPost.authorBio ||
+    "Médica formada pela Faculdade Ciências Médicas de Minas Gerais, pós-graduada em Urgência e Emergência pela Faculdade Albert Einstein. Atende no Instituto Bernardo Guimarães, em Belo Horizonte, com foco em emagrecimento e ganho de massa muscular.",
+  category: rawPost.category || "Saúde Metabólica",
+  seoTitle:
+    rawPost.seo?.metaTitle || `${rawPost.title} | Blog Dra. Morgana Motta`,
   seoDescription:
-    postSanity.description ||
+    rawPost.seo?.metaDescription ||
+    rawPost.description ||
     "Artigo sobre saúde e bem-estar pela Dra. Morgana Motta.",
+  seoKeywords: Array.isArray(rawPost.seo?.keywords)
+    ? rawPost.seo.keywords.filter(Boolean)
+    : [],
+  seoOgImage: rawPost.seo?.ogImage
+    ? urlFor(rawPost.seo.ogImage).width(1200).height(630).fit("crop").url()
+    : postSanity?.mainImage
+      ? urlFor(postSanity.mainImage).width(1200).url()
+      : fallback?.image || DEFAULT_IMAGE,
+  seoNoIndex: Boolean(rawPost.seo?.noIndex),
 };
 
-const canonicalURL = new URL(
-  Astro.url.pathname,
-  Astro.site || "https://www.dramorganamotta.com.br",
-);
+const canonicalURL =
+  rawPost.seo?.canonicalUrl ||
+  new URL(
+    Astro.url.pathname,
+    Astro.site || "https://www.dramorganamotta.com.br",
+  ).toString();
+
+const whatsappUrl =
+  "https://wa.me/5531989067668?text=" +
+  encodeURIComponent(
+    `Olá Dra. Morgana, li o artigo "${post.title}" e gostaria de agendar uma avaliação.`,
+  );
 
 const schemaData = {
   "@context": "https://schema.org",
@@ -87,62 +198,240 @@ const schemaData = {
 ---
 
 <Layout
-  title={`${post.title} | Blog Dra. Morgana Motta`}
+  title={post.seoTitle}
   description={post.seoDescription}
+  ogImage={post.seoOgImage}
+  canonicalURL={canonicalURL}
+  ogType="article"
+  keywords={post.seoKeywords}
+  noIndex={post.seoNoIndex}
 >
-  <head slot="head">
-    <link rel="canonical" href={canonicalURL} />
-    <meta property="og:title" content={post.title} />
-    <meta property="og:description" content={post.seoDescription} />
-    <meta property="og:image" content={post.image} />
-    <meta property="og:type" content="article" />
-    <meta name="twitter:card" content="summary_large_image" />
+  <Fragment slot="head">
+    {post.publishedAt && (
+      <meta property="article:published_time" content={post.publishedAt} />
+    )}
     <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
-  </head>
-  <main>
-    <article class="post-container">
-      <header class="post-header">
-        <span class="post-category">{post.category}</span>
-        <h1 class="post-title">{post.title}</h1>
-        <div class="post-meta">
-          <span>{post.date}</span>
-          <span>•</span>
-          <span>Por {post.author}</span>
-          <span class="post-author-crm">({post.authorCrm})</span>
-        </div>
-      </header>
+  </Fragment>
 
-      <img src={post.image} alt={post.title} class="post-hero-image" />
+  <main class="post-page">
+    <!-- Cabeçalho do Artigo -->
+    <header class="post-header">
+      <div class="post-topbar">
+        <nav aria-label="Breadcrumb" class="post-breadcrumb">
+          <ol>
+            <li>
+              <a href="/">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                </svg>
+                <span>Início</span>
+              </a>
+            </li>
+            <li class="post-breadcrumb__sep" aria-hidden="true">›</li>
+            <li>
+              <a href="/blog">Blog</a>
+            </li>
+            <li class="post-breadcrumb__sep" aria-hidden="true">›</li>
+            <li class="post-breadcrumb__current" aria-current="page">
+              <span>{post.title}</span>
+            </li>
+          </ol>
+        </nav>
 
-      <div class="post-content">
-        {
-          post.body ? (
-            <PortableText value={post.body} />
-          ) : (
-            <p>{post.description}</p>
-          )
-        }
+        <a href="/blog" class="post-back-btn">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m12 19-7-7 7-7" />
+            <path d="M19 12H5" />
+          </svg>
+          <span>Voltar para o blog</span>
+        </a>
       </div>
 
-      <footer class="post-footer">
-        <a href="/blog" class="back-to-blog">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            ><line x1="19" y1="12" x2="5" y2="12"></line><polyline
-              points="12 19 5 12 12 5"></polyline></svg
-          >
-          Voltar para o Blog
-        </a>
-      </footer>
-    </article>
+      <span class="post-category">{post.category}</span>
+
+      <h1 class="post-title">{post.title}</h1>
+
+      <!-- Card Resumo / Destaque Inicial -->
+      <div class="post-summary-card">
+        <div class="post-summary-card__bar" aria-hidden="true"></div>
+        <div class="post-summary-card__inner">
+          <div class="post-summary-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+            </svg>
+          </div>
+          <div>
+            <span class="post-summary-card__label">Resumo do artigo</span>
+            <p class="post-summary-card__text">{post.summary}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra de Autor e Metadados -->
+      <div class="post-author-bar">
+        <div class="post-author-bar__profile">
+          <div class="post-author-bar__avatar">
+            <Image src={doctorAvatar} alt={post.author} width={64} height={64} />
+          </div>
+          <div class="post-author-bar__info">
+            <p class="post-author-bar__name">{post.author}</p>
+            <p class="post-author-bar__role">
+              {post.authorSpecialty} • {post.authorCrm}
+            </p>
+            <p class="post-author-bar__bio">
+              Atendimento individualizado com foco em saúde metabólica e resultados sustentáveis em Belo Horizonte.
+            </p>
+          </div>
+        </div>
+
+        <div class="post-author-bar__meta">
+          <div class="post-reading-time">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+            <span>{readingMinutes} min de leitura</span>
+          </div>
+          <p class="post-published-date">
+            Publicado em <time datetime={rawPost.publishedAt}>{post.date}</time>
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Imagem de Capa -->
+    <figure class="post-hero-figure">
+      <div class="post-hero-image-wrap">
+        <img src={post.image} alt={post.imageAlt} class="post-hero-image" loading="eager" />
+      </div>
+    </figure>
+
+    <!-- Aviso Médico -->
+    <div class="post-disclaimer">
+      <strong>Aviso médico:</strong> {post.disclaimer}
+    </div>
+
+    <!-- Sumário Mobile (colapsável) -->
+    {tocItems.length > 0 && (
+      <details class="post-toc-mobile">
+        <summary class="post-toc__header">
+          <span class="post-toc__title">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="8" y1="6" x2="21" y2="6" />
+              <line x1="8" y1="12" x2="21" y2="12" />
+              <line x1="8" y1="18" x2="21" y2="18" />
+              <line x1="3" y1="6" x2="3.01" y2="6" />
+              <line x1="3" y1="12" x2="3.01" y2="12" />
+              <line x1="3" y1="18" x2="3.01" y2="18" />
+            </svg>
+            Sumário do artigo
+          </span>
+          <span class="post-toc__chevron" aria-hidden="true">▾</span>
+        </summary>
+        <nav aria-label="Sumário do artigo" class="post-toc__list-wrap">
+          <ol class="post-toc__list">
+            {tocItems.map((item) => (
+              <li>
+                <a href={`#${item.id}`}>{item.label}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      </details>
+    )}
+
+    <!-- Grid Principal: Sumário Lateral (4 cols) + Conteúdo (8 cols) -->
+    <div class="post-grid">
+      {tocItems.length > 0 && (
+        <aside class="post-sidebar">
+          <div class="post-toc-card">
+            <div class="post-toc__header">
+              <span class="post-toc__title">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="8" y1="6" x2="21" y2="6" />
+                  <line x1="8" y1="12" x2="21" y2="12" />
+                  <line x1="8" y1="18" x2="21" y2="18" />
+                  <line x1="3" y1="6" x2="3.01" y2="6" />
+                  <line x1="3" y1="12" x2="3.01" y2="12" />
+                  <line x1="3" y1="18" x2="3.01" y2="18" />
+                </svg>
+                Sumário do artigo
+              </span>
+            </div>
+            <nav aria-label="Sumário do artigo" class="post-toc__list-wrap">
+              <ol class="post-toc__list">
+                {tocItems.map((item) => (
+                  <li>
+                    <a href={`#${item.id}`}>{item.label}</a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          </div>
+        </aside>
+      )}
+
+      <div class="post-main-col">
+        <article class="post-content">
+          {bodyBlocks.length > 0 ? (
+            <PortableText
+              value={bodyBlocks}
+              components={{
+                type: { image: PortableTextImage },
+                block: {
+                  h2: PortableTextHeading,
+                  h3: PortableTextHeading,
+                },
+              }}
+            />
+          ) : (
+            <p>{post.description}</p>
+          )}
+        </article>
+
+        <!-- Card da Autora ao Final -->
+        <section class="post-author-card" aria-label="Sobre a autora">
+          <div class="post-author-card__avatar">
+            <Image src={doctorAvatar} alt={post.author} width={96} height={96} />
+          </div>
+          <div class="post-author-card__body">
+            <span class="post-author-card__kicker">Escrito por</span>
+            <h3 class="post-author-card__name">{post.author}</h3>
+            <p class="post-author-card__crm">{post.authorCrm}</p>
+            <p class="post-author-card__desc">
+              {post.authorBio}
+            </p>
+          </div>
+        </section>
+
+        <!-- Card CTA de Agendamento -->
+        <section id="agendamento" class="post-cta-card">
+          <div class="post-cta-card__glow" aria-hidden="true"></div>
+          <div class="post-cta-card__content">
+            <h3 class="post-cta-card__title">
+              Quer uma avaliação individualizada para o seu caso?
+            </h3>
+            <p class="post-cta-card__text">
+              Agende uma consulta com a Dra. Morgana Motta para investigar seu metabolismo, rotina, exames e traçar um plano feito sob medida para você.
+            </p>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="post-cta-card__btn"
+            >
+              Agendar Minha Avaliação
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
   </main>
+
   <Footer />
 </Layout>

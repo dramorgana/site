@@ -1,0 +1,14 @@
+---
+const { node } = Astro.props;
+const text = (node?.children || []).map((c: any) => c.text || "").join("").trim();
+const id = text
+  .toLowerCase()
+  .normalize("NFD")
+  .replace(/[\u0300-\u036f]/g, "")
+  .replace(/[^a-z0-9]+/g, "-")
+  .replace(/(^-|-$)/g, "");
+const Tag = node?.style === "h3" ? "h3" : node?.style === "h4" ? "h4" : "h2";
+---
+
+<Tag id={id || undefined}><slot /></Tag>
+

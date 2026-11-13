@@ -1,4 +1,5 @@
 import { sanityClient, urlFor } from "../../lib/sanity";
+import { fallbackPosts } from "./fallbackPosts";
 
 // Busca posts e cabeçalho da seção
 const query = `{
@@ -46,8 +47,8 @@ export const header = {
   viewAllLabel: sanityData.header?.viewAllLabel || defaultHeader.viewAllLabel
 };
 
-// Exporta a lista de posts processada
-export const posts = sanityData.posts.map((post: any) => {
+// Exporta a lista de posts processada (com fallback local se o Sanity não retornar posts)
+const sanityPosts = sanityData.posts.map((post: any) => {
   const imageSrc = post.mainImage ? urlFor(post.mainImage).width(800).url() : DEFAULT_IMAGE;
   const imageSrcset = post.mainImage ? [
     `${urlFor(post.mainImage).width(400).url()} 400w`,
@@ -67,9 +68,11 @@ export const posts = sanityData.posts.map((post: any) => {
       year: 'numeric'
     }).replace('.', ''),
     authorName: post.authorName || "Dra. Morgana Motta",
-    authorCrm: post.authorCrm || "CRM-SP 123456",
-    authorImage: post.authorImage ? urlFor(post.authorImage).width(100).url() : "https://ui-avatars.com/api/?name=Carolina+Mendes&background=c5a059&color=fff",
-    category: post.category || "Saúde Integrativa",
+    authorCrm: post.authorCrm || "CRM-MG 96204",
+    authorImage: post.authorImage ? urlFor(post.authorImage).width(100).url() : "https://ui-avatars.com/api/?name=Morgana+Motta&background=c5a059&color=fff",
+    category: post.category || "Saúde Metabólica",
     altText: post.title
   };
 });
+
+export const posts = sanityPosts.length > 0 ? sanityPosts : fallbackPosts;

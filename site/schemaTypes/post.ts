@@ -32,6 +32,9 @@ export default defineType({
       options: {
         hotspot: true,
       },
+      fields: [
+        { name: 'alt', title: 'Texto Alternativo (SEO)', type: 'string' },
+      ],
     }),
     defineField({
       name: 'categories',
@@ -52,9 +55,26 @@ export default defineType({
       validation: (Rule) => Rule.max(200),
     }),
     defineField({
+      name: 'summary',
+      title: 'Resumo do Artigo (Destaque Inicial)',
+      type: 'text',
+      rows: 3,
+    }),
+    defineField({
+      name: 'disclaimer',
+      title: 'Aviso Médico',
+      type: 'text',
+      rows: 2,
+    }),
+    defineField({
       name: 'body',
       title: 'Conteúdo do Artigo',
       type: 'blockContent',
+    }),
+    defineField({
+      name: 'seo',
+      title: 'SEO & Metadados',
+      type: 'seo',
     }),
   ],
 
