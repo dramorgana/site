@@ -1,7 +1,53 @@
-import { sanityClient, urlFor } from '../../lib/sanity';
+import { sanityClient } from '../../lib/sanity';
+
+interface AboutSanityData {
+	kicker?: string;
+	title?: string;
+	description?: string;
+	paragraphs?: string[];
+	highlights?: string[];
+	image?: {
+		alt?: string;
+	};
+	video?: {
+		alt?: string;
+		description?: string;
+	};
+	videoUrl?: string;
+	doctor?: {
+		name?: string;
+		prefix?: string;
+		specialty?: string;
+	};
+}
+
+export interface AboutContent {
+	kicker: string;
+	title: string;
+	description: string;
+	paragraphs: string[];
+	highlights: string[];
+	image: {
+		src: string;
+		srcset: string | undefined;
+		alt: string;
+		width: number;
+		height: number;
+	};
+	video: string;
+	videoAlt: string;
+	videoDescription: string;
+	doctor: {
+		name: string;
+		prefix: string;
+		specialty: string;
+	};
+}
 
 // Busca os dados no Sanity
-const sanityData = await sanityClient.fetch(`*[_type == "aboutContent"][0]`).catch(() => null);
+const sanityData = await sanityClient
+	.fetch<AboutSanityData | null>(`*[_type == "aboutContent"][0]{ ..., "videoUrl": video.asset->url }`)
+	.catch(() => null);
 //const sanityData = null;
 // Valores de fallback (caso o Sanity esteja vazio)
 const defaultContent = {
@@ -28,6 +74,8 @@ const defaultContent = {
 		height: 750,
 	},
 	video: "",
+	videoAlt: "Dra. Morgana Motta realizando anotações durante atendimento no consultório",
+	videoDescription: "Vídeo mostrando a Dra. Morgana Motta escrevendo em um caderno em seu consultório, representando o planejamento médico individualizado de cada paciente.",
 	doctor: {
 		name: "Morgana Motta",
 		prefix: "Dra.",
@@ -37,26 +85,28 @@ const defaultContent = {
 
 // Imagem local definida para a seção About
 const imageSrc = defaultContent.image.src;
-const srcset = null;
+const srcset: string | undefined = undefined;
 
 // Exporta o conteúdo sincronizado com o Sanity
-export const content = {
-	kicker: sanityData?.kicker || defaultContent.kicker,
-	title: sanityData?.title || defaultContent.title,
-	description: sanityData?.description || defaultContent.description,
-	paragraphs: sanityData?.paragraphs || defaultContent.paragraphs,
-	highlights: sanityData?.highlights || defaultContent.highlights,
-	image: {
-		src: imageSrc,
-		srcset: srcset,
-		alt: sanityData?.image?.alt || defaultContent.image.alt,
-		width: defaultContent.image.width,
-		height: defaultContent.image.height,
-	},
-	video: defaultContent.video,
-	doctor: {
-		name: sanityData?.doctor?.name || defaultContent.doctor.name,
-		prefix: sanityData?.doctor?.prefix || defaultContent.doctor.prefix,
-		specialty: sanityData?.doctor?.specialty || defaultContent.doctor.specialty,
-	},
-};
+	export const content: AboutContent = {
+		kicker: sanityData?.kicker || defaultContent.kicker,
+		title: sanityData?.title || defaultContent.title,
+		description: sanityData?.description || defaultContent.description,
+		paragraphs: sanityData?.paragraphs?.length ? sanityData.paragraphs : defaultContent.paragraphs,
+		highlights: sanityData?.highlights?.length ? sanityData.highlights : defaultContent.highlights,
+		image: {
+			src: imageSrc,
+			srcset: srcset,
+			alt: sanityData?.image?.alt || defaultContent.image.alt,
+			width: defaultContent.image.width,
+			height: defaultContent.image.height,
+		},
+		video: sanityData?.videoUrl || defaultContent.video,
+		videoAlt: sanityData?.video?.alt || defaultContent.videoAlt,
+		videoDescription: sanityData?.video?.description || defaultContent.videoDescription,
+		doctor: {
+			name: sanityData?.doctor?.name || defaultContent.doctor.name,
+			prefix: sanityData?.doctor?.prefix || defaultContent.doctor.prefix,
+			specialty: sanityData?.doctor?.specialty || defaultContent.doctor.specialty,
+		},
+	};

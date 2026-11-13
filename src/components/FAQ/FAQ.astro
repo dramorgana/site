@@ -5,7 +5,11 @@ import { content } from "./data";
 import SectionHeader from "../SectionHeader/SectionHeader.astro";
 import "./styles.css";
 
-const optimizedFaqBg = await getImage({ src: faqBgImage, format: "webp", quality: 80 });
+const optimizedFaqBg = await getImage({
+	src: faqBgImage,
+	format: "webp",
+	quality: 80,
+});
 ---
 
 <section id="faq" class="faq" style={`--faq-bg: url('${optimizedFaqBg.src}');`}>
@@ -23,10 +27,7 @@ const optimizedFaqBg = await getImage({ src: faqBgImage, format: "webp", quality
 			<div class="faq__list" id="faqList">
 				{
 					content.questions.slice(0, 5).map((item) => (
-						<details
-							class="faq__item"
-							name="faq-accordion"
-						>
+						<details class="faq__item" name="faq-accordion">
 							<summary class="faq__question">
 								<span class="faq__question-text">
 									{item.question}

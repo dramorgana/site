@@ -45,6 +45,29 @@ export default defineType({
       ]
     }),
     defineField({
+      name: 'video',
+      title: 'Vídeo da Médica (Hover / Transição)',
+      type: 'file',
+      options: {
+        accept: 'video/*'
+      },
+      fields: [
+        {
+          name: 'alt',
+          title: 'Texto Alternativo (aria-label)',
+          type: 'string',
+          description: 'Descrição curta do vídeo para leitores de tela.'
+        },
+        {
+          name: 'description',
+          title: 'Descrição Detalhada (Acessibilidade)',
+          type: 'text',
+          rows: 2,
+          description: 'Descrição detalhada da cena do vídeo para acessibilidade.'
+        }
+      ]
+    }),
+    defineField({
       name: 'doctor',
       title: 'Dados da Médica (Rodapé)',
       type: 'object',

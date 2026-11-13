@@ -12,6 +12,7 @@ import servicesContent from './servicesContent'
 import testimonialsContent from './testimonialsContent'
 import footerContent from './footerContent'
 import parallaxCTAContent from './parallaxCTAContent'
+import environmentContent from './environmentContent'
 
 export const schemaTypes = [
   post,
@@ -27,5 +28,6 @@ export const schemaTypes = [
   servicesContent,
   testimonialsContent,
   footerContent,
-  parallaxCTAContent
+  parallaxCTAContent,
+  environmentContent
 ]

@@ -2,7 +2,6 @@
 import { Image, getImage } from "astro:assets";
 import heroImg from "../../assets/Hero/hero-image.jpg";
 import { doctor, headline, cta, background } from "./data";
-import { urlFor } from "../../lib/sanity";
 import "./styles.css";
 
 const _doctorName =
@@ -28,7 +27,11 @@ const whatsappUrl =
 		? `https://wa.me/${cta.phone.replace(/\D/g, "")}?text=${encodeURIComponent(cta.message || "")}`
 		: "#";
 
-const heroPreload = await getImage({ src: heroImg, width: 1920, format: "webp" });
+const heroPreload = await getImage({
+	src: heroImg,
+	width: 1920,
+	format: "webp",
+});
 ---
 
 <slot name="head">
@@ -65,17 +68,17 @@ const heroPreload = await getImage({ src: heroImg, width: 1920, format: "webp" }
 				<h1 class="hero__brand">
 					<div class="hero__brand-row">
 						<div class="hero__doctor-details">
-							<span class="hero__doctor-name-text"
-								>{_prefix}
+							<span class="hero__doctor-name-text">
+								{_prefix}
 								<span>{doctor.name}</span>
 							</span>
 							<div class="hero__doctor-meta-line">
-								<span class="hero__doctor-crm"
-									>{_credentials}</span
-								>
-								<span class="hero__doctor-specialty"
-									>{_specialty}</span
-								>
+								<span class="hero__doctor-crm">
+									{_credentials}
+								</span>
+								<span class="hero__doctor-specialty">
+									{_specialty}
+								</span>
 							</div>
 						</div>
 					</div>
@@ -87,13 +90,11 @@ const heroPreload = await getImage({ src: heroImg, width: 1920, format: "webp" }
 				</h2>
 
 				<!-- Subtítulo / Descrição Accent -->
-				{
-					headline.accent && (
-						<p class="hero__headline-accent">
-							<Fragment set:html={headline.accent} />
-						</p>
-					)
-				}
+				{headline.accent && (
+					<p class="hero__headline-accent">
+						<Fragment set:html={headline.accent} />
+					</p>
+				)}
 
 				<!-- CTA WhatsApp -->
 				<div class="hero__actions">
