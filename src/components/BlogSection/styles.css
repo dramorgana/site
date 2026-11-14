@@ -974,19 +974,25 @@
   }
 
   .blog-grid {
-    min-height: 100vh;
+    min-height: auto;
     overflow: visible !important;
     display: block !important;
-    padding-bottom: 150px;
+    padding-bottom: 60px;
   }
 
   .blog-section .blog-card {
     position: sticky !important;
     top: calc(5px + (var(--index) * 5px)) !important;
     z-index: calc(var(--index) + 100) !important;
-    margin-bottom: 8vh;
+    margin-bottom: 24px;
     transform: none !important;
-    height: 550px !important;
+    height: auto;
+    min-height: 220px;
+  }
+
+  .blog-section .blog-image-wrapper {
+    height: auto;
+    align-self: stretch;
   }
 
   .featured-hero-grid {
@@ -1013,20 +1019,22 @@
 
   .blog-grid {
     display: block;
-    padding-bottom: 300px;
+    padding-bottom: 60px;
   }
 }
 
 @media (max-width: 640px) {
   .blog-section .blog-card {
     flex-direction: column;
-    height: 500px;
+    height: auto;
+    min-height: 0;
   }
 
   .blog-section .blog-image-wrapper {
     width: 100%;
-    height: 260px;
-    flex: 0 0 260px;
+    height: 220px;
+    flex: 0 0 220px;
+    align-self: auto;
   }
 
   .blog-search-container {
