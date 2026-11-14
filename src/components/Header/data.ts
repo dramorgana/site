@@ -31,7 +31,7 @@ export const navLinks: NavLink[] = [
   { label: "Tratamentos", href: "/#servicos" },
   { label: "Sobre", href: "/#about" },
   { label: "Método", href: "/#pilares" },
-  { label: "Blog", href: "/#blog" },
+  // { label: "Blog", href: "/#blog" },
   { label: "Depoimentos", href: "/#depoimentos" },
   { label: "Dúvidas", href: "/#faq" },
   { label: "Contato", href: "/#contato" },
