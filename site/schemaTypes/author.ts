@@ -45,8 +45,9 @@ export default defineType({
     }),
     defineField({
       name: 'image',
-      title: 'Image',
+      title: 'Foto / Avatar da Autora',
       type: 'image',
+      description: 'Exibida nos cards da seção Blog e dentro dos artigos.',
       options: {
         hotspot: true,
       },

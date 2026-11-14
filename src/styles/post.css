@@ -427,6 +427,13 @@
   border-left-color: var(--p-accent);
 }
 
+.post-toc__list a.is-active {
+  background-color: var(--p-cream-soft);
+  color: var(--p-primary-dark);
+  border-left-color: var(--p-accent);
+  font-weight: 600;
+}
+
 /* --- Main Article Content --- */
 .post-main-col {
   min-width: 0;

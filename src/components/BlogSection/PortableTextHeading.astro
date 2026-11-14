@@ -1,6 +1,12 @@
 ---
 const { node } = Astro.props;
-const text = (node?.children || []).map((c: any) => c.text || "").join("").trim();
+const extractText = (children: any[]): string =>
+  (children || [])
+    .map((c: any) =>
+      typeof c?.text === "string" ? c.text : extractText(c?.children || [])
+    )
+    .join("");
+const text = extractText(node?.children || []).trim();
 const id = text
   .toLowerCase()
   .normalize("NFD")

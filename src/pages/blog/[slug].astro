@@ -807,4 +807,91 @@ const faqSchemaData =
   </main>
 
   <Footer />
+
+  <script>
+    const tocLinks = Array.from(
+      document.querySelectorAll<HTMLAnchorElement>('.post-toc__list a[href^="#"]')
+    );
+
+    if (tocLinks.length > 0) {
+      const headingIds = Array.from(
+        new Set(
+          tocLinks
+            .map((link) => link.getAttribute("href")?.slice(1) || "")
+            .filter(Boolean)
+        )
+      );
+
+      const headings = headingIds
+        .map((id) => document.getElementById(id))
+        .filter((el): el is HTMLElement => el !== null);
+
+      const setActive = (activeId: string | null) => {
+        for (const link of tocLinks) {
+          const isMatch = activeId !== null && link.getAttribute("href") === `#${activeId}`;
+          link.classList.toggle("is-active", isMatch);
+          if (isMatch) {
+            link.setAttribute("aria-current", "location");
+            const wrap = link.closest<HTMLElement>(".post-toc-card .post-toc__list-wrap");
+            if (wrap) {
+              const linkTop = link.offsetTop;
+              const linkBottom = linkTop + link.offsetHeight;
+              if (linkTop < wrap.scrollTop + 12) {
+                wrap.scrollTop = Math.max(0, linkTop - 12);
+              } else if (linkBottom > wrap.scrollTop + wrap.clientHeight - 12) {
+                wrap.scrollTop = linkBottom - wrap.clientHeight + 12;
+              }
+            }
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        }
+      };
+
+      const updateActiveHeading = () => {
+        if (headings.length === 0) return;
+
+        const activationOffset = 160;
+        let currentId: string | null = null;
+
+        for (const heading of headings) {
+          if (heading.getBoundingClientRect().top <= activationOffset) {
+            currentId = heading.id;
+          } else {
+            break;
+          }
+        }
+
+        if (!currentId && headings[0].getBoundingClientRect().top <= window.innerHeight * 0.75) {
+          currentId = headings[0].id;
+        }
+
+        setActive(currentId);
+      };
+
+      let ticking = false;
+      const onScroll = () => {
+        if (!ticking) {
+          ticking = true;
+          window.requestAnimationFrame(() => {
+            updateActiveHeading();
+            ticking = false;
+          });
+        }
+      };
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll, { passive: true });
+      updateActiveHeading();
+
+      for (const link of tocLinks) {
+        link.addEventListener("click", () => {
+          const id = link.getAttribute("href")?.slice(1) || null;
+          if (id) setActive(id);
+          const mobileDetails = link.closest("details.post-toc-mobile");
+          if (mobileDetails) mobileDetails.removeAttribute("open");
+        });
+      }
+    }
+  </script>
 </Layout>

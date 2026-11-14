@@ -1,4 +1,5 @@
 import capaImg from "../../assets/Blog/artigo-1-dieta-sozinha/image2.jpg";
+import doctorAvatar from "../../assets/About/about-doctor-foto04.jpg";
 
 export const fallbackPosts = [
   {
@@ -12,7 +13,7 @@ export const fallbackPosts = [
     srcset: null,
     authorName: "Dra. Morgana Motta",
     authorCrm: "CRM-MG 96204",
-    authorImage: "https://ui-avatars.com/api/?name=Morgana+Motta&background=c5a059&color=fff",
+    authorImage: doctorAvatar.src,
     category: "Saúde Metabólica",
     altText: "Por que a dieta sozinha nem sempre funciona pra emagrecer?",
     body: [

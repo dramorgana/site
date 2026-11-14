@@ -1,5 +1,6 @@
 import { sanityClient, urlFor } from "../../lib/sanity";
 import { fallbackPosts } from "./fallbackPosts";
+import doctorAvatar from "../../assets/About/about-doctor-foto04.jpg";
 
 // Busca posts e cabeçalho da seção
 const query = `{
@@ -7,14 +8,9 @@ const query = `{
     title,
     slug,
     publishedAt,
-    mainImage,
-    description,
-    "authorName": author->name,
-    "authorCrm": author->crm,
-    "authorImage": author->image,
-    "category": categories[0]->title
     updatedAt,
     readTime,
+    description,
     category,
     image,
     "imageAlt": image.alt,
@@ -78,7 +74,9 @@ const sanityPosts = sanityData.posts.map((post: any) => {
     }).replace('.', ''),
     authorName: post.authorName || "Dra. Morgana Motta",
     authorCrm: post.authorCrm || "CRM-MG 96204",
-    authorImage: post.authorImage ? urlFor(post.authorImage).width(100).url() : "https://ui-avatars.com/api/?name=Morgana+Motta&background=c5a059&color=fff",
+    authorImage: (sanityData.header?.defaultAuthorAvatar || post.authorImage)
+      ? urlFor(sanityData.header?.defaultAuthorAvatar || post.authorImage).width(240).height(240).fit("crop").url()
+      : doctorAvatar.src,
     category: (Array.isArray(post.category) ? post.category[0] : post.category) || "Saúde Metabólica",
     altText: post.imageAlt || post.title
   };
