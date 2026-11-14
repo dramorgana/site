@@ -13,6 +13,7 @@ import testimonialsContent from './testimonialsContent'
 import footerContent from './footerContent'
 import parallaxCTAContent from './parallaxCTAContent'
 import environmentContent from './environmentContent'
+import headerContent from './headerContent'
 import seo from './seo'
 
 export const schemaTypes = [
@@ -21,6 +22,7 @@ export const schemaTypes = [
   category,
   blockContent,
   seo,
+  headerContent,
   heroContent,
   aboutContent,
   blogContent,

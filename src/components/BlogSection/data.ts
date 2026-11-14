@@ -19,7 +19,9 @@ const query = `{
     image,
     "imageAlt": image.alt,
     "excerptText": pt::text(excerpt),
-    "authorName": seo.authorName
+    "authorName": author->name,
+    "authorCrm": author->crm,
+    "authorImage": author->image
   },
   "header": *[_type == "blogContent"][0]
 }`;
@@ -75,8 +77,8 @@ const sanityPosts = sanityData.posts.map((post: any) => {
       year: 'numeric'
     }).replace('.', ''),
     authorName: post.authorName || "Dra. Morgana Motta",
-    authorCrm: "CRM-MG 96204",
-    authorImage: "https://ui-avatars.com/api/?name=Morgana+Motta&background=c5a059&color=fff",
+    authorCrm: post.authorCrm || "CRM-MG 96204",
+    authorImage: post.authorImage ? urlFor(post.authorImage).width(100).url() : "https://ui-avatars.com/api/?name=Morgana+Motta&background=c5a059&color=fff",
     category: (Array.isArray(post.category) ? post.category[0] : post.category) || "Saúde Metabólica",
     altText: post.imageAlt || post.title
   };

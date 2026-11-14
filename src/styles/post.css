@@ -485,6 +485,40 @@
   font-weight: 700;
 }
 
+/* Trechos com negrito + itálico + sublinhado (legendas abaixo de imagens) */
+.post-content p:has(strong):has(em):has(span[style*="underline"]),
+.post-content p:has(strong):has(em):has(u) {
+  margin-top: -20px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.post-content strong:has(em):has(span[style*="underline"]),
+.post-content strong:has(em):has(u),
+.post-content em:has(strong):has(span[style*="underline"]),
+.post-content em:has(strong):has(u),
+.post-content span[style*="underline"]:has(strong):has(em),
+.post-content u:has(strong):has(em),
+.post-content strong em span[style*="underline"],
+.post-content strong span[style*="underline"] em,
+.post-content em strong span[style*="underline"],
+.post-content em span[style*="underline"] strong,
+.post-content span[style*="underline"] strong em,
+.post-content span[style*="underline"] em strong,
+.post-content strong em u,
+.post-content strong u em,
+.post-content em strong u,
+.post-content em u strong,
+.post-content u strong em,
+.post-content u em strong {
+  color: #6b635e;
+  opacity: 0.85;
+  font-weight: 400;
+  font-style: italic;
+  text-decoration: none !important;
+  font-size: 0.9rem;
+}
+
 .post-content a {
   color: var(--p-accent);
   text-decoration: underline;

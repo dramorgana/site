@@ -14,17 +14,29 @@ const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "";
   <div class="navbar__container">
     <!-- Logo à esquerda -->
     <a href="/" class="navbar__brand" aria-label="Home Dra. Morgana Motta">
-      <Image
-        src={logoImg}
-        alt={logo.alt}
-        class="navbar__logo"
-        id="navbar-logo"
-        width={400}
-        height={101}
-        densities={[1, 2, 3]}
-        quality="max"
-        loading="eager"
-      />
+      {logo.src ? (
+        <img
+          src={logo.src}
+          alt={logo.alt}
+          class="navbar__logo"
+          id="navbar-logo"
+          width="400"
+          height="101"
+          loading="eager"
+        />
+      ) : (
+        <Image
+          src={logoImg}
+          alt={logo.alt}
+          class="navbar__logo"
+          id="navbar-logo"
+          width={400}
+          height={101}
+          densities={[1, 2, 3]}
+          quality="max"
+          loading="eager"
+        />
+      )}
     </a>
 
     <!-- Menu Hamburger para Mobile -->

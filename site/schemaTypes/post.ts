@@ -22,6 +22,13 @@ export const postType = defineType({
       validation: (Rule: any) => Rule.required(),
     }),
     defineField({
+      name: 'author',
+      title: 'Autora / Autor',
+      type: 'reference',
+      to: [{type: 'author'}],
+      validation: (Rule: any) => Rule.required(),
+    }),
+    defineField({
       name: 'publishedAt',
       title: 'Data de Publicação Oficial',
       type: 'datetime',
@@ -299,100 +306,25 @@ export const postType = defineType({
     defineField({
       name: 'seo',
       title: 'Configurações de SEO e Metatags',
-      type: 'object',
+      type: 'reference',
+      to: [{type: 'seo'}],
       description:
-        'Configurações de SEO personalizadas para este post. Se não preenchidos, os valores padrão do post serão utilizados.',
-      options: {
-        collapsible: true,
-        collapsed: false,
-      },
-      fields: [
-        defineField({
-          name: 'metaTitle',
-          title: 'Meta Title',
-          type: 'string',
-          description:
-            'Título exibido na aba do navegador e no Google. Ex: Por que a dieta sozinha não emagrece? | Dra. Morgana Motta',
-        }),
-        defineField({
-          name: 'metaDescription',
-          title: 'Meta Description',
-          type: 'text',
-          rows: 3,
-          description:
-            'Descrição para motores de busca (Google). Recomendado até 160 caracteres.',
-        }),
-        defineField({
-          name: 'canonicalUrl',
-          title: 'URL Canônica Personalizada',
-          type: 'url',
-          description:
-            'Deixe em branco para usar o padrão (https://www.dramorganamotta.com.br/blog/[slug]).',
-        }),
-        defineField({
-          name: 'noIndex',
-          title: 'Ocultar dos Motores de Busca (noindex)',
-          type: 'boolean',
-          description: 'Marque apenas se não quiser que este post apareça no Google.',
-          initialValue: false,
-        }),
-        defineField({
-          name: 'ogTitle',
-          title: 'Open Graph Title (Redes Sociais)',
-          type: 'string',
-          description:
-            'Título para compartilhamento no WhatsApp, Facebook, LinkedIn.',
-        }),
-        defineField({
-          name: 'ogDescription',
-          title: 'Open Graph Description (Redes Sociais)',
-          type: 'text',
-          rows: 2,
-          description: 'Descrição para compartilhamento em redes sociais.',
-        }),
-        defineField({
-          name: 'ogImage',
-          title: 'Imagem Open Graph / Social Media',
-          type: 'image',
-          options: {hotspot: true},
-          description:
-            'Imagem personalizada para redes sociais. Se não enviada, a imagem principal do post será usada.',
-        }),
-        defineField({
-          name: 'authorName',
-          title: 'Autor (Nome)',
-          type: 'string',
-          description: 'Ex: Dra. Morgana Motta',
-          initialValue: 'Dra. Morgana Motta',
-        }),
-        defineField({
-          name: 'sectionCategory',
-          title: 'Seção / Categoria SEO',
-          type: 'string',
-          description: 'Ex: Saúde Metabólica',
-        }),
-        defineField({
-          name: 'keywords',
-          title: 'Palavras-chave (Keywords)',
-          type: 'string',
-          description:
-            'Palavras-chave separadas por vírgula. Ex: emagrecimento, saúde metabólica, dieta, metabolismo',
-        }),
-        defineField({
-          name: 'reviewerName',
-          title: 'Revisor Médico (Nome)',
-          type: 'string',
-          description:
-            'Ex: Dra. Morgana Motta. Usado no SEO (E-E-A-T) para indicar quem validou o artigo. Se não preenchido, será o autor.',
-        }),
-      ],
+        'Selecione ou crie um registro de SEO e Metatags para este post. Se não preenchido, os valores padrão do post serão utilizados.',
     }),
   ],
   preview: {
     select: {
       title: 'title',
-      subtitle: 'category.0',
+      category: 'category.0',
+      author: 'author.name',
       media: 'image',
+    },
+    prepare({title, category, author, media}) {
+      return {
+        title,
+        subtitle: [category, author].filter(Boolean).join(' • '),
+        media,
+      }
     },
   },
 })

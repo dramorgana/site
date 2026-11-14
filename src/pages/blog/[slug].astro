@@ -49,28 +49,39 @@ const postSanity = await sanityClient
     faq,
     references,
     disclaimer,
-    publishedAt,
-    "category": categories[0]->title,
-    mainImage,
-    "mainImageAlt": mainImage.alt,
-    "authorName": author->name,
-    "authorCrm": author->crm,
-    "authorSpecialty": author->specialty,
-    "authorImage": author->image,
-    "authorBio": pt::text(author->bio),
-    seo {
-      metaTitle,
-      metaDescription,
-      canonicalUrl,
-      noIndex,
-      ogTitle,
-      ogDescription,
-      ogImage,
-      authorName,
-      sectionCategory,
-      keywords,
-      reviewerName
-    }
+    author-> {
+      name,
+      crm,
+      specialty,
+      image,
+      "bio": pt::text(bio)
+    },
+    "seo": coalesce(
+      seo-> {
+        metaTitle,
+        metaDescription,
+        canonicalUrl,
+        noIndex,
+        ogTitle,
+        ogDescription,
+        ogImage,
+        sectionCategory,
+        keywords,
+        reviewerName
+      },
+      seo {
+        metaTitle,
+        metaDescription,
+        canonicalUrl,
+        noIndex,
+        ogTitle,
+        ogDescription,
+        ogImage,
+        sectionCategory,
+        keywords,
+        reviewerName
+      }
+    )
   }
 `,
     { slug },
@@ -88,9 +99,13 @@ const rawBody: any[] = Array.isArray(rawPost.content)
   : Array.isArray(rawPost.body)
     ? rawPost.body
     : [];
-const excerptBlocks: any[] = Array.isArray(rawPost.excerpt) ? rawPost.excerpt : [];
+const excerptBlocks: any[] = Array.isArray(rawPost.excerpt)
+  ? rawPost.excerpt
+  : [];
 const faqItems: any[] = Array.isArray(rawPost.faq) ? rawPost.faq : [];
-const referenceBlocks: any[] = Array.isArray(rawPost.references) ? rawPost.references : [];
+const referenceBlocks: any[] = Array.isArray(rawPost.references)
+  ? rawPost.references
+  : [];
 
 const blocksToPlainText = (blocks: any[]): string =>
   (blocks || [])
@@ -106,10 +121,17 @@ let skippingIndexList = false;
 for (const block of rawBody) {
   const text =
     block?._type === "block"
-      ? (block.children || []).map((c: any) => c.text || "").join("").trim()
+      ? (block.children || [])
+          .map((c: any) => c.text || "")
+          .join("")
+          .trim()
       : "";
 
-  if (block?._type === "block" && block.style === "h2" && /^índice$/i.test(text)) {
+  if (
+    block?._type === "block" &&
+    block.style === "h2" &&
+    /^índice$/i.test(text)
+  ) {
     skippingIndexList = true;
     continue;
   }
@@ -134,7 +156,10 @@ const slugify = (str: string) =>
 const tocItems = bodyBlocks
   .filter((b) => b?._type === "block" && (b.style === "h2" || b.style === "h1"))
   .map((b) => {
-    const label = (b.children || []).map((c: any) => c.text || "").join("").trim();
+    const label = (b.children || [])
+      .map((c: any) => c.text || "")
+      .join("")
+      .trim();
     return { id: slugify(label), label };
   })
   .filter((item) => item.label && item.id);
@@ -195,17 +220,22 @@ const post = {
   updatedDate: formatPtBrDate(rawPost.updatedAt),
   medicalReviewedDate: formatPtBrDate(rawPost.medicalReviewedAt),
   readTimeLabel: rawPost.readTime || `${readingMinutes} min`,
-  author: rawPost.seo?.authorName || rawPost.authorName || "Dra. Morgana Motta",
+  author: rawPost.author?.name || rawPost.authorName || "Dra. Morgana Motta",
   reviewer:
     rawPost.seo?.reviewerName ||
-    rawPost.seo?.authorName ||
+    rawPost.author?.name ||
     rawPost.authorName ||
     "Dra. Morgana Motta",
-  authorCrm: rawPost.authorCrm || "CRM-MG 96204",
+  authorCrm: rawPost.author?.crm || rawPost.authorCrm || "CRM-MG 96204",
   authorSpecialty:
+    rawPost.author?.specialty ||
     rawPost.authorSpecialty ||
     "Médica • Emagrecimento e Ganho de Massa Muscular",
+  authorImage: rawPost.author?.image
+    ? urlFor(rawPost.author.image).width(240).height(240).fit("crop").url()
+    : null,
   authorBio:
+    rawPost.author?.bio ||
     rawPost.authorBio ||
     "Médica formada pela Faculdade Ciências Médicas de Minas Gerais, pós-graduada em Urgência e Emergência pela Faculdade Albert Einstein. Atende no Instituto Bernardo Guimarães, em Belo Horizonte, com foco em emagrecimento e ganho de massa muscular.",
   category: primaryCategory,
@@ -330,7 +360,10 @@ const faqSchemaData =
     <meta property="article:section" content={post.seoSection} />
     <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
     {faqSchemaData && (
-      <script type="application/ld+json" set:html={JSON.stringify(faqSchemaData)} />
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(faqSchemaData)}
+      />
     )}
   </Fragment>
 
@@ -342,18 +375,32 @@ const faqSchemaData =
           <ol>
             <li>
               <a href="/">
-                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="15"
+                  height="15"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
                   <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
                   <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                 </svg>
                 <span>Início</span>
               </a>
             </li>
-            <li class="post-breadcrumb__sep" aria-hidden="true">›</li>
+            <li class="post-breadcrumb__sep" aria-hidden="true">
+              ›
+            </li>
             <li>
               <a href="/blog">Blog</a>
             </li>
-            <li class="post-breadcrumb__sep" aria-hidden="true">›</li>
+            <li class="post-breadcrumb__sep" aria-hidden="true">
+              ›
+            </li>
             <li class="post-breadcrumb__current" aria-current="page">
               <span>{post.title}</span>
             </li>
@@ -361,7 +408,17 @@ const faqSchemaData =
         </nav>
 
         <a href="/blog" class="post-back-btn">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
             <path d="m12 19-7-7 7-7" />
             <path d="M19 12H5" />
           </svg>
@@ -378,7 +435,16 @@ const faqSchemaData =
         <div class="post-summary-card__bar" aria-hidden="true"></div>
         <div class="post-summary-card__inner">
           <div class="post-summary-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
             </svg>
           </div>
@@ -405,39 +471,64 @@ const faqSchemaData =
       <div class="post-author-bar">
         <div class="post-author-bar__profile">
           <div class="post-author-bar__avatar">
-            <Image src={doctorAvatar} alt={post.author} width={64} height={64} />
+            {post.authorImage ? (
+              <img
+                src={post.authorImage}
+                alt={post.author}
+                width="64"
+                height="64"
+                loading="eager"
+              />
+            ) : (
+              <Image
+                src={doctorAvatar}
+                alt={post.author}
+                width={64}
+                height={64}
+              />
+            )}
           </div>
           <div class="post-author-bar__info">
             <p class="post-author-bar__name">{post.author}</p>
             <p class="post-author-bar__role">
               {post.authorSpecialty} • {post.authorCrm}
             </p>
-            <p class="post-author-bar__bio">
-              Atendimento individualizado com foco em saúde metabólica e resultados sustentáveis em Belo Horizonte.
-            </p>
           </div>
         </div>
 
         <div class="post-author-bar__meta">
           <div class="post-reading-time">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
               <circle cx="12" cy="12" r="10" />
               <polyline points="12 6 12 12 16 14" />
             </svg>
-            <span>{readingMinutes} min de leitura</span>
-            <span>{post.readTimeLabel} de leitura</span>
+            <span>{post.readTimeLabel} min de leitura</span>
           </div>
           <p class="post-published-date">
             Publicado em <time datetime={rawPost.publishedAt}>{post.date}</time>
           </p>
           {post.updatedDate && (
             <p class="post-updated-date">
-              Atualizado em <time datetime={rawPost.updatedAt}>{post.updatedDate}</time>
+              Atualizado em{" "}
+              <time datetime={rawPost.updatedAt}>{post.updatedDate}</time>
             </p>
           )}
           {post.medicalReviewedDate && (
             <p class="post-reviewed-date">
-              Revisão médica em <time datetime={rawPost.medicalReviewedAt}>{post.medicalReviewedDate}</time>
+              Revisão médica em{" "}
+              <time datetime={rawPost.medicalReviewedAt}>
+                {post.medicalReviewedDate}
+              </time>
             </p>
           )}
         </div>
@@ -447,7 +538,12 @@ const faqSchemaData =
     <!-- Imagem de Capa -->
     <figure class="post-hero-figure">
       <div class="post-hero-image-wrap">
-        <img src={post.image} alt={post.imageAlt} class="post-hero-image" loading="eager" />
+        <img
+          src={post.image}
+          alt={post.imageAlt}
+          class="post-hero-image"
+          loading="eager"
+        />
       </div>
     </figure>
 
@@ -461,7 +557,17 @@ const faqSchemaData =
       <details class="post-toc-mobile">
         <summary class="post-toc__header">
           <span class="post-toc__title">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
               <line x1="8" y1="6" x2="21" y2="6" />
               <line x1="8" y1="12" x2="21" y2="12" />
               <line x1="8" y1="18" x2="21" y2="18" />
@@ -471,7 +577,9 @@ const faqSchemaData =
             </svg>
             Sumário do artigo
           </span>
-          <span class="post-toc__chevron" aria-hidden="true">▾</span>
+          <span class="post-toc__chevron" aria-hidden="true">
+            ▾
+          </span>
         </summary>
         <nav aria-label="Sumário do artigo" class="post-toc__list-wrap">
           <ol class="post-toc__list">
@@ -492,7 +600,17 @@ const faqSchemaData =
           <div class="post-toc-card">
             <div class="post-toc__header">
               <span class="post-toc__title">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
                   <line x1="8" y1="6" x2="21" y2="6" />
                   <line x1="8" y1="12" x2="21" y2="12" />
                   <line x1="8" y1="18" x2="21" y2="18" />
@@ -543,7 +661,9 @@ const faqSchemaData =
                 <details class="post-faq__item">
                   <summary class="post-faq__question">
                     <span>{item.question}</span>
-                    <span class="post-faq__chevron" aria-hidden="true">+</span>
+                    <span class="post-faq__chevron" aria-hidden="true">
+                      +
+                    </span>
                   </summary>
                   <div class="post-faq__answer">
                     <PortableText value={item.answer} />
@@ -556,7 +676,10 @@ const faqSchemaData =
 
         <!-- Referências Bibliográficas -->
         {referenceBlocks.length > 0 && (
-          <section class="post-references" aria-label="Referências Bibliográficas">
+          <section
+            class="post-references"
+            aria-label="Referências Bibliográficas"
+          >
             <h2 class="post-section-heading">Referências Bibliográficas</h2>
             <div class="post-references__body">
               <PortableText value={referenceBlocks} />
@@ -567,15 +690,28 @@ const faqSchemaData =
         <!-- Card da Autora ao Final -->
         <section class="post-author-card" aria-label="Sobre a autora">
           <div class="post-author-card__avatar">
-            <Image src={doctorAvatar} alt={post.author} width={96} height={96} />
+            {post.authorImage ? (
+              <img
+                src={post.authorImage}
+                alt={post.author}
+                width="96"
+                height="96"
+                loading="lazy"
+              />
+            ) : (
+              <Image
+                src={doctorAvatar}
+                alt={post.author}
+                width={96}
+                height={96}
+              />
+            )}
           </div>
           <div class="post-author-card__body">
             <span class="post-author-card__kicker">Escrito por</span>
             <h3 class="post-author-card__name">{post.author}</h3>
             <p class="post-author-card__crm">{post.authorCrm}</p>
-            <p class="post-author-card__desc">
-              {post.authorBio}
-            </p>
+            <p class="post-author-card__desc">{post.authorBio}</p>
           </div>
         </section>
 
@@ -583,14 +719,8 @@ const faqSchemaData =
         <section id="agendamento" class="post-cta-card">
           <div class="post-cta-card__glow" aria-hidden="true"></div>
           <div class="post-cta-card__content">
-            <h3 class="post-cta-card__title">
-              Quer uma avaliação individualizada para o seu caso?
-              {post.ctaTitle}
-            </h3>
-            <p class="post-cta-card__text">
-              Agende uma consulta com a Dra. Morgana Motta para investigar seu metabolismo, rotina, exames e traçar um plano feito sob medida para você.
-              {post.ctaDescription}
-            </p>
+            <h3 class="post-cta-card__title">{post.ctaTitle}</h3>
+            <p class="post-cta-card__text">{post.ctaDescription}</p>
             <a
               href={whatsappUrl}
               target="_blank"
@@ -598,7 +728,17 @@ const faqSchemaData =
               class="post-cta-card__btn"
             >
               Agendar Minha Avaliação
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
                 <path d="M5 12h14" />
                 <path d="m12 5 7 7-7 7" />
               </svg>
