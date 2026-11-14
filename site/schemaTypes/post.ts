@@ -153,6 +153,9 @@ export const postType = defineType({
             },
           ],
         },
+        {
+          type: 'tableBlock',
+        },
       ],
       validation: (Rule: any) => Rule.required(),
     }),

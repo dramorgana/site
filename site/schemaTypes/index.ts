@@ -15,12 +15,14 @@ import parallaxCTAContent from './parallaxCTAContent'
 import environmentContent from './environmentContent'
 import headerContent from './headerContent'
 import seo from './seo'
+import {tableBlock} from './tableBlock'
 
 export const schemaTypes = [
   post,
   author,
   category,
   blockContent,
+  tableBlock,
   seo,
   headerContent,
   heroContent,

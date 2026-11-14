@@ -22,6 +22,19 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'jobTitle',
+      title: 'Cargo / Profissão (Schema.org)',
+      type: 'string',
+      description: 'Ex: Médica',
+      initialValue: 'Médica',
+    }),
+    defineField({
+      name: 'url',
+      title: 'URL da Página Sobre / Perfil (Schema.org)',
+      type: 'url',
+      description: 'Ex: https://www.dramorganamotta.com.br/#about',
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',

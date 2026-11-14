@@ -4,8 +4,9 @@ import { Image } from "astro:assets";
 import { PortableText } from "astro-portabletext";
 import PortableTextImage from "../../components/BlogSection/PortableTextImage.astro";
 import PortableTextHeading from "../../components/BlogSection/PortableTextHeading.astro";
+import PortableTextTable from "../../components/BlogSection/PortableTextTable.astro";
 import Footer from "../../components/Footer/Footer.astro";
-import { sanityClient, urlFor } from "../../lib/sanity";
+import { sanityClient, urlFor, getSanityImageAttrs } from "../../lib/sanity";
 import { fallbackPosts } from "../../components/BlogSection/fallbackPosts";
 import doctorAvatar from "../../assets/About/about-doctor-foto04.jpg";
 import "../../styles/post.css";
@@ -39,8 +40,17 @@ const postSanity = await sanityClient
     category,
     excerpt,
     "excerptText": pt::text(excerpt),
-    content,
-    image,
+    content[] {
+      ...,
+      _type == "image" => {
+        ...,
+        asset-> { _id, originalFilename, metadata { dimensions } }
+      }
+    },
+    image {
+      ...,
+      asset-> { _id, originalFilename, metadata { dimensions } }
+    },
     "imageAlt": image.alt,
     cta {
       title,
@@ -53,6 +63,8 @@ const postSanity = await sanityClient
       name,
       crm,
       specialty,
+      jobTitle,
+      url,
       image,
       "bio": pt::text(bio)
     },
@@ -67,7 +79,8 @@ const postSanity = await sanityClient
         ogImage,
         sectionCategory,
         keywords,
-        reviewerName
+        reviewerName,
+        inLanguage
       },
       seo {
         metaTitle,
@@ -79,7 +92,8 @@ const postSanity = await sanityClient
         ogImage,
         sectionCategory,
         keywords,
-        reviewerName
+        reviewerName,
+        inLanguage
       }
     )
   }
@@ -206,11 +220,13 @@ const fallbackSummary =
   rawPost.description ||
   "Leia mais sobre este assunto em nosso blog completo.";
 
+const heroImageAttrs = getSanityImageAttrs(postImageSource, 1200, slug);
+
 const post = {
   ...rawPost,
-  image: postImageSource
-    ? urlFor(postImageSource).width(1200).url()
-    : fallback?.image || DEFAULT_IMAGE,
+  image: heroImageAttrs?.src || fallback?.image || DEFAULT_IMAGE,
+  imageWidth: heroImageAttrs?.width,
+  imageHeight: heroImageAttrs?.height,
   imageAlt: rawPost.imageAlt || rawPost.mainImageAlt || rawPost.title,
   description: fallbackSummary,
   disclaimer:
@@ -231,6 +247,9 @@ const post = {
     rawPost.author?.specialty ||
     rawPost.authorSpecialty ||
     "Médica • Emagrecimento e Ganho de Massa Muscular",
+  authorJobTitle: rawPost.author?.jobTitle || "Médica",
+  authorUrl:
+    rawPost.author?.url || "https://www.dramorganamotta.com.br/#about",
   authorImage: rawPost.author?.image
     ? urlFor(rawPost.author.image).width(240).height(240).fit("crop").url()
     : null,
@@ -263,6 +282,7 @@ const post = {
     rawPost.seo?.metaDescription ||
     fallbackSummary,
   seoSection: rawPost.seo?.sectionCategory || primaryCategory,
+  seoInLanguage: rawPost.seo?.inLanguage || "pt-BR",
   seoKeywords: parsedKeywords,
   seoOgImage: rawPost.seo?.ogImage
     ? urlFor(rawPost.seo.ogImage).width(1200).height(630).fit("crop").url()
@@ -285,36 +305,71 @@ const whatsappUrl =
     `Olá Dra. Morgana, li o artigo "${post.title}" e gostaria de agendar uma avaliação.`,
   );
 
+const siteOrigin = (
+  Astro.site?.toString() || "https://www.dramorganamotta.com.br"
+).replace(/\/$/, "");
+
+const effectiveModifiedAt = post.updatedAt || post.publishedAt;
+const effectiveReviewedAt =
+  post.medicalReviewedAt || post.updatedAt || post.publishedAt;
+
 const schemaData: Record<string, any> = {
   "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  headline: post.title,
-  description: post.seoDescription,
-  image: post.seoOgImage,
-  datePublished: post.publishedAt,
-  ...(post.updatedAt ? { dateModified: post.updatedAt } : {}),
-  ...(post.medicalReviewedAt
-    ? {
-        lastReviewed: post.medicalReviewedAt,
-        reviewedBy: {
-          "@type": "Person",
-          name: post.reviewer,
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Início",
+          item: `${siteOrigin}/`,
         },
-      }
-    : {}),
-  articleSection: post.seoSection,
-  author: {
-    "@type": "Person",
-    name: post.author,
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "Dra. Morgana Motta",
-    logo: {
-      "@type": "ImageObject",
-      url: "/favicon.svg",
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Blog",
+          item: `${siteOrigin}/blog`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: post.title,
+        },
+      ],
     },
-  },
+    {
+      "@type": ["MedicalWebPage", "BlogPosting"],
+      headline: post.title,
+      description: post.seoDescription,
+      image: post.seoOgImage,
+      mainEntityOfPage: canonicalURL,
+      ...(post.publishedAt ? { datePublished: post.publishedAt } : {}),
+      ...(effectiveModifiedAt ? { dateModified: effectiveModifiedAt } : {}),
+      ...(effectiveReviewedAt ? { lastReviewed: effectiveReviewedAt } : {}),
+      inLanguage: post.seoInLanguage,
+      articleSection: post.seoSection,
+      author: {
+        "@type": "Person",
+        name: post.author,
+        jobTitle: post.authorJobTitle,
+        identifier: post.authorCrm,
+        url: post.authorUrl,
+      },
+      reviewedBy: {
+        "@type": "Person",
+        name: post.reviewer,
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "Dra. Morgana Motta",
+        logo: {
+          "@type": "ImageObject",
+          url: `${siteOrigin}/favicon.svg`,
+        },
+      },
+    },
+  ],
 };
 
 const faqMainEntity = faqItems
@@ -541,6 +596,8 @@ const faqSchemaData =
         <img
           src={post.image}
           alt={post.imageAlt}
+          width={post.imageWidth}
+          height={post.imageHeight}
           class="post-hero-image"
           loading="eager"
         />
@@ -640,7 +697,7 @@ const faqSchemaData =
             <PortableText
               value={bodyBlocks}
               components={{
-                type: { image: PortableTextImage },
+                type: { image: PortableTextImage, tableBlock: PortableTextTable },
                 block: {
                   h2: PortableTextHeading,
                   h3: PortableTextHeading,

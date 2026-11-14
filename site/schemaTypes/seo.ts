@@ -85,6 +85,13 @@ export default defineType({
       description:
         'Ex: Dra. Morgana Motta. Usado no SEO (E-E-A-T) para indicar quem validou o artigo. Se não preenchido, será o autor.',
     }),
+    defineField({
+      name: 'inLanguage',
+      title: 'Idioma (Schema.org)',
+      type: 'string',
+      description: 'Ex: pt-BR',
+      initialValue: 'pt-BR',
+    }),
   ],
   preview: {
     select: {

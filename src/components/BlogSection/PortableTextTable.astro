@@ -1,0 +1,50 @@
+---
+interface TableRow {
+  _key?: string
+  cells?: string[]
+}
+
+interface TableBlockNode {
+  caption?: string
+  headers?: string[]
+  rows?: TableRow[]
+}
+
+const { node } = Astro.props as { node: TableBlockNode }
+const headers = Array.isArray(node?.headers) ? node.headers : []
+const rows = Array.isArray(node?.rows) ? node.rows : []
+const caption = typeof node?.caption === 'string' ? node.caption.trim() : ''
+---
+
+{
+  (headers.length > 0 || rows.length > 0) && (
+    <figure class="post-table-wrap">
+      <div class="post-table-scroll">
+        <table class="post-table">
+          {caption && <caption>{caption}</caption>}
+          {headers.length > 0 && (
+            <thead>
+              <tr>
+                {headers.map((header) => (
+                  <th scope="col">{header}</th>
+                ))}
+              </tr>
+            </thead>
+          )}
+          {rows.length > 0 && (
+            <tbody>
+              {rows.map((row) => (
+                <tr>
+                  {(Array.isArray(row?.cells) ? row.cells : []).map((cell) => (
+                    <td>{cell}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          )}
+        </table>
+      </div>
+    </figure>
+  )
+}
+
